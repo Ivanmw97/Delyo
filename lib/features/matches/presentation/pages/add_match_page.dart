@@ -415,7 +415,6 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
               ),
             ),
           ),
-          // Fixed bottom button with proper safe area handling
           SafeArea(
             child: Container(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),

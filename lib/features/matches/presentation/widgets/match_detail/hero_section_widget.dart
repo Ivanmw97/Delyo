@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padel_tracker/domain/models/match.dart';
-import 'package:padel_tracker/l10n/app_localizations.dart';
 import 'package:padel_tracker/utils/duration_formatter.dart';
 import 'package:intl/intl.dart';
 

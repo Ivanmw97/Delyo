@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:padel_tracker/features/matches/state/matches_provider.dart';
 import 'package:padel_tracker/features/shared/state/filtered_matches_provider.dart';
 import 'package:padel_tracker/features/shared/widgets/time_range_filter.dart';
