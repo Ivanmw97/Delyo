@@ -23,14 +23,25 @@ class MatchCard extends StatelessWidget {
     }
   }
 
-  Color _getOutcomeColor(MatchOutcome outcome) {
+  Color _getResultColor(MatchOutcome outcome) {
     switch (outcome) {
       case MatchOutcome.win:
-        return const Color(0xFF34C759);
+        return const Color(0xFF34C759); // Green
       case MatchOutcome.loss:
-        return const Color(0xFFFF3B30);
+        return const Color(0xFFFF3B30); // Red
       case MatchOutcome.draw:
-        return const Color(0xFFFF9500);
+        return const Color(0xFF616161); // Grey
+    }
+  }
+
+  Color _getResultBackgroundColor(MatchOutcome outcome) {
+    switch (outcome) {
+      case MatchOutcome.win:
+        return const Color(0xFF49D36C); // Light Green
+      case MatchOutcome.loss:
+        return const Color(0xFFFF3B30); // Light Red
+      case MatchOutcome.draw:
+        return const Color(0xFF7C7A7A); // Light Grey
     }
   }
 
@@ -106,7 +117,7 @@ class MatchCard extends StatelessWidget {
               child: Container(
                 width: 4,
                 decoration: BoxDecoration(
-                  color: _getOutcomeColor(outcome),
+                  color: _getResultBackgroundColor(outcome),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     bottomLeft: Radius.circular(20),
@@ -161,7 +172,7 @@ class MatchCard extends StatelessWidget {
                               vertical: 3,
                             ),
                             decoration: BoxDecoration(
-                              color: _getOutcomeColor(
+                              color: _getResultBackgroundColor(
                                 outcome,
                               ).withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(6),
@@ -171,7 +182,7 @@ class MatchCard extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
-                                color: _getOutcomeColor(outcome),
+                                color: _getResultColor(outcome),
                                 letterSpacing: 0.5,
                               ),
                             ),
