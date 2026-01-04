@@ -16,7 +16,7 @@ class MatchInfoCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -31,7 +31,7 @@ class MatchInfoCardWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -92,7 +92,7 @@ class MatchInfoCardWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
               ),
               isChip
@@ -116,7 +116,7 @@ class MatchInfoCardWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFF1D1D1F).withOpacity(0.06),
+        color: const Color(0xFF1D1D1F).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -124,7 +124,7 @@ class MatchInfoCardWidget extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF1D1D1F).withOpacity(0.8),
+          color: const Color(0xFF1D1D1F).withValues(alpha: 0.8),
         ),
       ),
     );

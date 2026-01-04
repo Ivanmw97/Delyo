@@ -68,7 +68,7 @@ class PerformanceBlockWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -96,7 +96,7 @@ class PerformanceBlockWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -106,7 +106,7 @@ class PerformanceBlockWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
               letterSpacing: -0.2,
               height: 1.3,
             ),
@@ -137,7 +137,7 @@ class PerformanceBlockWidget extends StatelessWidget {
                   width: 20,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: letterColor.withOpacity(0.1),
+                    color: letterColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -163,7 +163,7 @@ class PerformanceBlockWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF1D1D1F).withOpacity(0.3),
+                color: const Color(0xFF1D1D1F).withValues(alpha: 0.3),
                 letterSpacing: -0.08,
               ),
             ),

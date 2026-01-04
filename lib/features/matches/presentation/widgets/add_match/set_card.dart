@@ -37,7 +37,7 @@ class SetCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
               ),
               if (canRemove && onRemove != null)
@@ -48,7 +48,7 @@ class SetCard extends StatelessWidget {
                     child: Icon(
                       Icons.close,
                       size: 16,
-                      color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                      color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                     ),
                   ),
                 ),
@@ -94,7 +94,7 @@ class ScoreField extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withOpacity(0.4),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
             letterSpacing: 0.5,
           ),
         ),

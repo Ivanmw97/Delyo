@@ -13,7 +13,7 @@ class StatsEmptyStateWidget extends StatelessWidget {
           Icon(
             Icons.analytics_outlined,
             size: 64,
-            color: const Color(0xFF1D1D1F).withOpacity(0.3),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.3),
           ),
           const SizedBox(height: 24),
           Text(
@@ -21,7 +21,7 @@ class StatsEmptyStateWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 8),
@@ -30,7 +30,7 @@ class StatsEmptyStateWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
             ),
           ),
         ],

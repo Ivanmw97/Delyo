@@ -23,7 +23,7 @@ class ResultsDistributionWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -38,7 +38,7 @@ class ResultsDistributionWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -107,7 +107,7 @@ class ResultsDistributionWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withOpacity(0.6),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 4),
@@ -124,7 +124,7 @@ class ResultsDistributionWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF1D1D1F).withOpacity(0.4),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
           ),
         ),
       ],

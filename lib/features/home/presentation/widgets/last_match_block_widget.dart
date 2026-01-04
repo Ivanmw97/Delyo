@@ -67,7 +67,7 @@ class LastMatchBlockWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF1D1D1F).withOpacity(0.04),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -85,7 +85,7 @@ class LastMatchBlockWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -94,7 +94,7 @@ class LastMatchBlockWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                     letterSpacing: -0.08,
                   ),
                 ),
@@ -121,7 +121,7 @@ class LastMatchBlockWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: outcomeColor.withOpacity(0.1),
+                color: outcomeColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -161,7 +161,7 @@ class LastMatchBlockWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                 letterSpacing: -0.1,
               ),
             ),

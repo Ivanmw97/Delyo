@@ -362,7 +362,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -514,7 +514,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       height: 56,
       decoration: BoxDecoration(
         color: _isSubmitting
-            ? const Color(0xFF007AFF).withOpacity(0.6)
+            ? const Color(0xFF007AFF).withValues(alpha: 0.6)
             : const Color(0xFF007AFF),
         borderRadius: BorderRadius.circular(16),
       ),

@@ -108,7 +108,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+              color: const Color(0xFF8E8E93).withValues(alpha: 0.8),
               letterSpacing: -0.8,
               height: 0.9,
             ),
@@ -215,7 +215,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 '${matches.length} matches',
                 style: TextStyle(
                   fontSize: 14,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
               ),
             ],

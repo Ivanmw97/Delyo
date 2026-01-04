@@ -188,7 +188,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                       shape: BoxShape.circle,
                       color: index == _currentPage
                           ? const Color(0xFF007AFF)
-                          : const Color(0xFF007AFF).withOpacity(0.2),
+                          : const Color(0xFF007AFF).withValues(alpha: 0.2),
                     ),
                   );
                 }),
@@ -290,7 +290,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF007AFF).withOpacity(0.1),
+                      color: const Color(0xFF007AFF).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(icon, size: 40, color: const Color(0xFF007AFF)),
@@ -336,7 +336,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.7),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.7),
                     height: 1.4,
                   ),
                   textAlign: TextAlign.center,

@@ -18,10 +18,10 @@ class TimeRangeFilter extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFF007AFF).withOpacity(0.08),
+          color: const Color(0xFF007AFF).withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: const Color(0xFF007AFF).withOpacity(0.2),
+            color: const Color(0xFF007AFF).withValues(alpha: 0.2),
             width: 1,
           ),
         ),

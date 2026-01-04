@@ -16,7 +16,7 @@ class DurationCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -31,7 +31,7 @@ class DurationCardWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -51,7 +51,7 @@ class DurationCardWidget extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   color: duration != null
                       ? const Color(0xFF1D1D1F)
-                      : const Color(0xFF1D1D1F).withOpacity(0.4),
+                      : const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                   letterSpacing: -0.5,
                 ),
               ),

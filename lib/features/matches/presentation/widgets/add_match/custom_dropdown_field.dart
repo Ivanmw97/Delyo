@@ -24,7 +24,7 @@ class CustomDropdownField<T> extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withOpacity(0.6),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
             letterSpacing: -0.2,
           ),
         ),

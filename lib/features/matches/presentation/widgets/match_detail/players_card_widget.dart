@@ -15,7 +15,7 @@ class PlayersCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -101,7 +101,7 @@ class PlayersCardWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 1,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.08),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.08),
                   ),
                 ),
                 Container(
@@ -111,7 +111,7 @@ class PlayersCardWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                      color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                       letterSpacing: 1.0,
                     ),
                   ),
@@ -119,7 +119,7 @@ class PlayersCardWidget extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 1,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.08),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.08),
                   ),
                 ),
               ],
@@ -137,7 +137,7 @@ class PlayersCardWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                      color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -197,7 +197,7 @@ class PlayersCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: isUserTeam
             ? const Color(0xFF007AFF)
-            : const Color(0xFF1D1D1F).withOpacity(0.08),
+            : const Color(0xFF1D1D1F).withValues(alpha: 0.08),
         shape: BoxShape.circle,
       ),
       child: Center(
@@ -208,7 +208,7 @@ class PlayersCardWidget extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: isUserTeam
                 ? Colors.white
-                : const Color(0xFF1D1D1F).withOpacity(0.6),
+                : const Color(0xFF1D1D1F).withValues(alpha: 0.6),
           ),
         ),
       ),

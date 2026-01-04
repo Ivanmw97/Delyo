@@ -48,11 +48,11 @@ class MatchCard extends StatelessWidget {
   Color _getMatchTypeBackgroundColor(MatchType matchType) {
     switch (matchType) {
       case MatchType.friendly:
-        return const Color(0xFF007AFF).withOpacity(0.12); // Light Blue
+        return const Color(0xFF007AFF).withValues(alpha: 0.12); // Light Blue
       case MatchType.league:
-        return const Color(0xFFFF9500).withOpacity(0.12); // Light Orange
+        return const Color(0xFFFF9500).withValues(alpha: 0.12); // Light Orange
       case MatchType.tournament:
-        return const Color(0xFF5856D6).withOpacity(0.12); // Light Purple
+        return const Color(0xFF5856D6).withValues(alpha: 0.12); // Light Purple
     }
   }
 
@@ -91,7 +91,7 @@ class MatchCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF1D1D1F).withOpacity(0.04),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -164,7 +164,7 @@ class MatchCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: _getOutcomeColor(
                                 outcome,
-                              ).withOpacity(0.12),
+                              ).withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
@@ -186,7 +186,7 @@ class MatchCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                           letterSpacing: -0.1,
                         ),
                       ),
@@ -214,7 +214,7 @@ class MatchCard extends StatelessWidget {
                         Icon(
                           Icons.location_on,
                           size: 16,
-                          color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                         ),
                         const SizedBox(width: 6),
                         Expanded(
@@ -223,7 +223,7 @@ class MatchCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
-                              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                              color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                               letterSpacing: -0.1,
                             ),
                             overflow: TextOverflow.ellipsis,
