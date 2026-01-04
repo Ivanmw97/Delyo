@@ -52,6 +52,7 @@ class PerformanceBlockWidget extends StatelessWidget {
         parts.add(
           '$draws ${draws == 1 ? AppLocalizations.of(context)!.draw : AppLocalizations.of(context)!.draws}',
         );
+      }
 
       supportingLine = AppLocalizations.of(
         context,
