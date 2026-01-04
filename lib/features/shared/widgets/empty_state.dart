@@ -34,9 +34,9 @@ class EmptyState extends StatelessWidget {
               size: 56,
               color: const Color(0xFF8E8E93), // iOS system gray
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Title - clear hierarchy
             Text(
               title,
@@ -48,9 +48,9 @@ class EmptyState extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // Subtitle - secondary information
             Text(
               subtitle,
@@ -62,9 +62,9 @@ class EmptyState extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Actions - clean button hierarchy
             if (primaryActionText != null && onPrimaryAction != null) ...[
               SizedBox(
@@ -89,11 +89,11 @@ class EmptyState extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               if (secondaryActionText != null && onSecondaryAction != null)
                 const SizedBox(height: 12),
             ],
-            
+
             if (secondaryActionText != null && onSecondaryAction != null)
               TextButton(
                 onPressed: onSecondaryAction,

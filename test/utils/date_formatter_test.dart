@@ -32,12 +32,18 @@ void main() {
     group('formatDisplayDateTime', () {
       test('should format date and time', () {
         final dateTime = DateTime(2024, 1, 15, 14, 30);
-        expect(DateFormatter.formatDisplayDateTime(dateTime), equals('15/01/2024 14:30'));
+        expect(
+          DateFormatter.formatDisplayDateTime(dateTime),
+          equals('15/01/2024 14:30'),
+        );
       });
 
       test('should handle single digit hours and minutes', () {
         final dateTime = DateTime(2024, 1, 15, 9, 5);
-        expect(DateFormatter.formatDisplayDateTime(dateTime), equals('15/01/2024 09:05'));
+        expect(
+          DateFormatter.formatDisplayDateTime(dateTime),
+          equals('15/01/2024 09:05'),
+        );
       });
     });
 
@@ -49,7 +55,13 @@ void main() {
 
       test('should return true for today with different time', () {
         final now = DateTime.now();
-        final todayDifferentTime = DateTime(now.year, now.month, now.day, 23, 59);
+        final todayDifferentTime = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          23,
+          59,
+        );
         expect(DateFormatter.isToday(todayDifferentTime), isTrue);
       });
 
@@ -88,7 +100,13 @@ void main() {
 
       test('should handle edge case of exactly midnight tomorrow', () {
         final now = DateTime.now();
-        final midnightTomorrow = DateTime(now.year, now.month, now.day + 1, 0, 0);
+        final midnightTomorrow = DateTime(
+          now.year,
+          now.month,
+          now.day + 1,
+          0,
+          0,
+        );
         expect(DateFormatter.isFutureDate(midnightTomorrow), isTrue);
       });
     });
@@ -97,7 +115,7 @@ void main() {
       test('should return date without time component', () {
         final dateTime = DateTime(2024, 1, 15, 14, 30, 45);
         final result = DateFormatter.dateOnly(dateTime);
-        
+
         expect(result.year, equals(2024));
         expect(result.month, equals(1));
         expect(result.day, equals(15));
@@ -110,14 +128,14 @@ void main() {
       test('should handle midnight time', () {
         final dateTime = DateTime(2024, 1, 15, 0, 0, 0);
         final result = DateFormatter.dateOnly(dateTime);
-        
+
         expect(result, equals(DateTime(2024, 1, 15)));
       });
 
       test('should handle end of day time', () {
         final dateTime = DateTime(2024, 1, 15, 23, 59, 59);
         final result = DateFormatter.dateOnly(dateTime);
-        
+
         expect(result, equals(DateTime(2024, 1, 15)));
       });
     });

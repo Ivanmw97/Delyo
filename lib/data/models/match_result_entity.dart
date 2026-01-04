@@ -10,22 +10,18 @@ part 'match_result_entity.g.dart';
 class MatchResultEntity extends HiveObject {
   @HiveField(0)
   final List<PadelSetEntity> sets;
-  
-  MatchResultEntity({
-    required this.sets,
-  });
-  
+
+  MatchResultEntity({required this.sets});
+
   /// Converts domain MatchResult to MatchResultEntity
   factory MatchResultEntity.fromDomain(MatchResult result) {
     return MatchResultEntity(
       sets: result.sets.map((set) => PadelSetEntity.fromDomain(set)).toList(),
     );
   }
-  
+
   /// Converts MatchResultEntity to domain MatchResult
   MatchResult toDomain() {
-    return MatchResult(
-      sets: sets.map((set) => set.toDomain()).toList(),
-    );
+    return MatchResult(sets: sets.map((set) => set.toDomain()).toList());
   }
 }

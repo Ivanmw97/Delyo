@@ -6,13 +6,13 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 enum TimeRange {
   /// Last month from current date
   lastMonth,
-  
+
   /// Last 3 months from current date
   lastThreeMonths,
-  
+
   /// Last year from current date
   lastYear,
-  
+
   /// All time - no filtering
   allTime;
 
@@ -55,13 +55,25 @@ enum TimeRange {
     switch (this) {
       case TimeRange.lastMonth:
         // Current calendar month: end at last moment of current month
-        return DateTime(now.year, now.month + 1, 1).subtract(const Duration(microseconds: 1));
+        return DateTime(
+          now.year,
+          now.month + 1,
+          1,
+        ).subtract(const Duration(microseconds: 1));
       case TimeRange.lastThreeMonths:
         // Last 3 calendar months: end at last moment of current month
-        return DateTime(now.year, now.month + 1, 1).subtract(const Duration(microseconds: 1));
+        return DateTime(
+          now.year,
+          now.month + 1,
+          1,
+        ).subtract(const Duration(microseconds: 1));
       case TimeRange.lastYear:
         // Last 12 calendar months: end at last moment of current month
-        return DateTime(now.year, now.month + 1, 1).subtract(const Duration(microseconds: 1));
+        return DateTime(
+          now.year,
+          now.month + 1,
+          1,
+        ).subtract(const Duration(microseconds: 1));
       case TimeRange.allTime:
         return null; // No filtering
     }

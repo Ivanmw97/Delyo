@@ -4,10 +4,7 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 class AddSetButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const AddSetButton({
-    super.key,
-    required this.onTap,
-  });
+  const AddSetButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +19,7 @@ class AddSetButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.add,
-              size: 16,
-              color: Color(0xFF007AFF),
-            ),
+            const Icon(Icons.add, size: 16, color: Color(0xFF007AFF)),
             const SizedBox(width: 4),
             Text(
               AppLocalizations.of(context)!.sets,

@@ -14,40 +14,40 @@ import 'package:padel_tracker/domain/models/player.dart';
 class Match {
   /// Unique identifier for the match
   final String id;
-  
+
   /// Type of match (friendly, league, tournament)
   final MatchType matchType;
-  
+
   /// Date and time when the match was played
   final DateTime dateTime;
-  
+
   /// Side of the court the user played on
   final PlayingSide playingSide;
-  
+
   /// User's partner in the match
   final Player partner;
-  
+
   /// First opponent
   final Player opponent1;
-  
+
   /// Second opponent
   final Player opponent2;
-  
+
   /// Result of the match (sets and outcome)
   final MatchResult result;
-  
+
   /// Subjective performance rating (1-5)
   final int? performanceRating;
-  
+
   /// Optional notes about the match
   final String? notes;
-  
+
   /// Duration of the match
   final Duration? duration;
-  
+
   /// Location where the match was played
   final String? location;
-  
+
   /// Creates a new [Match] instance
   const Match({
     required this.id,
@@ -63,7 +63,7 @@ class Match {
     this.duration,
     this.location,
   });
-  
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -81,7 +81,7 @@ class Match {
           notes == other.notes &&
           duration == other.duration &&
           location == other.location;
-  
+
   @override
   int get hashCode =>
       id.hashCode ^
@@ -96,7 +96,7 @@ class Match {
       notes.hashCode ^
       duration.hashCode ^
       location.hashCode;
-  
+
   @override
   String toString() => 'Match(id: $id, type: $matchType, date: $dateTime)';
 }

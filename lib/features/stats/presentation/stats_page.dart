@@ -18,7 +18,7 @@ class StatsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final matchesState = ref.watch(matchesProvider);
     final filteredMatches = ref.watch(filteredMatchesProvider);
-    
+
     return Scaffold(
       backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
@@ -37,59 +37,66 @@ class StatsPage extends ConsumerWidget {
       body: matchesState.matches.isEmpty
           ? _buildFirstTimeEmptyState(context)
           : filteredMatches.isEmpty
-              ? _buildFilteredEmptyState(context)
-              : SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+          ? _buildFilteredEmptyState(context)
+          : SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Time range filter
+                  Row(
                     children: [
-                      // Time range filter
-                      Row(
-                        children: [
-                          const TimeRangeFilter(),
-                          const Spacer(),
-                          Text(
-                            AppLocalizations.of(context)!.matchesCount(filteredMatches.length),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: const Color(0xFF1D1D1F).withOpacity(0.6),
-                            ),
-                          ),
-                        ],
+                      const TimeRangeFilter(),
+                      const Spacer(),
+                      Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.matchesCount(filteredMatches.length),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                        ),
                       ),
-                      const SizedBox(height: 24),
-                      
-                      // Results Overview Section
-                      SectionHeaderWidget(
-                        title: AppLocalizations.of(context)!.yourMatchResultsSoFar,
-                        subtitle: AppLocalizations.of(context)!.seeHowPerformingOverall,
-                      ),
-                      const SizedBox(height: 16),
-                      ResultsDistributionWidget(matches: filteredMatches),
-                      const SizedBox(height: 32),
-                      
-                      // Match Types Section
-                      SectionHeaderWidget(
-                        title: _getMatchTypesNarrative(filteredMatches, context),
-                        subtitle: AppLocalizations.of(context)!.typesOfMatchesPlayMost,
-                      ),
-                      const SizedBox(height: 16),
-                      MatchTypesBreakdownWidget(matches: filteredMatches),
-                      const SizedBox(height: 32),
-                      
-                      // Performance Section
-                      SectionHeaderWidget(
-                        title: AppLocalizations.of(context)!.howPerformingRecently,
-                        subtitle: AppLocalizations.of(context)!.consistencyCurrentForm,
-                      ),
-                      const SizedBox(height: 16),
-                      PerformanceInsightsWidget(matches: filteredMatches),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 24),
+
+                  // Results Overview Section
+                  SectionHeaderWidget(
+                    title: AppLocalizations.of(context)!.yourMatchResultsSoFar,
+                    subtitle: AppLocalizations.of(
+                      context,
+                    )!.seeHowPerformingOverall,
+                  ),
+                  const SizedBox(height: 16),
+                  ResultsDistributionWidget(matches: filteredMatches),
+                  const SizedBox(height: 32),
+
+                  // Match Types Section
+                  SectionHeaderWidget(
+                    title: _getMatchTypesNarrative(filteredMatches, context),
+                    subtitle: AppLocalizations.of(
+                      context,
+                    )!.typesOfMatchesPlayMost,
+                  ),
+                  const SizedBox(height: 16),
+                  MatchTypesBreakdownWidget(matches: filteredMatches),
+                  const SizedBox(height: 32),
+
+                  // Performance Section
+                  SectionHeaderWidget(
+                    title: AppLocalizations.of(context)!.howPerformingRecently,
+                    subtitle: AppLocalizations.of(
+                      context,
+                    )!.consistencyCurrentForm,
+                  ),
+                  const SizedBox(height: 16),
+                  PerformanceInsightsWidget(matches: filteredMatches),
+                ],
+              ),
+            ),
     );
   }
-
 
   Widget _buildFirstTimeEmptyState(BuildContext context) {
     // First-time user (no matches at all)
@@ -98,9 +105,7 @@ class StatsPage extends ConsumerWidget {
       onAddMatch: () async {
         await Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const AddMatchPage(),
-          ),
+          MaterialPageRoute(builder: (context) => const AddMatchPage()),
         );
       },
     );
@@ -113,29 +118,28 @@ class StatsPage extends ConsumerWidget {
         // Keep the time range filter at the top for easy access
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-          child: Row(
-            children: [
-              const TimeRangeFilter(),
-              const Spacer(),
-            ],
-          ),
+          child: Row(children: [const TimeRangeFilter(), const Spacer()]),
         ),
         // Clean empty state below
-        Expanded(
-          child: EmptyStateExamples.statsFiltered(context),
-        ),
+        Expanded(child: EmptyStateExamples.statsFiltered(context)),
       ],
     );
   }
 
   String _getMatchTypesNarrative(List matches, BuildContext context) {
     if (matches.isEmpty) return AppLocalizations.of(context)!.yourMatchTypes;
-    
+
     // Count match types
-    final friendly = matches.where((m) => m.matchType.toString().contains('friendly')).length;
-    final league = matches.where((m) => m.matchType.toString().contains('league')).length;
-    final tournament = matches.where((m) => m.matchType.toString().contains('tournament')).length;
-    
+    final friendly = matches
+        .where((m) => m.matchType.toString().contains('friendly'))
+        .length;
+    final league = matches
+        .where((m) => m.matchType.toString().contains('league'))
+        .length;
+    final tournament = matches
+        .where((m) => m.matchType.toString().contains('tournament'))
+        .length;
+
     // Find the most common type
     if (friendly >= league && friendly >= tournament) {
       return AppLocalizations.of(context)!.youMostlyPlayFriendly;
@@ -145,5 +149,4 @@ class StatsPage extends ConsumerWidget {
       return AppLocalizations.of(context)!.youCompeteInTournaments;
     }
   }
-
 }

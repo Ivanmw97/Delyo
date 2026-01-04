@@ -3,10 +3,10 @@
 enum MatchType {
   /// Casual match with friends
   friendly,
-  
+
   /// Competitive league match
   league,
-  
+
   /// Tournament match
   tournament,
 }

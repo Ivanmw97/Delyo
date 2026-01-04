@@ -5,10 +5,7 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 class PerformanceCardWidget extends StatelessWidget {
   final Match match;
 
-  const PerformanceCardWidget({
-    super.key,
-    required this.match,
-  });
+  const PerformanceCardWidget({super.key, required this.match});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class PerformanceCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          
+
           Row(
             children: List.generate(5, (index) {
               final rating = index + 1;

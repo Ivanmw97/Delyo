@@ -6,10 +6,7 @@ import 'package:padel_tracker/utils/duration_formatter.dart';
 class MatchInfoCardWidget extends StatelessWidget {
   final Match match;
 
-  const MatchInfoCardWidget({
-    super.key,
-    required this.match,
-  });
+  const MatchInfoCardWidget({super.key, required this.match});
 
   @override
   Widget build(BuildContext context) {
@@ -39,36 +36,36 @@ class MatchInfoCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          
+
           _buildInfoRow(
-            Icons.sports_tennis, 
-            AppLocalizations.of(context)!.playingSide, 
-            _getPlayingSideName(match.playingSide, context)
+            Icons.sports_tennis,
+            AppLocalizations.of(context)!.playingSide,
+            _getPlayingSideName(match.playingSide, context),
           ),
           const SizedBox(height: 16),
-          
+
           _buildInfoRow(
-            Icons.emoji_events, 
-            AppLocalizations.of(context)!.matchType, 
+            Icons.emoji_events,
+            AppLocalizations.of(context)!.matchType,
             _getMatchTypeName(match.matchType, context),
-            isChip: true
+            isChip: true,
           ),
-          
+
           if (match.location?.isNotEmpty == true) ...[
             const SizedBox(height: 16),
             _buildInfoRow(
-              Icons.location_on, 
-              AppLocalizations.of(context)!.location, 
-              match.location!
+              Icons.location_on,
+              AppLocalizations.of(context)!.location,
+              match.location!,
             ),
           ],
-          
+
           if (match.duration != null) ...[
             const SizedBox(height: 16),
             _buildInfoRow(
-              Icons.schedule, 
-              AppLocalizations.of(context)!.duration, 
-              DurationFormatter.formatDuration(match.duration!, context) ?? ''
+              Icons.schedule,
+              AppLocalizations.of(context)!.duration,
+              DurationFormatter.formatDuration(match.duration!, context) ?? '',
             ),
           ],
         ],
@@ -76,14 +73,15 @@ class MatchInfoCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String label, String value, {bool isChip = false}) {
+  Widget _buildInfoRow(
+    IconData icon,
+    String label,
+    String value, {
+    bool isChip = false,
+  }) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 20,
-          color: const Color(0xFF8E8E93),
-        ),
+        Icon(icon, size: 20, color: const Color(0xFF8E8E93)),
         const SizedBox(width: 12),
         Expanded(
           child: Row(
@@ -97,14 +95,16 @@ class MatchInfoCardWidget extends StatelessWidget {
                   color: const Color(0xFF1D1D1F).withOpacity(0.6),
                 ),
               ),
-              isChip ? _buildMatchTypeChip(value) : Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF1D1D1F),
-                ),
-              ),
+              isChip
+                  ? _buildMatchTypeChip(value)
+                  : Text(
+                      value,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF1D1D1F),
+                      ),
+                    ),
             ],
           ),
         ),

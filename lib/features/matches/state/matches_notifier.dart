@@ -4,25 +4,21 @@ import 'package:padel_tracker/domain/repositories/match_repository.dart';
 import 'package:padel_tracker/features/matches/state/matches_state.dart';
 
 /// StateNotifier for managing matches
-/// 
+///
 /// Handles all match-related operations including loading, adding, and deleting matches.
 /// Manages loading and error states appropriately.
 class MatchesNotifier extends StateNotifier<MatchesState> {
   final MatchRepository _repository;
-  
+
   MatchesNotifier(this._repository) : super(const MatchesState.initial());
-  
+
   /// Loads all matches from the repository
   Future<void> loadMatches() async {
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
       final matches = await _repository.getAllMatches();
-      state = MatchesState(
-        matches: matches,
-        isLoading: false,
-        error: null,
-      );
+      state = MatchesState(matches: matches, isLoading: false, error: null);
     } catch (e) {
       state = MatchesState(
         matches: const [],
@@ -31,7 +27,7 @@ class MatchesNotifier extends StateNotifier<MatchesState> {
       );
     }
   }
-  
+
   /// Adds a new match or updates an existing one
   Future<void> addMatch(Match match) async {
     try {
@@ -57,7 +53,7 @@ class MatchesNotifier extends StateNotifier<MatchesState> {
       );
     }
   }
-  
+
   /// Deletes a match by its ID
   Future<void> deleteMatch(String matchId) async {
     try {
@@ -70,16 +66,12 @@ class MatchesNotifier extends StateNotifier<MatchesState> {
       );
     }
   }
-  
+
   /// Clears all matches
   Future<void> clearAllMatches() async {
     try {
       await _repository.clearAll();
-      state = const MatchesState(
-        matches: [],
-        isLoading: false,
-        error: null,
-      );
+      state = const MatchesState(matches: [], isLoading: false, error: null);
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

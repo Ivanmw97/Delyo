@@ -6,21 +6,19 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 class PerformanceInsightsWidget extends StatelessWidget {
   final List matches;
 
-  const PerformanceInsightsWidget({
-    super.key,
-    required this.matches,
-  });
+  const PerformanceInsightsWidget({super.key, required this.matches});
 
   @override
   Widget build(BuildContext context) {
-    final avgRating = matches.isNotEmpty 
-        ? matches.map((m) => m.performanceRating ?? 3).reduce((a, b) => a + b) / matches.length
+    final avgRating = matches.isNotEmpty
+        ? matches.map((m) => m.performanceRating ?? 3).reduce((a, b) => a + b) /
+              matches.length
         : 0.0;
-    
-    final recentMatches = matches.length >= 5 
+
+    final recentMatches = matches.length >= 5
         ? matches.take(5).toList()
         : matches;
-    
+
     final recentWins = recentMatches
         .where((m) => getMatchOutcome(m) == MatchOutcome.win)
         .length;
@@ -51,7 +49,7 @@ class PerformanceInsightsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           Row(
             children: [
               Expanded(
@@ -68,7 +66,9 @@ class PerformanceInsightsWidget extends StatelessWidget {
                 child: _buildInsightCard(
                   AppLocalizations.of(context)!.recentForm,
                   '$recentWins/${recentMatches.length}',
-                  AppLocalizations.of(context)!.winsInLastMatches(recentMatches.length),
+                  AppLocalizations.of(
+                    context,
+                  )!.winsInLastMatches(recentMatches.length),
                   Icons.trending_up,
                   const Color(0xFF34C759),
                 ),
@@ -80,7 +80,13 @@ class PerformanceInsightsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInsightCard(String label, String value, String subtitle, IconData icon, Color color) {
+  Widget _buildInsightCard(
+    String label,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -90,11 +96,7 @@ class PerformanceInsightsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            size: 20,
-            color: color,
-          ),
+          Icon(icon, size: 20, color: color),
           const SizedBox(height: 8),
           Text(
             label,

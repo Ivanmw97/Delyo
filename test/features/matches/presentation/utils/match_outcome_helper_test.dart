@@ -17,7 +17,7 @@ void main() {
     const testPlayer2 = Player(id: '2', name: 'Opponent 1');
     const testPlayer3 = Player(id: '3', name: 'Opponent 2');
     final testDateTime = DateTime(2025, 1, 15, 10, 0);
-    
+
     // Helper function to create a test context with localization
     Widget createTestWidget({required Widget child}) {
       return MaterialApp(
@@ -27,9 +27,7 @@ void main() {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('en'),
-        ],
+        supportedLocales: const [Locale('en')],
         home: child,
       );
     }
@@ -57,27 +55,30 @@ void main() {
         expect(getMatchOutcome(match), equals(MatchOutcome.win));
       });
 
-      test('should return loss for friendly match when user lost more sets', () {
-        const result = MatchResult(
-          sets: [
-            PadelSet(userTeamGames: 4, opponentTeamGames: 6),
-            PadelSet(userTeamGames: 3, opponentTeamGames: 6),
-          ],
-        );
+      test(
+        'should return loss for friendly match when user lost more sets',
+        () {
+          const result = MatchResult(
+            sets: [
+              PadelSet(userTeamGames: 4, opponentTeamGames: 6),
+              PadelSet(userTeamGames: 3, opponentTeamGames: 6),
+            ],
+          );
 
-        final match = Match(
-          id: 'match1',
-          matchType: MatchType.friendly,
-          dateTime: testDateTime,
-          playingSide: PlayingSide.right,
-          partner: testPlayer1,
-          opponent1: testPlayer2,
-          opponent2: testPlayer3,
-          result: result,
-        );
+          final match = Match(
+            id: 'match1',
+            matchType: MatchType.friendly,
+            dateTime: testDateTime,
+            playingSide: PlayingSide.right,
+            partner: testPlayer1,
+            opponent1: testPlayer2,
+            opponent2: testPlayer3,
+            result: result,
+          );
 
-        expect(getMatchOutcome(match), equals(MatchOutcome.loss));
-      });
+          expect(getMatchOutcome(match), equals(MatchOutcome.loss));
+        },
+      );
 
       test('should return draw for friendly match when sets are tied', () {
         const result = MatchResult(
@@ -215,7 +216,9 @@ void main() {
     });
 
     group('getMatchResultText', () {
-      testWidgets('should return correct text for win', (WidgetTester tester) async {
+      testWidgets('should return correct text for win', (
+        WidgetTester tester,
+      ) async {
         const result = MatchResult(
           sets: [
             PadelSet(userTeamGames: 6, opponentTeamGames: 4),
@@ -234,19 +237,23 @@ void main() {
           result: result,
         );
 
-        await tester.pumpWidget(createTestWidget(
-          child: Builder(
-            builder: (context) {
-              final resultText = getMatchResultText(match, context);
-              expect(resultText, contains('2'));
-              expect(resultText, contains('0'));
-              return Container();
-            },
+        await tester.pumpWidget(
+          createTestWidget(
+            child: Builder(
+              builder: (context) {
+                final resultText = getMatchResultText(match, context);
+                expect(resultText, contains('2'));
+                expect(resultText, contains('0'));
+                return Container();
+              },
+            ),
           ),
-        ));
+        );
       });
 
-      testWidgets('should return correct text for loss', (WidgetTester tester) async {
+      testWidgets('should return correct text for loss', (
+        WidgetTester tester,
+      ) async {
         const result = MatchResult(
           sets: [
             PadelSet(userTeamGames: 4, opponentTeamGames: 6),
@@ -265,19 +272,23 @@ void main() {
           result: result,
         );
 
-        await tester.pumpWidget(createTestWidget(
-          child: Builder(
-            builder: (context) {
-              final resultText = getMatchResultText(match, context);
-              expect(resultText, contains('0'));
-              expect(resultText, contains('2'));
-              return Container();
-            },
+        await tester.pumpWidget(
+          createTestWidget(
+            child: Builder(
+              builder: (context) {
+                final resultText = getMatchResultText(match, context);
+                expect(resultText, contains('0'));
+                expect(resultText, contains('2'));
+                return Container();
+              },
+            ),
           ),
-        ));
+        );
       });
 
-      testWidgets('should return correct text for draw', (WidgetTester tester) async {
+      testWidgets('should return correct text for draw', (
+        WidgetTester tester,
+      ) async {
         const result = MatchResult(
           sets: [
             PadelSet(userTeamGames: 6, opponentTeamGames: 4),
@@ -296,19 +307,23 @@ void main() {
           result: result,
         );
 
-        await tester.pumpWidget(createTestWidget(
-          child: Builder(
-            builder: (context) {
-              final resultText = getMatchResultText(match, context);
-              expect(resultText, contains('1'));
-              expect(resultText, contains('1'));
-              return Container();
-            },
+        await tester.pumpWidget(
+          createTestWidget(
+            child: Builder(
+              builder: (context) {
+                final resultText = getMatchResultText(match, context);
+                expect(resultText, contains('1'));
+                expect(resultText, contains('1'));
+                return Container();
+              },
+            ),
           ),
-        ));
+        );
       });
 
-      testWidgets('should return correct text for close win', (WidgetTester tester) async {
+      testWidgets('should return correct text for close win', (
+        WidgetTester tester,
+      ) async {
         const result = MatchResult(
           sets: [
             PadelSet(userTeamGames: 6, opponentTeamGames: 4),
@@ -328,16 +343,18 @@ void main() {
           result: result,
         );
 
-        await tester.pumpWidget(createTestWidget(
-          child: Builder(
-            builder: (context) {
-              final resultText = getMatchResultText(match, context);
-              expect(resultText, contains('2'));
-              expect(resultText, contains('1'));
-              return Container();
-            },
+        await tester.pumpWidget(
+          createTestWidget(
+            child: Builder(
+              builder: (context) {
+                final resultText = getMatchResultText(match, context);
+                expect(resultText, contains('2'));
+                expect(resultText, contains('1'));
+                return Container();
+              },
+            ),
           ),
-        ));
+        );
       });
     });
   });

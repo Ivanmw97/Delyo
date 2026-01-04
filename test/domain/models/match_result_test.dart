@@ -104,9 +104,7 @@ void main() {
 
     test('should handle single set match', () {
       const result = MatchResult(
-        sets: [
-          PadelSet(userTeamGames: 6, opponentTeamGames: 4),
-        ],
+        sets: [PadelSet(userTeamGames: 6, opponentTeamGames: 4)],
       );
 
       expect(result.setsWon, equals(1));
@@ -143,15 +141,11 @@ void main() {
 
     test('should not be equal when sets differ', () {
       const result1 = MatchResult(
-        sets: [
-          PadelSet(userTeamGames: 6, opponentTeamGames: 4),
-        ],
+        sets: [PadelSet(userTeamGames: 6, opponentTeamGames: 4)],
       );
 
       const result2 = MatchResult(
-        sets: [
-          PadelSet(userTeamGames: 6, opponentTeamGames: 3),
-        ],
+        sets: [PadelSet(userTeamGames: 6, opponentTeamGames: 3)],
       );
 
       expect(result1, isNot(equals(result2)));
@@ -159,9 +153,7 @@ void main() {
 
     test('should not be equal when number of sets differ', () {
       const result1 = MatchResult(
-        sets: [
-          PadelSet(userTeamGames: 6, opponentTeamGames: 4),
-        ],
+        sets: [PadelSet(userTeamGames: 6, opponentTeamGames: 4)],
       );
 
       const result2 = MatchResult(
@@ -176,9 +168,7 @@ void main() {
 
     test('toString should include sets and match outcome', () {
       const result = MatchResult(
-        sets: [
-          PadelSet(userTeamGames: 6, opponentTeamGames: 4),
-        ],
+        sets: [PadelSet(userTeamGames: 6, opponentTeamGames: 4)],
       );
 
       final str = result.toString();

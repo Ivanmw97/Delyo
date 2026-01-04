@@ -43,27 +43,29 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
         backgroundColor: const Color(0xFFF8F8F8),
         elevation: 0,
         centerTitle: false,
-        actions: matchesState.matches.isNotEmpty ? [
-          TextButton(
-            onPressed: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AddMatchPage(),
+        actions: matchesState.matches.isNotEmpty
+            ? [
+                TextButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddMatchPage(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.newMatch,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF007AFF),
+                    ),
+                  ),
                 ),
-              );
-            },
-            child: Text(
-              AppLocalizations.of(context)!.newMatch,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF007AFF),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-        ] : null,
+                const SizedBox(width: 8),
+              ]
+            : null,
       ),
       body: _buildBody(matchesState, filteredMatches),
     );
@@ -71,9 +73,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
 
   Widget _buildBody(matchesState, List<Match> filteredMatches) {
     if (matchesState.isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (matchesState.error != null) {
@@ -84,7 +84,9 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
             const Icon(Icons.error_outline, size: 48, color: Colors.red),
             const SizedBox(height: 16),
             Text(
-              AppLocalizations.of(context)!.error(matchesState.error.toString()),
+              AppLocalizations.of(
+                context,
+              )!.error(matchesState.error.toString()),
               style: const TextStyle(color: Colors.red),
               textAlign: TextAlign.center,
             ),
@@ -108,9 +110,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
         onAddMatch: () async {
           await Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const AddMatchPage(),
-            ),
+            MaterialPageRoute(builder: (context) => const AddMatchPage()),
           );
         },
       );
@@ -129,7 +129,9 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
               const TimeRangeFilter(),
               const Spacer(),
               Text(
-                AppLocalizations.of(context)!.matchesCount(filteredMatches.length),
+                AppLocalizations.of(
+                  context,
+                )!.matchesCount(filteredMatches.length),
                 style: TextStyle(
                   fontSize: 14,
                   color: const Color(0xFF1D1D1F).withOpacity(0.6),
@@ -138,7 +140,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
             ],
           ),
         ),
-        
+
         // Matches list
         Expanded(
           child: ListView.builder(
@@ -147,35 +149,35 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
             itemBuilder: (context, index) {
               final match = filteredMatches[index];
 
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Dismissible(
-            key: Key(match.id),
-            direction: DismissDirection.endToStart,
-            background: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFFFF3B30),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 24),
-              child: const Icon(
-                Icons.delete_outline,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
-            confirmDismiss: (direction) async {
-              return await _handleDismiss(context, match);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Dismissible(
+                  key: Key(match.id),
+                  direction: DismissDirection.endToStart,
+                  background: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF3B30),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 24),
+                    child: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                  confirmDismiss: (direction) async {
+                    return await _handleDismiss(context, match);
+                  },
+                  child: MatchCard(
+                    match: match,
+                    onTap: () => _navigateToMatchDetail(context, match),
+                  ),
+                ),
+              );
             },
-            child: MatchCard(
-              match: match,
-              onTap: () => _navigateToMatchDetail(context, match),
-            ),
           ),
-        );
-      },
-    ),
         ),
       ],
     );
@@ -188,17 +190,10 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
         // Keep the time range filter at the top for easy access
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-          child: Row(
-            children: [
-              const TimeRangeFilter(),
-              const Spacer(),
-            ],
-          ),
+          child: Row(children: [const TimeRangeFilter(), const Spacer()]),
         ),
         // Clean empty state below
-        Expanded(
-          child: EmptyStateExamples.myMatchesFiltered(context),
-        ),
+        Expanded(child: EmptyStateExamples.myMatchesFiltered(context)),
       ],
     );
   }
@@ -206,9 +201,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
   void _navigateToMatchDetail(BuildContext context, Match match) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => MatchDetailPage(match: match),
-      ),
+      MaterialPageRoute(builder: (context) => MatchDetailPage(match: match)),
     );
   }
 
@@ -231,5 +224,4 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
 
     return true;
   }
-
 }

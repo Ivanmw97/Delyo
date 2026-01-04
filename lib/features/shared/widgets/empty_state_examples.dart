@@ -66,9 +66,9 @@ class EmptyStateExamples {
       icon: Icons.analytics_outlined,
       title: AppLocalizations.of(context)!.noStatsYet,
       subtitle: AppLocalizations.of(context)!.addMatchesToSeeStats,
-      primaryActionText: onAddMatch != null 
-        ? AppLocalizations.of(context)!.addMatch 
-        : null,
+      primaryActionText: onAddMatch != null
+          ? AppLocalizations.of(context)!.addMatch
+          : null,
       onPrimaryAction: onAddMatch,
     );
   }

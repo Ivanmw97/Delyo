@@ -13,40 +13,40 @@ part 'match_entity.g.dart';
 class MatchEntity extends HiveObject {
   @HiveField(0)
   final String id;
-  
+
   @HiveField(1)
   final int matchTypeIndex;
-  
+
   @HiveField(2)
   final DateTime dateTime;
-  
+
   @HiveField(3)
   final int playingSideIndex;
-  
+
   @HiveField(4)
   final PlayerEntity partner;
-  
+
   @HiveField(5)
   final PlayerEntity opponent1;
-  
+
   @HiveField(6)
   final PlayerEntity opponent2;
-  
+
   @HiveField(7)
   final MatchResultEntity result;
-  
+
   @HiveField(8)
   final int? performanceRating;
-  
+
   @HiveField(9)
   final String? notes;
-  
+
   @HiveField(10)
   final int? durationInMinutes;
-  
+
   @HiveField(11)
   final String? location;
-  
+
   MatchEntity({
     required this.id,
     required this.matchTypeIndex,
@@ -61,7 +61,7 @@ class MatchEntity extends HiveObject {
     this.durationInMinutes,
     this.location,
   });
-  
+
   /// Converts domain Match to MatchEntity
   factory MatchEntity.fromDomain(Match match) {
     return MatchEntity(
@@ -79,7 +79,7 @@ class MatchEntity extends HiveObject {
       location: match.location,
     );
   }
-  
+
   /// Converts MatchEntity to domain Match
   Match toDomain() {
     return Match(
@@ -93,7 +93,9 @@ class MatchEntity extends HiveObject {
       result: result.toDomain(),
       performanceRating: performanceRating,
       notes: notes,
-      duration: durationInMinutes != null ? Duration(minutes: durationInMinutes!) : null,
+      duration: durationInMinutes != null
+          ? Duration(minutes: durationInMinutes!)
+          : null,
       location: location,
     );
   }

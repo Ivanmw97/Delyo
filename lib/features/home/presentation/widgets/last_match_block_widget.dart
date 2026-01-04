@@ -20,7 +20,7 @@ class LastMatchBlockWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final outcome = getMatchOutcome(match);
     final dateFormat = DateFormat('MMM dd, yyyy');
-    
+
     String matchTypeName = '';
     switch (match.matchType) {
       case MatchType.friendly:
@@ -90,7 +90,7 @@ class LastMatchBlockWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                    dateFormat.format(match.dateTime),
+                  dateFormat.format(match.dateTime),
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -101,7 +101,7 @@ class LastMatchBlockWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            
+
             // Match type
             Align(
               alignment: Alignment.centerLeft,
@@ -116,7 +116,7 @@ class LastMatchBlockWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // Result chip
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -128,11 +128,11 @@ class LastMatchBlockWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    outcome == MatchOutcome.win 
+                    outcome == MatchOutcome.win
                         ? Icons.emoji_events
                         : outcome == MatchOutcome.loss
-                            ? Icons.close
-                            : Icons.remove,
+                        ? Icons.close
+                        : Icons.remove,
                     size: 18,
                     color: outcomeColor,
                   ),
@@ -150,11 +150,11 @@ class LastMatchBlockWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // Set scores (main focus)
             buildSetScores(match),
             const SizedBox(height: 12),
-            
+
             // Subtitle
             Text(
               AppLocalizations.of(context)!.straightSets,

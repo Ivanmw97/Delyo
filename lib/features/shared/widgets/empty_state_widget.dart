@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:padel_tracker/l10n/app_localizations.dart';
 
 /// Empty state widget for when no matches are found
-/// 
+///
 /// Displays a user-friendly message with optional call-to-action button
 /// when filtered match results are empty.
 class EmptyStateWidget extends StatelessWidget {
   final VoidCallback? onAddMatch;
 
-  const EmptyStateWidget({
-    super.key,
-    this.onAddMatch,
-  });
+  const EmptyStateWidget({super.key, this.onAddMatch});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +32,9 @@ class EmptyStateWidget extends StatelessWidget {
                 color: Color(0xFF007AFF),
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // Title
             Text(
               AppLocalizations.of(context)!.noMatchesThisMonth,
@@ -48,9 +45,9 @@ class EmptyStateWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // Subtitle
             Text(
               AppLocalizations.of(context)!.noMatchesThisMonthSubtitle,
@@ -61,18 +58,14 @@ class EmptyStateWidget extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Optional CTA button
             if (onAddMatch != null)
               ElevatedButton.icon(
                 onPressed: onAddMatch,
-                icon: const Icon(
-                  Icons.add,
-                  size: 18,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.add, size: 18, color: Colors.white),
                 label: Text(
                   AppLocalizations.of(context)!.addMatch,
                   style: const TextStyle(

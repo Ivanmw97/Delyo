@@ -5,7 +5,7 @@ void main() {
   group('PlayingSide', () {
     test('should have all expected values', () {
       final allValues = PlayingSide.values;
-      
+
       expect(allValues.length, equals(2));
       expect(allValues.contains(PlayingSide.right), isTrue);
       expect(allValues.contains(PlayingSide.left), isTrue);
@@ -13,7 +13,7 @@ void main() {
 
     test('should maintain consistent ordering', () {
       final values = PlayingSide.values;
-      
+
       expect(values[0], equals(PlayingSide.right));
       expect(values[1], equals(PlayingSide.left));
     });
@@ -26,7 +26,7 @@ void main() {
     test('should support equality comparison', () {
       expect(PlayingSide.right, equals(PlayingSide.right));
       expect(PlayingSide.left, equals(PlayingSide.left));
-      
+
       expect(PlayingSide.right, isNot(equals(PlayingSide.left)));
       expect(PlayingSide.left, isNot(equals(PlayingSide.right)));
     });
@@ -41,8 +41,14 @@ void main() {
         }
       }
 
-      expect(getSideDescription(PlayingSide.right), equals('Right side of the court'));
-      expect(getSideDescription(PlayingSide.left), equals('Left side of the court'));
+      expect(
+        getSideDescription(PlayingSide.right),
+        equals('Right side of the court'),
+      );
+      expect(
+        getSideDescription(PlayingSide.left),
+        equals('Left side of the court'),
+      );
     });
 
     test('should support name property', () {

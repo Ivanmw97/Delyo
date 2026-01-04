@@ -23,7 +23,7 @@ void main() {
     setUp(() async {
       // Create a temporary directory for Hive
       testDir = await Directory.systemTemp.createTemp('hive_test_');
-      
+
       // Initialize Hive with the temporary directory
       Hive.init(testDir.path);
 
@@ -51,7 +51,7 @@ void main() {
     tearDown(() async {
       // Close all boxes
       await Hive.close();
-      
+
       // Delete the temporary directory
       if (testDir.existsSync()) {
         await testDir.delete(recursive: true);
@@ -163,34 +163,40 @@ void main() {
       final matches = await repository.getAllMatches();
 
       expect(matches.length, equals(3));
-      expect(matches.map((m) => m.id), containsAll(['match1', 'match2', 'match3']));
+      expect(
+        matches.map((m) => m.id),
+        containsAll(['match1', 'match2', 'match3']),
+      );
     });
 
-    test('getAllMatches should return matches sorted by date (newest first)', () async {
-      final match1 = createTestMatch(
-        id: 'match1',
-        dateTime: DateTime(2025, 1, 10),
-      );
-      final match2 = createTestMatch(
-        id: 'match2',
-        dateTime: DateTime(2025, 1, 15),
-      );
-      final match3 = createTestMatch(
-        id: 'match3',
-        dateTime: DateTime(2025, 1, 5),
-      );
+    test(
+      'getAllMatches should return matches sorted by date (newest first)',
+      () async {
+        final match1 = createTestMatch(
+          id: 'match1',
+          dateTime: DateTime(2025, 1, 10),
+        );
+        final match2 = createTestMatch(
+          id: 'match2',
+          dateTime: DateTime(2025, 1, 15),
+        );
+        final match3 = createTestMatch(
+          id: 'match3',
+          dateTime: DateTime(2025, 1, 5),
+        );
 
-      await repository.saveMatch(match1);
-      await repository.saveMatch(match2);
-      await repository.saveMatch(match3);
+        await repository.saveMatch(match1);
+        await repository.saveMatch(match2);
+        await repository.saveMatch(match3);
 
-      final matches = await repository.getAllMatches();
+        final matches = await repository.getAllMatches();
 
-      expect(matches.length, equals(3));
-      expect(matches[0].id, equals('match2')); // Jan 15 (newest)
-      expect(matches[1].id, equals('match1')); // Jan 10
-      expect(matches[2].id, equals('match3')); // Jan 5 (oldest)
-    });
+        expect(matches.length, equals(3));
+        expect(matches[0].id, equals('match2')); // Jan 15 (newest)
+        expect(matches[1].id, equals('match1')); // Jan 10
+        expect(matches[2].id, equals('match3')); // Jan 5 (oldest)
+      },
+    );
 
     test('deleteMatch should remove a match', () async {
       final match = createTestMatch(id: 'match1');
@@ -312,7 +318,11 @@ void main() {
         playingSide: PlayingSide.right,
         partner: const Player(id: 'p1', name: 'John Doe', nickname: 'Johnny'),
         opponent1: const Player(id: 'o1', name: 'Jane Smith'),
-        opponent2: const Player(id: 'o2', name: 'Bob Wilson', nickname: 'Bobby'),
+        opponent2: const Player(
+          id: 'o2',
+          name: 'Bob Wilson',
+          nickname: 'Bobby',
+        ),
         result: const MatchResult(
           sets: [PadelSet(userTeamGames: 6, opponentTeamGames: 4)],
         ),
@@ -367,10 +377,8 @@ void main() {
     test('should handle concurrent operations', () async {
       final matches = List.generate(
         10,
-        (i) => createTestMatch(
-          id: 'match$i',
-          dateTime: DateTime(2025, 1, i + 1),
-        ),
+        (i) =>
+            createTestMatch(id: 'match$i', dateTime: DateTime(2025, 1, i + 1)),
       );
 
       // Save all matches concurrently

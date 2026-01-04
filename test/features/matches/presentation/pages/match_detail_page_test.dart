@@ -76,16 +76,16 @@ void main() {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en'),
-          ],
+          supportedLocales: const [Locale('en')],
           home: MatchDetailPage(match: match),
         ),
       );
     }
 
     group('View Mode', () {
-      testWidgets('should not show date picker in view mode', (WidgetTester tester) async {
+      testWidgets('should not show date picker in view mode', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -102,7 +102,9 @@ void main() {
     });
 
     group('Edit Mode', () {
-      testWidgets('should show date picker field in edit mode', (WidgetTester tester) async {
+      testWidgets('should show date picker field in edit mode', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -114,7 +116,9 @@ void main() {
         expect(find.byType(DatePickerField), findsOneWidget);
       });
 
-      testWidgets('should display current match date in edit mode', (WidgetTester tester) async {
+      testWidgets('should display current match date in edit mode', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -124,12 +128,14 @@ void main() {
 
         // Verify the date field shows the match's current date
         final expectedDate = DateFormatter.formatDisplayDate(
-          DateFormatter.dateOnly(testMatch.dateTime)
+          DateFormatter.dateOnly(testMatch.dateTime),
         );
         expect(find.text(expectedDate), findsOneWidget);
       });
 
-      testWidgets('should show save button in edit mode', (WidgetTester tester) async {
+      testWidgets('should show save button in edit mode', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -141,7 +147,9 @@ void main() {
         expect(find.text('Save Match'), findsOneWidget);
       });
 
-      testWidgets('should show custom back button in edit mode', (WidgetTester tester) async {
+      testWidgets('should show custom back button in edit mode', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -155,7 +163,9 @@ void main() {
     });
 
     group('Date Selection in Edit Mode', () {
-      testWidgets('should open date picker when date field is tapped', (WidgetTester tester) async {
+      testWidgets('should open date picker when date field is tapped', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -171,7 +181,9 @@ void main() {
         expect(find.byType(DatePickerDialog), findsOneWidget);
       });
 
-      testWidgets('should update date field when new date is selected', (WidgetTester tester) async {
+      testWidgets('should update date field when new date is selected', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -203,7 +215,9 @@ void main() {
     });
 
     group('Date Validation in Edit Mode', () {
-      testWidgets('should not show error for valid dates', (WidgetTester tester) async {
+      testWidgets('should not show error for valid dates', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -217,7 +231,9 @@ void main() {
         expect(widget.errorText, isNull);
       });
 
-      testWidgets('should prevent saving with future date validation error', (WidgetTester tester) async {
+      testWidgets('should prevent saving with future date validation error', (
+        WidgetTester tester,
+      ) async {
         // This test would require mocking a future date selection
         // For now, we'll test that the validation method exists
         await tester.pumpWidget(createTestWidget(testMatch));
@@ -232,7 +248,9 @@ void main() {
     });
 
     group('Cancel Edit Functionality', () {
-      testWidgets('should reset date when canceling edit', (WidgetTester tester) async {
+      testWidgets('should reset date when canceling edit', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -242,7 +260,7 @@ void main() {
 
         // Verify original date is shown
         final originalDate = DateFormatter.formatDisplayDate(
-          DateFormatter.dateOnly(testMatch.dateTime)
+          DateFormatter.dateOnly(testMatch.dateTime),
         );
         expect(find.text(originalDate), findsOneWidget);
 
@@ -257,7 +275,9 @@ void main() {
     });
 
     group('Form Integration', () {
-      testWidgets('should position date field first in match details section', (WidgetTester tester) async {
+      testWidgets('should position date field first in match details section', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(testMatch));
         await tester.pumpAndSettle();
 
@@ -268,40 +288,45 @@ void main() {
         // Verify date field is positioned before match type
         final dateField = find.byType(DatePickerField);
         final matchTypeText = find.text('Match Type');
-        
+
         expect(dateField, findsOneWidget);
         expect(matchTypeText, findsOneWidget);
 
         // Verify date field comes first
         final dateFieldPosition = tester.getTopLeft(dateField);
         final matchTypePosition = tester.getTopLeft(matchTypeText);
-        
+
         expect(dateFieldPosition.dy, lessThan(matchTypePosition.dy));
       });
 
-      testWidgets('should maintain date selection during other form interactions', (WidgetTester tester) async {
-        await tester.pumpWidget(createTestWidget(testMatch));
-        await tester.pumpAndSettle();
+      testWidgets(
+        'should maintain date selection during other form interactions',
+        (WidgetTester tester) async {
+          await tester.pumpWidget(createTestWidget(testMatch));
+          await tester.pumpAndSettle();
 
-        // Enter edit mode
-        await tester.tap(find.text('Edit'));
-        await tester.pumpAndSettle();
+          // Enter edit mode
+          await tester.tap(find.text('Edit'));
+          await tester.pumpAndSettle();
 
-        final originalDate = DateFormatter.formatDisplayDate(
-          DateFormatter.dateOnly(testMatch.dateTime)
-        );
+          final originalDate = DateFormatter.formatDisplayDate(
+            DateFormatter.dateOnly(testMatch.dateTime),
+          );
 
-        // Verify original date is displayed
-        expect(find.text(originalDate), findsOneWidget);
+          // Verify original date is displayed
+          expect(find.text(originalDate), findsOneWidget);
 
-        // Interact with other form elements and verify date remains
-        // (The date should persist through other form interactions)
-        expect(find.text(originalDate), findsOneWidget);
-      });
+          // Interact with other form elements and verify date remains
+          // (The date should persist through other form interactions)
+          expect(find.text(originalDate), findsOneWidget);
+        },
+      );
     });
 
     group('State Management', () {
-      testWidgets('should initialize with match date', (WidgetTester tester) async {
+      testWidgets('should initialize with match date', (
+        WidgetTester tester,
+      ) async {
         final specificDate = DateTime(2023, 12, 25);
         final matchWithSpecificDate = domain.Match(
           id: 'test-match-2',
@@ -325,7 +350,7 @@ void main() {
 
         // Verify the specific date is shown
         final expectedDate = DateFormatter.formatDisplayDate(
-          DateFormatter.dateOnly(specificDate)
+          DateFormatter.dateOnly(specificDate),
         );
         expect(find.text(expectedDate), findsOneWidget);
       });

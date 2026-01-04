@@ -3,7 +3,7 @@
 enum PlayingSide {
   /// Right side of the court
   right,
-  
+
   /// Left side of the court
   left,
 }

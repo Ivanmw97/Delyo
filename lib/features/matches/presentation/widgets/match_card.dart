@@ -10,11 +10,7 @@ class MatchCard extends StatelessWidget {
   final Match match;
   final VoidCallback onTap;
 
-  const MatchCard({
-    super.key,
-    required this.match,
-    required this.onTap,
-  });
+  const MatchCard({super.key, required this.match, required this.onTap});
 
   String _getMatchTypeName(MatchType type, BuildContext context) {
     switch (type) {
@@ -85,8 +81,10 @@ class MatchCard extends StatelessWidget {
   String _getScoreText(BuildContext context) {
     final sets = match.result.sets;
     if (sets.isEmpty) return AppLocalizations.of(context)!.noScore;
-    
-    return sets.map((set) => '${set.userTeamGames}-${set.opponentTeamGames}').join(', ');
+
+    return sets
+        .map((set) => '${set.userTeamGames}-${set.opponentTeamGames}')
+        .join(', ');
   }
 
   @override
@@ -127,112 +125,125 @@ class MatchCard extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Main content
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 20, 20, 20),
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header row with match type, result badge, and date
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Header row with match type, result badge, and date
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Match Type
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(
-                          color: _getMatchTypeBackgroundColor(match.matchType),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          _getMatchTypeName(match.matchType, context).toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: _getMatchTypeColor(match.matchType),
-                            letterSpacing: 0.8,
+                      Row(
+                        children: [
+                          // Match Type
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
+                            decoration: BoxDecoration(
+                              color: _getMatchTypeBackgroundColor(
+                                match.matchType,
+                              ),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              _getMatchTypeName(
+                                match.matchType,
+                                context,
+                              ).toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: _getMatchTypeColor(match.matchType),
+                                letterSpacing: 0.8,
+                              ),
+                            ),
                           ),
-                        ),
+                          const SizedBox(width: 12),
+
+                          // Result Badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
+                            decoration: BoxDecoration(
+                              color: _getOutcomeColor(
+                                outcome,
+                              ).withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              _getOutcomeText(outcome, context).toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color: _getOutcomeColor(outcome),
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      
-                      // Result Badge
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(
-                          color: _getOutcomeColor(outcome).withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          _getOutcomeText(outcome, context).toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: _getOutcomeColor(outcome),
-                            letterSpacing: 0.5,
-                          ),
+
+                      // Date
+                      Text(
+                        dateFormat.format(match.dateTime),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                          letterSpacing: -0.1,
                         ),
                       ),
                     ],
                   ),
-                  
-                  // Date
+                  const SizedBox(height: 12),
+
+                  // Main content: Set scores (primary focus)
                   Text(
-                    dateFormat.format(match.dateTime),
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF1D1D1F).withOpacity(0.6),
-                      letterSpacing: -0.1,
+                    _getScoreText(context),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF1D1D1F),
+                      letterSpacing: -0.8,
+                      height: 1.1,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              
-              // Main content: Set scores (primary focus)
-              Text(
-                _getScoreText(context),
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF1D1D1F),
-                  letterSpacing: -0.8,
-                  height: 1.1,
-                ),
-              ),
-              
-              // Location (only if available)
-              if (match.location != null) ...[
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      size: 16,
-                      color: const Color(0xFF1D1D1F).withOpacity(0.4),
-                    ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        match.location!,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xFF1D1D1F).withOpacity(0.6),
-                          letterSpacing: -0.1,
+
+                  // Location (only if available)
+                  if (match.location != null) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 16,
+                          color: const Color(0xFF1D1D1F).withOpacity(0.4),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            match.location!,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                              letterSpacing: -0.1,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-              ],
-            ],
-          ),
+                ],
+              ),
             ),
           ],
         ),

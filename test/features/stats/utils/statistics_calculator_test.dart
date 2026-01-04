@@ -13,90 +13,106 @@ class StatisticsCalculator {
   /// Calculate win rate as a percentage
   static double calculateWinRate(List<Match> matches) {
     if (matches.isEmpty) return 0.0;
-    
-    final wins = matches.where((match) => 
-      getMatchOutcome(match) == MatchOutcome.win
-    ).length;
-    
+
+    final wins = matches
+        .where((match) => getMatchOutcome(match) == MatchOutcome.win)
+        .length;
+
     return (wins / matches.length) * 100;
   }
-  
+
   /// Calculate match type distribution
-  static Map<MatchType, int> calculateMatchTypeDistribution(List<Match> matches) {
+  static Map<MatchType, int> calculateMatchTypeDistribution(
+    List<Match> matches,
+  ) {
     final distribution = <MatchType, int>{
       MatchType.friendly: 0,
       MatchType.league: 0,
       MatchType.tournament: 0,
     };
-    
+
     for (final match in matches) {
       distribution[match.matchType] = (distribution[match.matchType] ?? 0) + 1;
     }
-    
+
     return distribution;
   }
-  
+
   /// Calculate outcome distribution
-  static Map<MatchOutcome, int> calculateOutcomeDistribution(List<Match> matches) {
+  static Map<MatchOutcome, int> calculateOutcomeDistribution(
+    List<Match> matches,
+  ) {
     final distribution = <MatchOutcome, int>{
       MatchOutcome.win: 0,
       MatchOutcome.loss: 0,
       MatchOutcome.draw: 0,
     };
-    
+
     for (final match in matches) {
       final outcome = getMatchOutcome(match);
       distribution[outcome] = (distribution[outcome] ?? 0) + 1;
     }
-    
+
     return distribution;
   }
-  
+
   /// Calculate average performance rating
   static double calculateAveragePerformanceRating(List<Match> matches) {
-    final matchesWithRating = matches.where((match) => match.performanceRating != null);
-    
+    final matchesWithRating = matches.where(
+      (match) => match.performanceRating != null,
+    );
+
     if (matchesWithRating.isEmpty) return 0.0;
-    
+
     final totalRating = matchesWithRating
         .map((match) => match.performanceRating!)
         .reduce((a, b) => a + b);
-    
+
     return totalRating / matchesWithRating.length;
   }
-  
+
   /// Calculate playing side preference
-  static Map<PlayingSide, int> calculatePlayingSideDistribution(List<Match> matches) {
+  static Map<PlayingSide, int> calculatePlayingSideDistribution(
+    List<Match> matches,
+  ) {
     final distribution = <PlayingSide, int>{
       PlayingSide.left: 0,
       PlayingSide.right: 0,
     };
-    
+
     for (final match in matches) {
-      distribution[match.playingSide] = (distribution[match.playingSide] ?? 0) + 1;
+      distribution[match.playingSide] =
+          (distribution[match.playingSide] ?? 0) + 1;
     }
-    
+
     return distribution;
   }
-  
+
   /// Calculate win rate by match type
-  static Map<MatchType, double> calculateWinRateByMatchType(List<Match> matches) {
+  static Map<MatchType, double> calculateWinRateByMatchType(
+    List<Match> matches,
+  ) {
     final winRates = <MatchType, double>{};
-    
+
     for (final matchType in MatchType.values) {
-      final matchesOfType = matches.where((match) => match.matchType == matchType);
+      final matchesOfType = matches.where(
+        (match) => match.matchType == matchType,
+      );
       winRates[matchType] = calculateWinRate(matchesOfType.toList());
     }
-    
+
     return winRates;
   }
-  
+
   /// Calculate recent form (last N matches)
-  static List<MatchOutcome> calculateRecentForm(List<Match> matches, int count) {
+  static List<MatchOutcome> calculateRecentForm(
+    List<Match> matches,
+    int count,
+  ) {
     // Sort matches by date (most recent first)
     final sortedMatches = List<Match>.from(matches)
       ..sort((a, b) => b.dateTime.compareTo(a.dateTime));
-    
+
     return sortedMatches
         .take(count)
         .map((match) => getMatchOutcome(match))
@@ -196,19 +212,19 @@ void main() {
       });
 
       test('should handle all wins', () {
-        final allWins = testMatches.where((match) => 
-          getMatchOutcome(match) == MatchOutcome.win
-        ).toList();
-        
+        final allWins = testMatches
+            .where((match) => getMatchOutcome(match) == MatchOutcome.win)
+            .toList();
+
         final winRate = StatisticsCalculator.calculateWinRate(allWins);
         expect(winRate, equals(100.0));
       });
 
       test('should handle all losses', () {
-        final allLosses = testMatches.where((match) => 
-          getMatchOutcome(match) == MatchOutcome.loss
-        ).toList();
-        
+        final allLosses = testMatches
+            .where((match) => getMatchOutcome(match) == MatchOutcome.loss)
+            .toList();
+
         final winRate = StatisticsCalculator.calculateWinRate(allLosses);
         expect(winRate, equals(0.0));
       });
@@ -216,28 +232,33 @@ void main() {
 
     group('calculateMatchTypeDistribution', () {
       test('should return correct distribution', () {
-        final distribution = StatisticsCalculator.calculateMatchTypeDistribution(testMatches);
-        
+        final distribution =
+            StatisticsCalculator.calculateMatchTypeDistribution(testMatches);
+
         expect(distribution[MatchType.friendly], equals(2));
         expect(distribution[MatchType.league], equals(1));
         expect(distribution[MatchType.tournament], equals(1));
       });
 
       test('should handle empty match list', () {
-        final distribution = StatisticsCalculator.calculateMatchTypeDistribution([]);
-        
+        final distribution =
+            StatisticsCalculator.calculateMatchTypeDistribution([]);
+
         expect(distribution[MatchType.friendly], equals(0));
         expect(distribution[MatchType.league], equals(0));
         expect(distribution[MatchType.tournament], equals(0));
       });
 
       test('should handle single match type', () {
-        final friendlyMatches = testMatches.where((match) => 
-          match.matchType == MatchType.friendly
-        ).toList();
-        
-        final distribution = StatisticsCalculator.calculateMatchTypeDistribution(friendlyMatches);
-        
+        final friendlyMatches = testMatches
+            .where((match) => match.matchType == MatchType.friendly)
+            .toList();
+
+        final distribution =
+            StatisticsCalculator.calculateMatchTypeDistribution(
+              friendlyMatches,
+            );
+
         expect(distribution[MatchType.friendly], equals(2));
         expect(distribution[MatchType.league], equals(0));
         expect(distribution[MatchType.tournament], equals(0));
@@ -246,16 +267,20 @@ void main() {
 
     group('calculateOutcomeDistribution', () {
       test('should return correct outcome distribution', () {
-        final distribution = StatisticsCalculator.calculateOutcomeDistribution(testMatches);
-        
+        final distribution = StatisticsCalculator.calculateOutcomeDistribution(
+          testMatches,
+        );
+
         expect(distribution[MatchOutcome.win], equals(2));
         expect(distribution[MatchOutcome.loss], equals(1));
         expect(distribution[MatchOutcome.draw], equals(1));
       });
 
       test('should handle empty match list', () {
-        final distribution = StatisticsCalculator.calculateOutcomeDistribution([]);
-        
+        final distribution = StatisticsCalculator.calculateOutcomeDistribution(
+          [],
+        );
+
         expect(distribution[MatchOutcome.win], equals(0));
         expect(distribution[MatchOutcome.loss], equals(0));
         expect(distribution[MatchOutcome.draw], equals(0));
@@ -265,12 +290,16 @@ void main() {
     group('calculateAveragePerformanceRating', () {
       test('should calculate correct average', () {
         // Ratings: 4, 2, 3, 5 = average 3.5
-        final average = StatisticsCalculator.calculateAveragePerformanceRating(testMatches);
+        final average = StatisticsCalculator.calculateAveragePerformanceRating(
+          testMatches,
+        );
         expect(average, equals(3.5));
       });
 
       test('should return 0 for empty match list', () {
-        final average = StatisticsCalculator.calculateAveragePerformanceRating([]);
+        final average = StatisticsCalculator.calculateAveragePerformanceRating(
+          [],
+        );
         expect(average, equals(0.0));
       });
 
@@ -289,40 +318,50 @@ void main() {
         );
 
         final matchesWithMixed = [...testMatches, matchWithoutRating];
-        final average = StatisticsCalculator.calculateAveragePerformanceRating(matchesWithMixed);
-        
+        final average = StatisticsCalculator.calculateAveragePerformanceRating(
+          matchesWithMixed,
+        );
+
         // Should still be 3.5 (ignoring the match without rating)
         expect(average, equals(3.5));
       });
 
       test('should return 0 when no matches have ratings', () {
-        final matchesWithoutRatings = testMatches.map((match) => Match(
-          id: match.id,
-          matchType: match.matchType,
-          dateTime: match.dateTime,
-          playingSide: match.playingSide,
-          partner: match.partner,
-          opponent1: match.opponent1,
-          opponent2: match.opponent2,
-          result: match.result,
-        )).toList();
+        final matchesWithoutRatings = testMatches
+            .map(
+              (match) => Match(
+                id: match.id,
+                matchType: match.matchType,
+                dateTime: match.dateTime,
+                playingSide: match.playingSide,
+                partner: match.partner,
+                opponent1: match.opponent1,
+                opponent2: match.opponent2,
+                result: match.result,
+              ),
+            )
+            .toList();
 
-        final average = StatisticsCalculator.calculateAveragePerformanceRating(matchesWithoutRatings);
+        final average = StatisticsCalculator.calculateAveragePerformanceRating(
+          matchesWithoutRatings,
+        );
         expect(average, equals(0.0));
       });
     });
 
     group('calculatePlayingSideDistribution', () {
       test('should return correct side distribution', () {
-        final distribution = StatisticsCalculator.calculatePlayingSideDistribution(testMatches);
-        
+        final distribution =
+            StatisticsCalculator.calculatePlayingSideDistribution(testMatches);
+
         expect(distribution[PlayingSide.right], equals(2));
         expect(distribution[PlayingSide.left], equals(2));
       });
 
       test('should handle empty match list', () {
-        final distribution = StatisticsCalculator.calculatePlayingSideDistribution([]);
-        
+        final distribution =
+            StatisticsCalculator.calculatePlayingSideDistribution([]);
+
         expect(distribution[PlayingSide.right], equals(0));
         expect(distribution[PlayingSide.left], equals(0));
       });
@@ -330,8 +369,10 @@ void main() {
 
     group('calculateWinRateByMatchType', () {
       test('should calculate win rates by match type', () {
-        final winRates = StatisticsCalculator.calculateWinRateByMatchType(testMatches);
-        
+        final winRates = StatisticsCalculator.calculateWinRateByMatchType(
+          testMatches,
+        );
+
         // Friendly: 1 win, 1 draw = 50% win rate
         expect(winRates[MatchType.friendly], equals(50.0));
         // League: 0 wins, 1 loss = 0% win rate
@@ -342,8 +383,10 @@ void main() {
 
       test('should handle match types with no matches', () {
         final singleMatch = [testMatches.first];
-        final winRates = StatisticsCalculator.calculateWinRateByMatchType(singleMatch);
-        
+        final winRates = StatisticsCalculator.calculateWinRateByMatchType(
+          singleMatch,
+        );
+
         expect(winRates[MatchType.friendly], equals(100.0));
         expect(winRates[MatchType.league], equals(0.0));
         expect(winRates[MatchType.tournament], equals(0.0));
@@ -352,8 +395,11 @@ void main() {
 
     group('calculateRecentForm', () {
       test('should return recent form in chronological order', () {
-        final recentForm = StatisticsCalculator.calculateRecentForm(testMatches, 3);
-        
+        final recentForm = StatisticsCalculator.calculateRecentForm(
+          testMatches,
+          3,
+        );
+
         // Should be ordered by most recent first
         expect(recentForm.length, equals(3));
         expect(recentForm[0], equals(MatchOutcome.win)); // match1 (Jan 15)
@@ -362,20 +408,26 @@ void main() {
       });
 
       test('should handle requesting more matches than available', () {
-        final recentForm = StatisticsCalculator.calculateRecentForm(testMatches, 10);
-        
+        final recentForm = StatisticsCalculator.calculateRecentForm(
+          testMatches,
+          10,
+        );
+
         expect(recentForm.length, equals(4)); // Only 4 matches available
       });
 
       test('should handle empty match list', () {
         final recentForm = StatisticsCalculator.calculateRecentForm([], 5);
-        
+
         expect(recentForm, isEmpty);
       });
 
       test('should handle requesting zero matches', () {
-        final recentForm = StatisticsCalculator.calculateRecentForm(testMatches, 0);
-        
+        final recentForm = StatisticsCalculator.calculateRecentForm(
+          testMatches,
+          0,
+        );
+
         expect(recentForm, isEmpty);
       });
     });

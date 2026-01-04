@@ -23,10 +23,7 @@ import 'package:padel_tracker/utils/date_formatter.dart';
 class MatchDetailPage extends ConsumerStatefulWidget {
   final Match match;
 
-  const MatchDetailPage({
-    super.key,
-    required this.match,
-  });
+  const MatchDetailPage({super.key, required this.match});
 
   @override
   ConsumerState<MatchDetailPage> createState() => _MatchDetailPageState();
@@ -35,7 +32,7 @@ class MatchDetailPage extends ConsumerStatefulWidget {
 class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
   bool _isEditMode = false;
   bool _isSubmitting = false;
-  
+
   // Controllers for edit mode
   late TextEditingController _partnerNameController;
   late TextEditingController _opponent1NameController;
@@ -43,7 +40,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
   late TextEditingController _locationController;
   late TextEditingController _durationHoursController;
   late TextEditingController _durationMinutesController;
-  
+
   late MatchType _selectedMatchType;
   late PlayingSide _selectedPlayingSide;
   late int _performanceRating;
@@ -57,28 +54,40 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
   }
 
   void _initializeControllers() {
-    _partnerNameController = TextEditingController(text: widget.match.partner.name);
-    _opponent1NameController = TextEditingController(text: widget.match.opponent1.name);
-    _opponent2NameController = TextEditingController(text: widget.match.opponent2.name);
-    _locationController = TextEditingController(text: widget.match.location ?? '');
-    
+    _partnerNameController = TextEditingController(
+      text: widget.match.partner.name,
+    );
+    _opponent1NameController = TextEditingController(
+      text: widget.match.opponent1.name,
+    );
+    _opponent2NameController = TextEditingController(
+      text: widget.match.opponent2.name,
+    );
+    _locationController = TextEditingController(
+      text: widget.match.location ?? '',
+    );
+
     final duration = widget.match.duration;
     _durationHoursController = TextEditingController(
-      text: duration != null ? duration.inHours.toString() : ''
+      text: duration != null ? duration.inHours.toString() : '',
     );
     _durationMinutesController = TextEditingController(
-      text: duration != null ? (duration.inMinutes % 60).toString() : ''
+      text: duration != null ? (duration.inMinutes % 60).toString() : '',
     );
-    
+
     _selectedMatchType = widget.match.matchType;
     _selectedPlayingSide = widget.match.playingSide;
     _performanceRating = widget.match.performanceRating ?? 3;
     _selectedDate = DateFormatter.dateOnly(widget.match.dateTime);
-    
-    _sets = widget.match.result.sets.map((set) => _PadelSetDraft(
-      userGames: set.userTeamGames.toString(),
-      opponentGames: set.opponentTeamGames.toString(),
-    )).toList();
+
+    _sets = widget.match.result.sets
+        .map(
+          (set) => _PadelSetDraft(
+            userGames: set.userTeamGames.toString(),
+            opponentGames: set.opponentTeamGames.toString(),
+          ),
+        )
+        .toList();
   }
 
   @override
@@ -111,29 +120,32 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
         backgroundColor: const Color(0xFFF8F8F8),
         elevation: 0,
         centerTitle: false,
-        leading: _isEditMode ? IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: _cancelEdit,
-        ) : null,
-        actions: _isEditMode ? [] : [
-          TextButton(
-            onPressed: _toggleEditMode,
-            child: Text(
-              AppLocalizations.of(context)!.edit,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF007AFF),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-        ],
+        leading: _isEditMode
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: _cancelEdit,
+              )
+            : null,
+        actions: _isEditMode
+            ? []
+            : [
+                TextButton(
+                  onPressed: _toggleEditMode,
+                  child: Text(
+                    AppLocalizations.of(context)!.edit,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF007AFF),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+              ],
       ),
       body: _isEditMode ? _buildEditMode() : _buildViewMode(),
     );
   }
-
 
   Widget _buildViewMode() {
     // Get the current match from provider
@@ -150,7 +162,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
           // Hero Section - No card, direct content
           HeroSectionWidget(match: currentMatch),
           const SizedBox(height: 32),
-          
+
           // Content with padding
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -171,7 +183,6 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
     );
   }
 
-
   Widget _buildEditMode() {
     return Column(
       children: [
@@ -191,10 +202,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
             decoration: const BoxDecoration(
               color: Color(0xFFF8F8F8),
               border: Border(
-                top: BorderSide(
-                  color: Color(0xFFE5E5EA),
-                  width: 0.5,
-                ),
+                top: BorderSide(color: Color(0xFFE5E5EA), width: 0.5),
               ),
             ),
             child: _buildSaveButton(),
@@ -225,10 +233,14 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
           CustomDropdownField<MatchType>(
             label: AppLocalizations.of(context)!.matchType,
             value: _selectedMatchType,
-            items: MatchType.values.map((type) => DropdownMenuItem(
-              value: type,
-              child: Text(_getMatchTypeName(type, context)),
-            )).toList(),
+            items: MatchType.values
+                .map(
+                  (type) => DropdownMenuItem(
+                    value: type,
+                    child: Text(_getMatchTypeName(type, context)),
+                  ),
+                )
+                .toList(),
             onChanged: (value) {
               if (value != null) {
                 setState(() => _selectedMatchType = value);
@@ -239,10 +251,14 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
           CustomDropdownField<PlayingSide>(
             label: AppLocalizations.of(context)!.playingSide,
             value: _selectedPlayingSide,
-            items: PlayingSide.values.map((side) => DropdownMenuItem(
-              value: side,
-              child: Text(_getPlayingSideName(side, context)),
-            )).toList(),
+            items: PlayingSide.values
+                .map(
+                  (side) => DropdownMenuItem(
+                    value: side,
+                    child: Text(_getPlayingSideName(side, context)),
+                  ),
+                )
+                .toList(),
             onChanged: (value) {
               if (value != null) {
                 setState(() => _selectedPlayingSide = value);
@@ -252,7 +268,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
         ],
       ),
       const SizedBox(height: 20),
-      
+
       SectionCard(
         title: AppLocalizations.of(context)!.players,
         icon: Icons.people_outline,
@@ -274,7 +290,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
         ],
       ),
       const SizedBox(height: 20),
-      
+
       SectionCard(
         title: AppLocalizations.of(context)!.additionalDetails,
         icon: Icons.more_horiz,
@@ -312,7 +328,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
         ],
       ),
       const SizedBox(height: 20),
-      
+
       SectionCard(
         title: AppLocalizations.of(context)!.sets,
         icon: Icons.sports_tennis,
@@ -322,7 +338,9 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
             final index = entry.key;
             final set = entry.value;
             return Padding(
-              padding: EdgeInsets.only(bottom: index < _sets.length - 1 ? 16 : 0),
+              padding: EdgeInsets.only(
+                bottom: index < _sets.length - 1 ? 16 : 0,
+              ),
               child: SetCard(
                 index: index,
                 userGamesController: set.userGamesController,
@@ -335,7 +353,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
         ],
       ),
       const SizedBox(height: 20),
-      
+
       SectionCard(
         title: AppLocalizations.of(context)!.performanceRating,
         icon: Icons.star_outline,
@@ -356,9 +374,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
               final rating = index + 1;
               return IconButton(
                 icon: Icon(
-                  rating <= _performanceRating
-                      ? Icons.star
-                      : Icons.star_border,
+                  rating <= _performanceRating ? Icons.star : Icons.star_border,
                   color: const Color(0xFFFF9500),
                   size: 36,
                 ),
@@ -418,12 +434,12 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
       if (hours > 0 || minutes > 0) {
         matchDuration = Duration(hours: hours, minutes: minutes);
       }
-      
+
       // Get location from input field
-      final location = _locationController.text.trim().isEmpty 
-          ? null 
+      final location = _locationController.text.trim().isEmpty
+          ? null
           : _locationController.text.trim();
-      
+
       final updatedMatch = Match(
         id: widget.match.id, // Keep same ID
         matchType: _selectedMatchType,
@@ -442,10 +458,14 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
           name: _opponent2NameController.text.trim(),
         ),
         result: MatchResult(
-          sets: _sets.map((set) => PadelSet(
-            userTeamGames: set.userGames,
-            opponentTeamGames: set.opponentGames,
-          )).toList(),
+          sets: _sets
+              .map(
+                (set) => PadelSet(
+                  userTeamGames: set.userGames,
+                  opponentTeamGames: set.opponentGames,
+                ),
+              )
+              .toList(),
         ),
         performanceRating: _performanceRating,
         duration: matchDuration,
@@ -463,7 +483,9 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.matchUpdatedSuccessfully),
+            content: Text(
+              AppLocalizations.of(context)!.matchUpdatedSuccessfully,
+            ),
             backgroundColor: const Color(0xFF34C759),
           ),
         );
@@ -473,7 +495,9 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.errorUpdatingMatch(e.toString())),
+            content: Text(
+              AppLocalizations.of(context)!.errorUpdatingMatch(e.toString()),
+            ),
             backgroundColor: const Color(0xFFFF3B30),
           ),
         );
@@ -521,7 +545,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
       width: double.infinity,
       height: 56,
       decoration: BoxDecoration(
-        color: _isSubmitting 
+        color: _isSubmitting
             ? const Color(0xFF007AFF).withOpacity(0.6)
             : const Color(0xFF007AFF),
         borderRadius: BorderRadius.circular(16),
@@ -561,11 +585,9 @@ class _PadelSetDraft {
   final TextEditingController userGamesController;
   final TextEditingController opponentGamesController;
 
-  _PadelSetDraft({
-    String userGames = '',
-    String opponentGames = '',
-  })  : userGamesController = TextEditingController(text: userGames),
-        opponentGamesController = TextEditingController(text: opponentGames);
+  _PadelSetDraft({String userGames = '', String opponentGames = ''})
+    : userGamesController = TextEditingController(text: userGames),
+      opponentGamesController = TextEditingController(text: opponentGames);
 
   void dispose() {
     userGamesController.dispose();

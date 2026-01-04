@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /// Repository for managing onboarding state persistence
-/// 
+///
 /// Handles storing and retrieving whether the user has seen the onboarding
 /// using Hive for local storage.
 class OnboardingRepository {
   static const String _boxName = 'onboarding';
   static const String _hasSeenOnboardingKey = 'hasSeenOnboarding';
-  
+
   Box? _box;
 
   /// Initialize the Hive box for onboarding data
@@ -29,13 +29,13 @@ class OnboardingRepository {
   }
 
   /// Debug utility for development/testing only
-  /// 
+  ///
   /// Resets the onboarding state by deleting the hasSeenOnboarding flag,
   /// allowing the onboarding flow to be shown again on next app start.
-  /// 
+  ///
   /// **IMPORTANT**: This method only works in debug mode (kDebugMode = true).
   /// It has no effect in release builds for production safety.
-  /// 
+  ///
   /// Usage: Call this method during development to re-test the onboarding flow
   /// without reinstalling the app.
   Future<void> resetOnboarding() async {
