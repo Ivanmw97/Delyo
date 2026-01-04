@@ -6,10 +6,7 @@ import 'package:padel_tracker/utils/duration_formatter.dart';
 class MatchInfoCardWidget extends StatelessWidget {
   final Match match;
 
-  const MatchInfoCardWidget({
-    super.key,
-    required this.match,
-  });
+  const MatchInfoCardWidget({super.key, required this.match});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,7 @@ class MatchInfoCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -34,41 +31,41 @@ class MatchInfoCardWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 20),
-          
+
           _buildInfoRow(
-            Icons.sports_tennis, 
-            AppLocalizations.of(context)!.playingSide, 
-            _getPlayingSideName(match.playingSide, context)
+            Icons.sports_tennis,
+            AppLocalizations.of(context)!.playingSide,
+            _getPlayingSideName(match.playingSide, context),
           ),
           const SizedBox(height: 16),
-          
+
           _buildInfoRow(
-            Icons.emoji_events, 
-            AppLocalizations.of(context)!.matchType, 
+            Icons.emoji_events,
+            AppLocalizations.of(context)!.matchType,
             _getMatchTypeName(match.matchType, context),
-            isChip: true
+            isChip: true,
           ),
-          
+
           if (match.location?.isNotEmpty == true) ...[
             const SizedBox(height: 16),
             _buildInfoRow(
-              Icons.location_on, 
-              AppLocalizations.of(context)!.location, 
-              match.location!
+              Icons.location_on,
+              AppLocalizations.of(context)!.location,
+              match.location!,
             ),
           ],
-          
+
           if (match.duration != null) ...[
             const SizedBox(height: 16),
             _buildInfoRow(
-              Icons.schedule, 
-              AppLocalizations.of(context)!.duration, 
-              DurationFormatter.formatDuration(match.duration!, context) ?? ''
+              Icons.schedule,
+              AppLocalizations.of(context)!.duration,
+              DurationFormatter.formatDuration(match.duration!, context) ?? '',
             ),
           ],
         ],
@@ -76,14 +73,15 @@ class MatchInfoCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String label, String value, {bool isChip = false}) {
+  Widget _buildInfoRow(
+    IconData icon,
+    String label,
+    String value, {
+    bool isChip = false,
+  }) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 20,
-          color: const Color(0xFF8E8E93),
-        ),
+        Icon(icon, size: 20, color: const Color(0xFF8E8E93)),
         const SizedBox(width: 12),
         Expanded(
           child: Row(
@@ -94,17 +92,19 @@ class MatchInfoCardWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
               ),
-              isChip ? _buildMatchTypeChip(value) : Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF1D1D1F),
-                ),
-              ),
+              isChip
+                  ? _buildMatchTypeChip(value)
+                  : Text(
+                      value,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF1D1D1F),
+                      ),
+                    ),
             ],
           ),
         ),
@@ -116,7 +116,7 @@ class MatchInfoCardWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFF1D1D1F).withOpacity(0.06),
+        color: const Color(0xFF1D1D1F).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -124,7 +124,7 @@ class MatchInfoCardWidget extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF1D1D1F).withOpacity(0.8),
+          color: const Color(0xFF1D1D1F).withValues(alpha: 0.8),
         ),
       ),
     );

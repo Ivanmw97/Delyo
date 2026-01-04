@@ -6,21 +6,19 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 class PerformanceInsightsWidget extends StatelessWidget {
   final List matches;
 
-  const PerformanceInsightsWidget({
-    super.key,
-    required this.matches,
-  });
+  const PerformanceInsightsWidget({super.key, required this.matches});
 
   @override
   Widget build(BuildContext context) {
-    final avgRating = matches.isNotEmpty 
-        ? matches.map((m) => m.performanceRating ?? 3).reduce((a, b) => a + b) / matches.length
+    final avgRating = matches.isNotEmpty
+        ? matches.map((m) => m.performanceRating ?? 3).reduce((a, b) => a + b) /
+              matches.length
         : 0.0;
-    
-    final recentMatches = matches.length >= 5 
+
+    final recentMatches = matches.length >= 5
         ? matches.take(5).toList()
         : matches;
-    
+
     final recentWins = recentMatches
         .where((m) => getMatchOutcome(m) == MatchOutcome.win)
         .length;
@@ -31,7 +29,7 @@ class PerformanceInsightsWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -46,12 +44,12 @@ class PerformanceInsightsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 16),
-          
+
           Row(
             children: [
               Expanded(
@@ -68,7 +66,9 @@ class PerformanceInsightsWidget extends StatelessWidget {
                 child: _buildInsightCard(
                   AppLocalizations.of(context)!.recentForm,
                   '$recentWins/${recentMatches.length}',
-                  AppLocalizations.of(context)!.winsInLastMatches(recentMatches.length),
+                  AppLocalizations.of(
+                    context,
+                  )!.winsInLastMatches(recentMatches.length),
                   Icons.trending_up,
                   const Color(0xFF34C759),
                 ),
@@ -80,28 +80,30 @@ class PerformanceInsightsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInsightCard(String label, String value, String subtitle, IconData icon, Color color) {
+  Widget _buildInsightCard(
+    String label,
+    String value,
+    String subtitle,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            size: 20,
-            color: color,
-          ),
+          Icon(icon, size: 20, color: color),
           const SizedBox(height: 8),
           Text(
             label,
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 4),
@@ -119,7 +121,7 @@ class PerformanceInsightsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withOpacity(0.5),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.5),
               letterSpacing: -0.1,
             ),
           ),

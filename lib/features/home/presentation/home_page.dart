@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:padel_tracker/features/matches/state/matches_provider.dart';
 import 'package:padel_tracker/features/shared/state/filtered_matches_provider.dart';
 import 'package:padel_tracker/features/shared/widgets/time_range_filter.dart';
@@ -31,19 +30,23 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   String _getPerformanceMessage(int wins, int losses, int draws) {
     final totalMatches = wins + losses + draws;
-    
+
     if (totalMatches == 0) return AppLocalizations.of(context)!.readyToStart;
-    
+
     if (losses == 0 && wins > 0) {
-      return totalMatches == 1 ? AppLocalizations.of(context)!.perfectStart : AppLocalizations.of(context)!.undefeatedSoFar;
+      return totalMatches == 1
+          ? AppLocalizations.of(context)!.perfectStart
+          : AppLocalizations.of(context)!.undefeatedSoFar;
     }
-    
+
     if (wins == 0 && losses > 0) {
-      return totalMatches == 1 ? AppLocalizations.of(context)!.firstMatchDone : AppLocalizations.of(context)!.stillFindingRhythm;
+      return totalMatches == 1
+          ? AppLocalizations.of(context)!.firstMatchDone
+          : AppLocalizations.of(context)!.stillFindingRhythm;
     }
-    
+
     final winRate = wins / (wins + losses);
-    
+
     if (winRate >= 0.7) {
       return AppLocalizations.of(context)!.strongPerformance;
     } else if (winRate <= 0.3) {
@@ -55,20 +58,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     } else {
       return AppLocalizations.of(context)!.learningAndImproving;
     }
-    
-    return AppLocalizations.of(context)!.steadyProgress;
   }
 
-  List<MatchOutcome> _getRecentOutcomes(List<dynamic> matches, {int limit = 5}) {
-    return matches
-        .take(limit)
-        .map((match) => getMatchOutcome(match))
-        .toList();
+  List<MatchOutcome> _getRecentOutcomes(
+    List<dynamic> matches, {
+    int limit = 5,
+  }) {
+    return matches.take(limit).map((match) => getMatchOutcome(match)).toList();
   }
 
   Widget _buildSetScores(dynamic match) {
     final sets = match.result.sets;
-    
+
     if (sets.isEmpty) {
       return Text(
         '${match.result.setsWon}–${match.result.setsLost}',
@@ -99,7 +100,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ),
       );
-      
+
       if (i < sets.length - 1) {
         spans.add(
           TextSpan(
@@ -107,7 +108,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withOpacity(0.6),
+              color: const Color(0xFF8E8E93).withValues(alpha: 0.8),
               letterSpacing: -0.8,
               height: 0.9,
             ),
@@ -115,7 +116,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         );
       }
     }
-    
+
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(children: spans),
@@ -150,10 +151,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       body: matchesState.isLoading
           ? const Center(child: CircularProgressIndicator())
           : matchesState.matches.isEmpty
-              ? _buildEmptyState()
-              : filteredMatches.isEmpty
-                  ? _buildEmptyFilteredState()
-                  : _buildContent(filteredMatches),
+          ? _buildEmptyState()
+          : filteredMatches.isEmpty
+          ? _buildEmptyFilteredState()
+          : _buildContent(filteredMatches),
     );
   }
 
@@ -164,9 +165,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       onAddMatch: () async {
         await Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const AddMatchPage(),
-          ),
+          MaterialPageRoute(builder: (context) => const AddMatchPage()),
         );
       },
     );
@@ -179,27 +178,26 @@ class _HomePageState extends ConsumerState<HomePage> {
         // Keep the time range filter at the top for easy access
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-          child: Row(
-            children: [
-              const TimeRangeFilter(),
-              const Spacer(),
-            ],
-          ),
+          child: Row(children: [const TimeRangeFilter(), const Spacer()]),
         ),
         // Clean empty state below
-        Expanded(
-          child: EmptyStateExamples.homeFiltered(context),
-        ),
+        Expanded(child: EmptyStateExamples.homeFiltered(context)),
       ],
     );
   }
 
   Widget _buildContent(List filteredMatches) {
     final matches = filteredMatches;
-    
-    final wins = matches.where((m) => getMatchOutcome(m) == MatchOutcome.win).length;
-    final losses = matches.where((m) => getMatchOutcome(m) == MatchOutcome.loss).length;
-    final draws = matches.where((m) => getMatchOutcome(m) == MatchOutcome.draw).length;
+
+    final wins = matches
+        .where((m) => getMatchOutcome(m) == MatchOutcome.win)
+        .length;
+    final losses = matches
+        .where((m) => getMatchOutcome(m) == MatchOutcome.loss)
+        .length;
+    final draws = matches
+        .where((m) => getMatchOutcome(m) == MatchOutcome.draw)
+        .length;
 
     final lastMatch = matches.isNotEmpty ? matches.first : null;
 
@@ -217,13 +215,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 '${matches.length} matches',
                 style: TextStyle(
                   fontSize: 14,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 20),
-          
+
           PerformanceBlockWidget(
             totalMatches: matches.length,
             wins: wins,
@@ -243,15 +241,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             Row(
               children: [
                 Expanded(
-                  child: DurationCardWidget(
-                    duration: lastMatch.duration,
-                  ),
+                  child: DurationCardWidget(duration: lastMatch.duration),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: LocationCardWidget(
-                    location: lastMatch.location,
-                  ),
+                  child: LocationCardWidget(location: lastMatch.location),
                 ),
               ],
             ),

@@ -6,7 +6,6 @@ import 'package:padel_tracker/features/matches/presentation/pages/add_match_page
 import 'package:padel_tracker/features/matches/presentation/widgets/add_match/date_picker_field.dart';
 import 'package:padel_tracker/features/matches/state/matches_provider.dart';
 import 'package:padel_tracker/features/matches/state/matches_notifier.dart';
-import 'package:padel_tracker/features/matches/state/matches_state.dart';
 import 'package:padel_tracker/domain/repositories/match_repository.dart';
 import 'package:padel_tracker/domain/models/match.dart' as domain;
 import 'package:padel_tracker/l10n/app_localizations.dart';
@@ -49,33 +48,37 @@ void main() {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en'),
-          ],
+          supportedLocales: const [Locale('en')],
           home: const AddMatchPage(),
         ),
       );
     }
 
     group('Date Field Display', () {
-      testWidgets('should display date picker field', (WidgetTester tester) async {
+      testWidgets('should display date picker field', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
         expect(find.byType(DatePickerField), findsOneWidget);
       });
 
-      testWidgets('should display today\'s date by default', (WidgetTester tester) async {
+      testWidgets('should display today\'s date by default', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
         final today = DateFormatter.dateOnly(DateTime.now());
         final formattedToday = DateFormatter.formatDisplayDate(today);
-        
+
         expect(find.text(formattedToday), findsOneWidget);
       });
 
-      testWidgets('should display match date label', (WidgetTester tester) async {
+      testWidgets('should display match date label', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
@@ -84,7 +87,9 @@ void main() {
     });
 
     group('Date Selection', () {
-      testWidgets('should open date picker when date field is tapped', (WidgetTester tester) async {
+      testWidgets('should open date picker when date field is tapped', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
@@ -99,7 +104,9 @@ void main() {
         expect(find.byType(DatePickerDialog), findsOneWidget);
       });
 
-      testWidgets('should update displayed date when new date is selected', (WidgetTester tester) async {
+      testWidgets('should update displayed date when new date is selected', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
@@ -127,7 +134,9 @@ void main() {
     });
 
     group('Date Validation', () {
-      testWidgets('should show error for future dates', (WidgetTester tester) async {
+      testWidgets('should show error for future dates', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
@@ -137,20 +146,24 @@ void main() {
         expect(find.byType(DatePickerField), findsOneWidget);
       });
 
-      testWidgets('should not show error for valid dates', (WidgetTester tester) async {
+      testWidgets('should not show error for valid dates', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
         final datePickerField = find.byType(DatePickerField);
         final widget = tester.widget<DatePickerField>(datePickerField);
-        
+
         // Verify no error text is shown for today's date
         expect(widget.errorText, isNull);
       });
     });
 
     group('Form Integration', () {
-      testWidgets('should be part of match details section', (WidgetTester tester) async {
+      testWidgets('should be part of match details section', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
@@ -159,32 +172,38 @@ void main() {
         expect(find.byType(DatePickerField), findsOneWidget);
       });
 
-      testWidgets('should be positioned before match type field', (WidgetTester tester) async {
+      testWidgets('should be positioned before match type field', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
         // Find both fields
         final dateField = find.byType(DatePickerField);
         final matchTypeText = find.text('Match Type');
-        
+
         expect(dateField, findsOneWidget);
         expect(matchTypeText, findsOneWidget);
 
         // Verify date field comes before match type in the widget tree
         final dateFieldPosition = tester.getTopLeft(dateField);
         final matchTypePosition = tester.getTopLeft(matchTypeText);
-        
+
         expect(dateFieldPosition.dy, lessThan(matchTypePosition.dy));
       });
     });
 
     group('State Management', () {
-      testWidgets('should maintain selected date during form interaction', (WidgetTester tester) async {
+      testWidgets('should maintain selected date during form interaction', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
-        final initialDate = DateFormatter.formatDisplayDate(DateFormatter.dateOnly(DateTime.now()));
-        
+        final initialDate = DateFormatter.formatDisplayDate(
+          DateFormatter.dateOnly(DateTime.now()),
+        );
+
         // Verify initial date is displayed
         expect(find.text(initialDate), findsOneWidget);
 
@@ -198,7 +217,9 @@ void main() {
     });
 
     group('Accessibility', () {
-      testWidgets('should have proper semantics for date field', (WidgetTester tester) async {
+      testWidgets('should have proper semantics for date field', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 
@@ -214,7 +235,9 @@ void main() {
         expect(gestureDetector, findsOneWidget);
       });
 
-      testWidgets('should show required indicator', (WidgetTester tester) async {
+      testWidgets('should show required indicator', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
         await tester.pumpAndSettle();
 

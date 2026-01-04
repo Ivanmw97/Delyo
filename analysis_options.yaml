@@ -6,5 +6,5 @@ linter:
     prefer_single_quotes: true
     always_use_package_imports: false
     unnecessary_this: true
-    avoid_unused_parameters: true
+    # avoid_unused_parameters: true  # Not available in flutter_lints
     sort_child_properties_last: true

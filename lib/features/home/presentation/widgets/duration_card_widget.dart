@@ -4,11 +4,8 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 
 class DurationCardWidget extends StatelessWidget {
   final Duration? duration;
-  
-  const DurationCardWidget({
-    super.key,
-    this.duration,
-  });
+
+  const DurationCardWidget({super.key, this.duration});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,7 @@ class DurationCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -34,7 +31,7 @@ class DurationCardWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -44,11 +41,17 @@ class DurationCardWidget extends StatelessWidget {
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
               child: Text(
-                DurationFormatter.formatDurationWithFallback(duration, context, AppLocalizations.of(context)!.notSet),
+                DurationFormatter.formatDurationWithFallback(
+                  duration,
+                  context,
+                  AppLocalizations.of(context)!.notSet,
+                ),
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  color: duration != null ? const Color(0xFF1D1D1F) : const Color(0xFF1D1D1F).withOpacity(0.4),
+                  color: duration != null
+                      ? const Color(0xFF1D1D1F)
+                      : const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                   letterSpacing: -0.5,
                 ),
               ),

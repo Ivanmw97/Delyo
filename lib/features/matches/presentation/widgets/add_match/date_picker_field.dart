@@ -48,7 +48,7 @@ class DatePickerField extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        
+
         // Date field
         GestureDetector(
           onTap: () => _showDatePicker(context),
@@ -59,14 +59,14 @@ class DatePickerField extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: errorText != null 
-                    ? const Color(0xFFFF3B30) 
-                    : const Color(0xFF1D1D1F).withOpacity(0.1),
+                color: errorText != null
+                    ? const Color(0xFFFF3B30)
+                    : const Color(0xFF1D1D1F).withValues(alpha: 0.1),
                 width: errorText != null ? 2 : 1,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF1D1D1F).withOpacity(0.04),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -77,7 +77,7 @@ class DatePickerField extends StatelessWidget {
                 Icon(
                   Icons.calendar_today,
                   size: 20,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -93,13 +93,13 @@ class DatePickerField extends StatelessWidget {
                 Icon(
                   Icons.arrow_drop_down,
                   size: 24,
-                  color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
                 ),
               ],
             ),
           ),
         ),
-        
+
         // Error text
         if (errorText != null) ...[
           const SizedBox(height: 6),
@@ -119,7 +119,7 @@ class DatePickerField extends StatelessWidget {
   Future<void> _showDatePicker(BuildContext context) async {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    
+
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,

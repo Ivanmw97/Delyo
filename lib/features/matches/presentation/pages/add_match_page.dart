@@ -27,11 +27,9 @@ class _PadelSetDraft {
   final TextEditingController userGamesController;
   final TextEditingController opponentGamesController;
 
-  _PadelSetDraft({
-    String userGames = '',
-    String opponentGames = '',
-  })  : userGamesController = TextEditingController(text: userGames),
-        opponentGamesController = TextEditingController(text: opponentGames);
+  _PadelSetDraft({String userGames = '', String opponentGames = ''})
+    : userGamesController = TextEditingController(text: userGames),
+      opponentGamesController = TextEditingController(text: opponentGames);
 
   void dispose() {
     userGamesController.dispose();
@@ -40,7 +38,7 @@ class _PadelSetDraft {
 
   int get userGames => int.tryParse(userGamesController.text) ?? 0;
   int get opponentGames => int.tryParse(opponentGamesController.text) ?? 0;
-  
+
   bool get isUserWinner => userGames > opponentGames;
 }
 
@@ -51,14 +49,14 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
   final _locationController = TextEditingController();
   final _durationHoursController = TextEditingController();
   final _durationMinutesController = TextEditingController();
-  
+
   final List<_PadelSetDraft> _sets = [];
-  
+
   MatchType _selectedMatchType = MatchType.friendly;
   PlayingSide _selectedPlayingSide = PlayingSide.right;
   int _performanceRating = 3;
   bool _isSubmitting = false;
-  
+
   // Match date - defaults to today
   late DateTime _selectedDate;
 
@@ -99,7 +97,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
 
   bool get _isOfficialMatch {
     return _selectedMatchType == MatchType.league ||
-           _selectedMatchType == MatchType.tournament;
+        _selectedMatchType == MatchType.tournament;
   }
 
   @override
@@ -118,7 +116,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
 
   void _onMatchTypeChanged(MatchType? newType) {
     if (newType == null || newType == _selectedMatchType) return;
-    
+
     setState(() {
       for (var set in _sets) {
         set.dispose();
@@ -126,26 +124,6 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       _selectedMatchType = newType;
       _initializeSets();
     });
-  }
-
-  void _syncOfficialSets() {
-    if (!_isOfficialMatch || _sets.length < 2) return;
-
-    int userSetsWon = _sets.take(2).where((s) => s.isUserWinner).length;
-    int opponentSetsWon = 2 - userSetsWon;
-
-    bool isSplit = userSetsWon == 1 && opponentSetsWon == 1;
-    bool shouldHaveThirdSet = isSplit;
-    bool hasThirdSet = _sets.length == 3;
-
-    if (shouldHaveThirdSet && !hasThirdSet) {
-      // Add third set
-      _sets.add(_PadelSetDraft());
-    } else if (!shouldHaveThirdSet && hasThirdSet) {
-      // Remove third set
-      _sets[2].dispose();
-      _sets.removeAt(2);
-    }
   }
 
   bool get _canAddSet {
@@ -185,16 +163,6 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     }
   }
 
-  void _onSetScoreChanged() {
-    if (_isOfficialMatch) {
-      setState(() {
-        _syncOfficialSets();
-      });
-    } else {
-      setState(() {});
-    }
-  }
-
   String? _getDateValidationError() {
     if (DateFormatter.isFutureDate(_selectedDate)) {
       return AppLocalizations.of(context)!.futureDateNotAllowed;
@@ -217,7 +185,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       // Official matches must have a clear winner
       int userSetsWon = _sets.where((s) => s.isUserWinner).length;
       int opponentSetsWon = _sets.length - userSetsWon;
-      
+
       bool hasWinner = userSetsWon >= 2 || opponentSetsWon >= 2;
       if (!hasWinner) {
         return AppLocalizations.of(context)!.officialMatchesMustHaveWinner;
@@ -244,172 +212,198 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
         elevation: 0,
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SectionCard(
-              title: AppLocalizations.of(context)!.matchDetails,
-              icon: Icons.info_outline,
-              children: [
-                DatePickerField(
-                  selectedDate: _selectedDate,
-                  onDateSelected: (date) {
-                    setState(() {
-                      _selectedDate = date;
-                    });
-                  },
-                  label: AppLocalizations.of(context)!.matchDate,
-                  errorText: _getDateValidationError(),
-                ),
-                const SizedBox(height: 16),
-                CustomDropdownField<MatchType>(
-                  label: AppLocalizations.of(context)!.matchType,
-                  value: _selectedMatchType,
-                  items: MatchType.values.map((type) => DropdownMenuItem(
-                    value: type,
-                    child: Text(_getMatchTypeName(type, context)),
-                  )).toList(),
-                  onChanged: _onMatchTypeChanged,
-                ),
-                const SizedBox(height: 16),
-                CustomDropdownField<PlayingSide>(
-                  label: AppLocalizations.of(context)!.playingSide,
-                  value: _selectedPlayingSide,
-                  items: PlayingSide.values.map((side) => DropdownMenuItem(
-                    value: side,
-                    child: Text(_getPlayingSideName(side, context)),
-                  )).toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _selectedPlayingSide = value);
-                    }
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            
-            SectionCard(
-              title: AppLocalizations.of(context)!.players,
-              icon: Icons.people_outline,
-              children: [
-                CustomTextField(
-                  controller: _partnerNameController,
-                  label: AppLocalizations.of(context)!.partnerName,
-                ),
-                const SizedBox(height: 16),
-                CustomTextField(
-                  controller: _opponent1NameController,
-                  label: AppLocalizations.of(context)!.opponent1Name,
-                ),
-                const SizedBox(height: 16),
-                CustomTextField(
-                  controller: _opponent2NameController,
-                  label: AppLocalizations.of(context)!.opponent2Name,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            
-            SectionCard(
-              title: AppLocalizations.of(context)!.additionalDetails,
-              icon: Icons.more_horiz,
-              children: [
-                CustomTextField(
-                  controller: _locationController,
-                  label: AppLocalizations.of(context)!.location,
-                  hint: AppLocalizations.of(context)!.locationHint,
-                  isOptional: true,
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        controller: _durationHoursController,
-                        label: AppLocalizations.of(context)!.hours,
-                        hint: '1',
-                        keyboardType: TextInputType.number,
-                        isOptional: true,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SectionCard(
+                    title: AppLocalizations.of(context)!.matchDetails,
+                    icon: Icons.info_outline,
+                    children: [
+                      DatePickerField(
+                        selectedDate: _selectedDate,
+                        onDateSelected: (date) {
+                          setState(() {
+                            _selectedDate = date;
+                          });
+                        },
+                        label: AppLocalizations.of(context)!.matchDate,
+                        errorText: _getDateValidationError(),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: CustomTextField(
-                        controller: _durationMinutesController,
-                        label: AppLocalizations.of(context)!.minutes,
-                        hint: '30',
-                        keyboardType: TextInputType.number,
-                        isOptional: true,
+                      const SizedBox(height: 16),
+                      CustomDropdownField<MatchType>(
+                        label: AppLocalizations.of(context)!.matchType,
+                        value: _selectedMatchType,
+                        items: MatchType.values
+                            .map(
+                              (type) => DropdownMenuItem(
+                                value: type,
+                                child: Text(_getMatchTypeName(type, context)),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: _onMatchTypeChanged,
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            
-            SectionCard(
-              title: AppLocalizations.of(context)!.sets,
-              icon: Icons.sports_tennis,
-              actionWidget: _canAddSet ? AddSetButton(onTap: _addSet) : null,
-              children: [
-                ..._sets.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final set = entry.value;
-                  return SetCard(
-                    index: index,
-                    userGamesController: set.userGamesController,
-                    opponentGamesController: set.opponentGamesController,
-                    canRemove: _canRemoveSet,
-                    onRemove: () => _removeSet(index),
-                  );
-                }).toList(),
-              ],
-            ),
-            const SizedBox(height: 20),
-            
-            SectionCard(
-              title: AppLocalizations.of(context)!.performanceRating,
-              icon: Icons.star_outline,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.performanceRatingHelper,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                      const SizedBox(height: 16),
+                      CustomDropdownField<PlayingSide>(
+                        label: AppLocalizations.of(context)!.playingSide,
+                        value: _selectedPlayingSide,
+                        items: PlayingSide.values
+                            .map(
+                              (side) => DropdownMenuItem(
+                                value: side,
+                                child: Text(_getPlayingSideName(side, context)),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() => _selectedPlayingSide = value);
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(5, (index) {
-                    final rating = index + 1;
-                    return IconButton(
-                      icon: Icon(
-                        rating <= _performanceRating
-                            ? Icons.star
-                            : Icons.star_border,
-                        color: const Color(0xFFFF9500),
-                        size: 36,
+                  const SizedBox(height: 20),
+
+                  SectionCard(
+                    title: AppLocalizations.of(context)!.players,
+                    icon: Icons.people_outline,
+                    children: [
+                      CustomTextField(
+                        controller: _partnerNameController,
+                        label: AppLocalizations.of(context)!.partnerName,
                       ),
-                      onPressed: () {
-                        setState(() => _performanceRating = rating);
-                      },
-                    );
-                  }),
-                ),
-              ],
+                      const SizedBox(height: 16),
+                      CustomTextField(
+                        controller: _opponent1NameController,
+                        label: AppLocalizations.of(context)!.opponent1Name,
+                      ),
+                      const SizedBox(height: 16),
+                      CustomTextField(
+                        controller: _opponent2NameController,
+                        label: AppLocalizations.of(context)!.opponent2Name,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  SectionCard(
+                    title: AppLocalizations.of(context)!.additionalDetails,
+                    icon: Icons.more_horiz,
+                    children: [
+                      CustomTextField(
+                        controller: _locationController,
+                        label: AppLocalizations.of(context)!.location,
+                        hint: AppLocalizations.of(context)!.locationHint,
+                        isOptional: true,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              controller: _durationHoursController,
+                              label: AppLocalizations.of(context)!.hours,
+                              hint: '1',
+                              keyboardType: TextInputType.number,
+                              isOptional: true,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: CustomTextField(
+                              controller: _durationMinutesController,
+                              label: AppLocalizations.of(context)!.minutes,
+                              hint: '30',
+                              keyboardType: TextInputType.number,
+                              isOptional: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  SectionCard(
+                    title: AppLocalizations.of(context)!.sets,
+                    icon: Icons.sports_tennis,
+                    actionWidget: _canAddSet
+                        ? AddSetButton(onTap: _addSet)
+                        : null,
+                    children: [
+                      ..._sets.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final set = entry.value;
+                        return SetCard(
+                          index: index,
+                          userGamesController: set.userGamesController,
+                          opponentGamesController: set.opponentGamesController,
+                          canRemove: _canRemoveSet,
+                          onRemove: () => _removeSet(index),
+                        );
+                      }),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  SectionCard(
+                    title: AppLocalizations.of(context)!.performanceRating,
+                    icon: Icons.star_outline,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.performanceRatingHelper,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(5, (index) {
+                          final rating = index + 1;
+                          return IconButton(
+                            icon: Icon(
+                              rating <= _performanceRating
+                                  ? Icons.star
+                                  : Icons.star_border,
+                              color: const Color(0xFFFF9500),
+                              size: 36,
+                            ),
+                            onPressed: () {
+                              setState(() => _performanceRating = rating);
+                            },
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
-            const SizedBox(height: 32),
-            
-            _buildSaveButton(),
-          ],
-        ),
+          ),
+          SafeArea(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+              decoration: const BoxDecoration(
+                color: Color(0xFFF8F8F8),
+                border: Border(
+                  top: BorderSide(color: Color(0xFFE5E5EA), width: 0.5),
+                ),
+              ),
+              child: _buildSaveButton(),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -418,10 +412,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     final validationError = _validateMatch();
     if (validationError != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(validationError),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text(validationError), backgroundColor: Colors.red),
       );
       return;
     }
@@ -436,12 +427,12 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       if (hours > 0 || minutes > 0) {
         matchDuration = Duration(hours: hours, minutes: minutes);
       }
-      
+
       // Get location from input field
-      final location = _locationController.text.trim().isEmpty 
-          ? null 
+      final location = _locationController.text.trim().isEmpty
+          ? null
           : _locationController.text.trim();
-      
+
       final match = Match(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         matchType: _selectedMatchType,
@@ -460,10 +451,14 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
           name: _opponent2NameController.text.trim(),
         ),
         result: MatchResult(
-          sets: _sets.map((set) => PadelSet(
-            userTeamGames: set.userGames,
-            opponentTeamGames: set.opponentGames,
-          )).toList(),
+          sets: _sets
+              .map(
+                (set) => PadelSet(
+                  userTeamGames: set.userGames,
+                  opponentTeamGames: set.opponentGames,
+                ),
+              )
+              .toList(),
         ),
         performanceRating: _performanceRating,
         duration: matchDuration,
@@ -478,7 +473,11 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.errorGeneric(e.toString()))),
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.errorGeneric(e.toString()),
+            ),
+          ),
         );
       }
     } finally {
@@ -508,14 +507,13 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     }
   }
 
-
   Widget _buildSaveButton() {
     return Container(
       width: double.infinity,
       height: 56,
       decoration: BoxDecoration(
-        color: _isSubmitting 
-            ? const Color(0xFF007AFF).withOpacity(0.6)
+        color: _isSubmitting
+            ? const Color(0xFF007AFF).withValues(alpha: 0.6)
             : const Color(0xFF007AFF),
         borderRadius: BorderRadius.circular(16),
       ),

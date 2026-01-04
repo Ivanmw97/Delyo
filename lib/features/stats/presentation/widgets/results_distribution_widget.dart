@@ -7,10 +7,7 @@ import 'package:padel_tracker/l10n/app_localizations.dart';
 class ResultsDistributionWidget extends StatelessWidget {
   final List matches;
 
-  const ResultsDistributionWidget({
-    super.key,
-    required this.matches,
-  });
+  const ResultsDistributionWidget({super.key, required this.matches});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +23,7 @@ class ResultsDistributionWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -41,12 +38,12 @@ class ResultsDistributionWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 20),
-          
+
           // Donut Chart
           Center(
             child: SizedBox(
@@ -62,16 +59,31 @@ class ResultsDistributionWidget extends StatelessWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Legend
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildLegendItem(AppLocalizations.of(context)!.wins, wins, total, const Color(0xFF34C759)),
-              _buildLegendItem(AppLocalizations.of(context)!.losses, losses, total, const Color(0xFFFF3B30)),
-              _buildLegendItem(AppLocalizations.of(context)!.draws, draws, total, const Color(0xFF8E8E93)),
+              _buildLegendItem(
+                AppLocalizations.of(context)!.wins,
+                wins,
+                total,
+                const Color(0xFF34C759),
+              ),
+              _buildLegendItem(
+                AppLocalizations.of(context)!.losses,
+                losses,
+                total,
+                const Color(0xFFFF3B30),
+              ),
+              _buildLegendItem(
+                AppLocalizations.of(context)!.draws,
+                draws,
+                total,
+                const Color(0xFF8E8E93),
+              ),
             ],
           ),
         ],
@@ -81,16 +93,13 @@ class ResultsDistributionWidget extends StatelessWidget {
 
   Widget _buildLegendItem(String label, int count, int total, Color color) {
     final percentage = total > 0 ? (count / total * 100).round() : 0;
-    
+
     return Column(
       children: [
         Container(
           width: 12,
           height: 12,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(height: 8),
         Text(
@@ -98,7 +107,7 @@ class ResultsDistributionWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withOpacity(0.6),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 4),
@@ -115,7 +124,7 @@ class ResultsDistributionWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF1D1D1F).withOpacity(0.4),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
           ),
         ),
       ],

@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:padel_tracker/domain/models/match.dart';
-import 'package:padel_tracker/l10n/app_localizations.dart';
 import 'package:padel_tracker/utils/duration_formatter.dart';
 import 'package:intl/intl.dart';
 
 class HeroSectionWidget extends StatelessWidget {
   final Match match;
 
-  const HeroSectionWidget({
-    super.key,
-    required this.match,
-  });
+  const HeroSectionWidget({super.key, required this.match});
 
   @override
   Widget build(BuildContext context) {
     final setScores = _getSetScoresText();
-    
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 32, 20, 24),
-      decoration: const BoxDecoration(
-        color: Color(0xFFF8F8F8),
-      ),
+      decoration: const BoxDecoration(color: Color(0xFFF8F8F8)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,7 +31,7 @@ class HeroSectionWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Date
           Text(
             _formatDate(match.dateTime, context),
@@ -49,7 +43,7 @@ class HeroSectionWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Meta row with duration and location
           Row(
             children: [
@@ -62,7 +56,8 @@ class HeroSectionWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  DurationFormatter.formatDuration(match.duration!, context) ?? '',
+                  DurationFormatter.formatDuration(match.duration!, context) ??
+                      '',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -70,9 +65,10 @@ class HeroSectionWidget extends StatelessWidget {
                   ),
                 ),
               ],
-              
+
               // Separator and location
-              if (match.duration != null && match.location?.isNotEmpty == true) ...[
+              if (match.duration != null &&
+                  match.location?.isNotEmpty == true) ...[
                 const SizedBox(width: 16),
                 Container(
                   width: 4,
@@ -84,7 +80,7 @@ class HeroSectionWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
               ],
-              
+
               // Location with icon
               if (match.location?.isNotEmpty == true) ...[
                 Icon(
@@ -118,7 +114,8 @@ class HeroSectionWidget extends StatelessWidget {
   }
 
   String _getSetScoresText() {
-    return match.result.sets.map((set) => '${set.userTeamGames}-${set.opponentTeamGames}').join(', ');
+    return match.result.sets
+        .map((set) => '${set.userTeamGames}-${set.opponentTeamGames}')
+        .join(', ');
   }
-
 }

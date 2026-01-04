@@ -22,7 +22,7 @@ class SectionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -38,11 +38,7 @@ class SectionCard extends StatelessWidget {
               Row(
                 children: [
                   if (icon != null) ...[
-                    Icon(
-                      icon!,
-                      size: 16,
-                      color: const Color(0xFF007AFF),
-                    ),
+                    Icon(icon!, size: 16, color: const Color(0xFF007AFF)),
                     const SizedBox(width: 8),
                   ],
                   Text(
@@ -50,7 +46,7 @@ class SectionCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                      color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                       letterSpacing: 0.5,
                     ),
                   ),

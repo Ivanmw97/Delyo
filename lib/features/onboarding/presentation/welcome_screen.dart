@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:padel_tracker/l10n/app_localizations.dart';
 
 /// Welcome screen with subtle fade + scale animation
-/// 
+///
 /// Shows "Bienvenido a PadelTracker" for ~1 second before auto-transitioning
 /// to the first onboarding page.
 class WelcomeScreen extends StatefulWidget {
   final VoidCallback onComplete;
 
-  const WelcomeScreen({
-    super.key,
-    required this.onComplete,
-  });
+  const WelcomeScreen({super.key, required this.onComplete});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -29,54 +26,50 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
-    
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1400),
       vsync: this,
     );
 
     // Logo animations (0-700ms)
-    _logoFadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
-    ));
+    _logoFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+      ),
+    );
 
-    _logoScaleAnimation = Tween<double>(
-      begin: 0.85,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
-    ));
+    _logoScaleAnimation = Tween<double>(begin: 0.85, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
+      ),
+    );
 
     // Small text "Bienvenido a" (200-700ms)
-    _smallTextFadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.15, 0.5, curve: Curves.easeOut),
-    ));
+    _smallTextFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.15, 0.5, curve: Curves.easeOut),
+      ),
+    );
 
     // Large text "PADELTRACKER" (400-1000ms)
-    _largeTextFadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.3, 0.7, curve: Curves.easeOut),
-    ));
+    _largeTextFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.3, 0.7, curve: Curves.easeOut),
+      ),
+    );
 
-    _largeTextSlideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.15),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.3, 0.7, curve: Curves.easeOut),
-    ));
+    _largeTextSlideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.15), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: const Interval(0.3, 0.7, curve: Curves.easeOut),
+          ),
+        );
 
     // Start animation immediately
     _controller.forward();
@@ -118,7 +111,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -137,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               },
             ),
             const SizedBox(height: 32),
-            
+
             // Animated Small Text
             AnimatedBuilder(
               animation: _controller,
@@ -158,7 +151,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               },
             ),
             const SizedBox(height: 8),
-            
+
             // Animated Large Text
             AnimatedBuilder(
               animation: _controller,

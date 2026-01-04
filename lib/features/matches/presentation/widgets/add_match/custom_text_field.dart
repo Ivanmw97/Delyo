@@ -25,11 +25,13 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          isOptional ? '$label (${AppLocalizations.of(context)!.optional})' : label,
+          isOptional
+              ? '$label (${AppLocalizations.of(context)!.optional})'
+              : label,
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withOpacity(0.6),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
             letterSpacing: -0.2,
           ),
         ),
@@ -46,7 +48,7 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(
-                color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                 fontSize: 16,
               ),
               border: InputBorder.none,
@@ -55,10 +57,7 @@ class CustomTextField extends StatelessWidget {
                 vertical: 12,
               ),
             ),
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF1D1D1F),
-            ),
+            style: const TextStyle(fontSize: 16, color: Color(0xFF1D1D1F)),
           ),
         ),
       ],

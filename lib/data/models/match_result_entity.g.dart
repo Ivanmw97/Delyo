@@ -16,9 +16,7 @@ class MatchResultEntityAdapter extends TypeAdapter<MatchResultEntity> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return MatchResultEntity(
-      sets: (fields[0] as List).cast<PadelSetEntity>(),
-    );
+    return MatchResultEntity(sets: (fields[0] as List).cast<PadelSetEntity>());
   }
 
   @override

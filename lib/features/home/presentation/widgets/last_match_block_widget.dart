@@ -20,7 +20,7 @@ class LastMatchBlockWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final outcome = getMatchOutcome(match);
     final dateFormat = DateFormat('MMM dd, yyyy');
-    
+
     String matchTypeName = '';
     switch (match.matchType) {
       case MatchType.friendly:
@@ -67,7 +67,7 @@ class LastMatchBlockWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF1D1D1F).withOpacity(0.04),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -85,23 +85,23 @@ class LastMatchBlockWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                     letterSpacing: 0.5,
                   ),
                 ),
                 Text(
-                    dateFormat.format(match.dateTime),
+                  dateFormat.format(match.dateTime),
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                     letterSpacing: -0.08,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            
+
             // Match type
             Align(
               alignment: Alignment.centerLeft,
@@ -116,23 +116,23 @@ class LastMatchBlockWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // Result chip
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: outcomeColor.withOpacity(0.1),
+                color: outcomeColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    outcome == MatchOutcome.win 
+                    outcome == MatchOutcome.win
                         ? Icons.emoji_events
                         : outcome == MatchOutcome.loss
-                            ? Icons.close
-                            : Icons.remove,
+                        ? Icons.close
+                        : Icons.remove,
                     size: 18,
                     color: outcomeColor,
                   ),
@@ -150,18 +150,18 @@ class LastMatchBlockWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // Set scores (main focus)
             buildSetScores(match),
             const SizedBox(height: 12),
-            
+
             // Subtitle
             Text(
               AppLocalizations.of(context)!.straightSets,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF1D1D1F).withOpacity(0.4),
+                color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
                 letterSpacing: -0.1,
               ),
             ),

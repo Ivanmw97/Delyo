@@ -11,14 +11,15 @@ import 'package:padel_tracker/domain/enums/time_range.dart';
 List<Match> filterMatchesByTimeRange(List<Match> matches, TimeRange timeRange) {
   final startDate = timeRange.startDate;
   final endDate = timeRange.endDate;
-  
+
   if (startDate == null || endDate == null) {
     return matches; // All time - no filtering
   }
-  
+
   return matches.where((match) {
     final matchDate = match.dateTime;
-    return matchDate.isAtSameOrAfter(startDate) && matchDate.isAtSameOrBefore(endDate);
+    return matchDate.isAtSameOrAfter(startDate) &&
+        matchDate.isAtSameOrBefore(endDate);
   }).toList();
 }
 
@@ -27,7 +28,7 @@ extension DateTimeComparison on DateTime {
   bool isAtSameOrAfter(DateTime other) {
     return isAfter(other) || isAtSameMomentAs(other);
   }
-  
+
   bool isAtSameOrBefore(DateTime other) {
     return isBefore(other) || isAtSameMomentAs(other);
   }
@@ -96,38 +97,50 @@ void main() {
 
     test('should return all matches for allTime filter', () {
       final filtered = filterMatchesByTimeRange(testMatches, TimeRange.allTime);
-      
+
       expect(filtered.length, equals(4));
       expect(filtered, containsAll(testMatches));
     });
 
     test('should filter matches for lastMonth', () {
-      final filtered = filterMatchesByTimeRange(testMatches, TimeRange.lastMonth);
-      
+      final filtered = filterMatchesByTimeRange(
+        testMatches,
+        TimeRange.lastMonth,
+      );
+
       // Should only include matches from the current calendar month (2 weeks ago match)
       expect(filtered.length, equals(1));
       expect(filtered.first.id, equals('match1'));
     });
 
     test('should filter matches for lastThreeMonths', () {
-      final filtered = filterMatchesByTimeRange(testMatches, TimeRange.lastThreeMonths);
-      
+      final filtered = filterMatchesByTimeRange(
+        testMatches,
+        TimeRange.lastThreeMonths,
+      );
+
       // Should include matches from last 3 months (2 weeks and 2 months ago)
       expect(filtered.length, equals(2));
       expect(filtered.map((m) => m.id), containsAll(['match1', 'match2']));
     });
 
     test('should filter matches for lastYear', () {
-      final filtered = filterMatchesByTimeRange(testMatches, TimeRange.lastYear);
-      
+      final filtered = filterMatchesByTimeRange(
+        testMatches,
+        TimeRange.lastYear,
+      );
+
       // Should include matches from last year (2 weeks, 2 months, and 6 months ago)
       expect(filtered.length, equals(3));
-      expect(filtered.map((m) => m.id), containsAll(['match1', 'match2', 'match3']));
+      expect(
+        filtered.map((m) => m.id),
+        containsAll(['match1', 'match2', 'match3']),
+      );
     });
 
     test('should handle empty match list', () {
       final filtered = filterMatchesByTimeRange([], TimeRange.lastMonth);
-      
+
       expect(filtered, isEmpty);
     });
 
@@ -140,7 +153,7 @@ void main() {
       );
 
       final boundaryDate = TimeRange.lastMonth.startDate!;
-      
+
       final matchAtBoundary = Match(
         id: 'boundary',
         matchType: MatchType.friendly,
@@ -165,15 +178,18 @@ void main() {
 
       final matches = [matchAtBoundary, matchAfterBoundary];
       final filtered = filterMatchesByTimeRange(matches, TimeRange.lastMonth);
-      
+
       // Should include both matches (boundary match and after boundary match)
       expect(filtered.length, equals(2));
       expect(filtered.map((m) => m.id), containsAll(['boundary', 'after']));
     });
 
     test('should preserve match order after filtering', () {
-      final filtered = filterMatchesByTimeRange(testMatches, TimeRange.lastYear);
-      
+      final filtered = filterMatchesByTimeRange(
+        testMatches,
+        TimeRange.lastYear,
+      );
+
       // Should maintain original order
       expect(filtered[0].id, equals('match1'));
       expect(filtered[1].id, equals('match2'));
@@ -211,8 +227,11 @@ void main() {
         ),
       ];
 
-      final filtered = filterMatchesByTimeRange(oldMatches, TimeRange.lastMonth);
-      
+      final filtered = filterMatchesByTimeRange(
+        oldMatches,
+        TimeRange.lastMonth,
+      );
+
       expect(filtered, isEmpty);
     });
   });

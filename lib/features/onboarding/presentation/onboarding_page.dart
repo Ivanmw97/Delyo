@@ -4,10 +4,10 @@ import 'package:padel_tracker/presentation/navigation/main_navigation_page.dart'
 import 'package:padel_tracker/l10n/app_localizations.dart';
 
 /// Onboarding screen with 3 pages introducing the app features
-/// 
+///
 /// Shows a minimal walkthrough for first-time users with:
 /// - Screen 1: Track matches
-/// - Screen 2: Analyze progress  
+/// - Screen 2: Analyze progress
 /// - Screen 3: Start anytime
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -21,7 +21,7 @@ class _OnboardingPageState extends State<OnboardingPage>
   final PageController _pageController = PageController();
   final OnboardingRepository _onboardingRepository = OnboardingRepository();
   int _currentPage = 0;
-  
+
   // Animation controllers for each page
   late List<AnimationController> _animationControllers;
   late List<Animation<double>> _iconFadeAnimations;
@@ -41,60 +41,75 @@ class _OnboardingPageState extends State<OnboardingPage>
 
   void _initializeAnimations() {
     // Create animation controllers for each page (increased duration by 40%)
-    _animationControllers = List.generate(3, (index) => 
-      AnimationController(
+    _animationControllers = List.generate(
+      3,
+      (index) => AnimationController(
         duration: const Duration(milliseconds: 840),
         vsync: this,
-      )
+      ),
     );
 
     // Icon animations (fade + scale)
-    _iconFadeAnimations = _animationControllers.map((controller) =>
-      Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
-        ),
-      )
-    ).toList();
+    _iconFadeAnimations = _animationControllers
+        .map(
+          (controller) => Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+              parent: controller,
+              curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+            ),
+          ),
+        )
+        .toList();
 
-    _iconScaleAnimations = _animationControllers.map((controller) =>
-      Tween<double>(begin: 0.9, end: 1.0).animate(
-        CurvedAnimation(
-          parent: controller,
-          curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
-        ),
-      )
-    ).toList();
+    _iconScaleAnimations = _animationControllers
+        .map(
+          (controller) => Tween<double>(begin: 0.9, end: 1.0).animate(
+            CurvedAnimation(
+              parent: controller,
+              curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+            ),
+          ),
+        )
+        .toList();
 
     // Title animations (fade + slide up)
-    _titleFadeAnimations = _animationControllers.map((controller) =>
-      Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: controller,
-          curve: const Interval(0.2, 0.6, curve: Curves.easeOut),
-        ),
-      )
-    ).toList();
+    _titleFadeAnimations = _animationControllers
+        .map(
+          (controller) => Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+              parent: controller,
+              curve: const Interval(0.2, 0.6, curve: Curves.easeOut),
+            ),
+          ),
+        )
+        .toList();
 
-    _titleSlideAnimations = _animationControllers.map((controller) =>
-      Tween<Offset>(begin: const Offset(0, 0.15), end: Offset.zero).animate(
-        CurvedAnimation(
-          parent: controller,
-          curve: const Interval(0.2, 0.6, curve: Curves.easeOut),
-        ),
-      )
-    ).toList();
+    _titleSlideAnimations = _animationControllers
+        .map(
+          (controller) =>
+              Tween<Offset>(
+                begin: const Offset(0, 0.15),
+                end: Offset.zero,
+              ).animate(
+                CurvedAnimation(
+                  parent: controller,
+                  curve: const Interval(0.2, 0.6, curve: Curves.easeOut),
+                ),
+              ),
+        )
+        .toList();
 
     // Subtitle animations (fade with delay)
-    _subtitleFadeAnimations = _animationControllers.map((controller) =>
-      Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: controller,
-          curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
-        ),
-      )
-    ).toList();
+    _subtitleFadeAnimations = _animationControllers
+        .map(
+          (controller) => Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+              parent: controller,
+              curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
+            ),
+          ),
+        )
+        .toList();
 
     // Button animation controller (increased duration by 30%)
     _buttonController = AnimationController(
@@ -103,10 +118,7 @@ class _OnboardingPageState extends State<OnboardingPage>
     );
 
     _buttonFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _buttonController,
-        curve: Curves.easeOut,
-      ),
+      CurvedAnimation(parent: _buttonController, curve: Curves.easeOut),
     );
 
     // Start animation for first page
@@ -128,7 +140,7 @@ class _OnboardingPageState extends State<OnboardingPage>
     setState(() {
       _currentPage = page;
     });
-    
+
     // Trigger animation for the new page
     _animationControllers[page].reset();
     _animationControllers[page].forward();
@@ -136,12 +148,10 @@ class _OnboardingPageState extends State<OnboardingPage>
 
   Future<void> _completeOnboarding() async {
     await _onboardingRepository.markOnboardingCompleted();
-    
+
     if (mounted) {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const MainNavigationPage(),
-        ),
+        MaterialPageRoute(builder: (context) => const MainNavigationPage()),
       );
     }
   }
@@ -178,13 +188,13 @@ class _OnboardingPageState extends State<OnboardingPage>
                       shape: BoxShape.circle,
                       color: index == _currentPage
                           ? const Color(0xFF007AFF)
-                          : const Color(0xFF007AFF).withOpacity(0.2),
+                          : const Color(0xFF007AFF).withValues(alpha: 0.2),
                     ),
                   );
                 }),
               ),
             ),
-            
+
             // PageView content
             Expanded(
               child: PageView(
@@ -212,7 +222,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                 ],
               ),
             ),
-            
+
             // Bottom button with animation
             Padding(
               padding: const EdgeInsets.fromLTRB(32, 16, 32, 32),
@@ -220,7 +230,9 @@ class _OnboardingPageState extends State<OnboardingPage>
                 animation: _buttonFadeAnimation,
                 builder: (context, child) {
                   return Opacity(
-                    opacity: _currentPage == 2 ? _buttonFadeAnimation.value : 1.0,
+                    opacity: _currentPage == 2
+                        ? _buttonFadeAnimation.value
+                        : 1.0,
                     child: SizedBox(
                       width: double.infinity,
                       child: FilledButton(
@@ -235,7 +247,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                           elevation: 0,
                         ),
                         child: Text(
-                          _currentPage == 2 
+                          _currentPage == 2
                               ? AppLocalizations.of(context)!.getStarted
                               : AppLocalizations.of(context)!.next,
                           style: const TextStyle(
@@ -278,21 +290,17 @@ class _OnboardingPageState extends State<OnboardingPage>
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF007AFF).withOpacity(0.1),
+                      color: const Color(0xFF007AFF).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
-                      icon,
-                      size: 40,
-                      color: const Color(0xFF007AFF),
-                    ),
+                    child: Icon(icon, size: 40, color: const Color(0xFF007AFF)),
                   ),
                 ),
               );
             },
           ),
           const SizedBox(height: 32),
-          
+
           // Animated Title
           AnimatedBuilder(
             animation: _animationControllers[pageIndex],
@@ -316,7 +324,7 @@ class _OnboardingPageState extends State<OnboardingPage>
             },
           ),
           const SizedBox(height: 16),
-          
+
           // Animated Subtitle
           AnimatedBuilder(
             animation: _animationControllers[pageIndex],
@@ -328,7 +336,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F).withOpacity(0.7),
+                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.7),
                     height: 1.4,
                   ),
                   textAlign: TextAlign.center,

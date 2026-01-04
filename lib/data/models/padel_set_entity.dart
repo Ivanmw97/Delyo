@@ -9,15 +9,15 @@ part 'padel_set_entity.g.dart';
 class PadelSetEntity extends HiveObject {
   @HiveField(0)
   final int userTeamGames;
-  
+
   @HiveField(1)
   final int opponentTeamGames;
-  
+
   PadelSetEntity({
     required this.userTeamGames,
     required this.opponentTeamGames,
   });
-  
+
   /// Converts domain PadelSet to PadelSetEntity
   factory PadelSetEntity.fromDomain(PadelSet set) {
     return PadelSetEntity(
@@ -25,7 +25,7 @@ class PadelSetEntity extends HiveObject {
       opponentTeamGames: set.opponentTeamGames,
     );
   }
-  
+
   /// Converts PadelSetEntity to domain PadelSet
   PadelSet toDomain() {
     return PadelSet(

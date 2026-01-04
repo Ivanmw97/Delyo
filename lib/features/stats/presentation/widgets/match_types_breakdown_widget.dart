@@ -4,16 +4,17 @@ import 'package:padel_tracker/domain/enums/match_type.dart';
 class MatchTypesBreakdownWidget extends StatelessWidget {
   final List matches;
 
-  const MatchTypesBreakdownWidget({
-    super.key,
-    required this.matches,
-  });
+  const MatchTypesBreakdownWidget({super.key, required this.matches});
 
   @override
   Widget build(BuildContext context) {
-    final friendly = matches.where((m) => m.matchType == MatchType.friendly).length;
+    final friendly = matches
+        .where((m) => m.matchType == MatchType.friendly)
+        .length;
     final league = matches.where((m) => m.matchType == MatchType.league).length;
-    final tournament = matches.where((m) => m.matchType == MatchType.tournament).length;
+    final tournament = matches
+        .where((m) => m.matchType == MatchType.tournament)
+        .length;
     final total = matches.length;
 
     return Container(
@@ -22,7 +23,7 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withOpacity(0.04),
+            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -37,17 +38,27 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withOpacity(0.4),
+              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 16),
-          
-          _buildMatchTypeBar('Friendly', friendly, total, const Color(0xFF007AFF)),
+
+          _buildMatchTypeBar(
+            'Friendly',
+            friendly,
+            total,
+            const Color(0xFF007AFF),
+          ),
           const SizedBox(height: 12),
           _buildMatchTypeBar('League', league, total, const Color(0xFFFF9500)),
           const SizedBox(height: 12),
-          _buildMatchTypeBar('Tournament', tournament, total, const Color(0xFF5856D6)),
+          _buildMatchTypeBar(
+            'Tournament',
+            tournament,
+            total,
+            const Color(0xFF5856D6),
+          ),
         ],
       ),
     );
@@ -55,7 +66,7 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
 
   Widget _buildMatchTypeBar(String label, int count, int total, Color color) {
     final percentage = total > 0 ? count / total : 0.0;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,7 +86,7 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: const Color(0xFF1D1D1F).withOpacity(0.6),
+                color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
               ),
             ),
           ],

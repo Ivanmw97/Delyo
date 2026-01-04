@@ -7,10 +7,10 @@ class DurationFormatter {
   /// Returns null if duration is null
   static String? formatDuration(Duration? duration, BuildContext context) {
     if (duration == null) return null;
-    
+
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
-    
+
     if (hours > 0 && minutes > 0) {
       return AppLocalizations.of(context)!.hoursAndMinutes(hours, minutes);
     } else if (hours > 0) {
@@ -21,10 +21,14 @@ class DurationFormatter {
       return AppLocalizations.of(context)!.zeroMinutes;
     }
   }
-  
+
   /// Formats a Duration to a human-readable string with fallback
   /// Returns the fallback string if duration is null
-  static String formatDurationWithFallback(Duration? duration, BuildContext context, String fallback) {
+  static String formatDurationWithFallback(
+    Duration? duration,
+    BuildContext context,
+    String fallback,
+  ) {
     return formatDuration(duration, context) ?? fallback;
   }
 }

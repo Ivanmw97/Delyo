@@ -31,9 +31,7 @@ void main() {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('en'),
-        ],
+        supportedLocales: const [Locale('en')],
         home: Scaffold(
           body: DatePickerField(
             selectedDate: selectedDate ?? testDate,
@@ -47,19 +45,25 @@ void main() {
     }
 
     group('UI Display', () {
-      testWidgets('should display label correctly', (WidgetTester tester) async {
+      testWidgets('should display label correctly', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(label: 'Match Date'));
 
         expect(find.text('Match Date'), findsOneWidget);
       });
 
-      testWidgets('should display required asterisk when required', (WidgetTester tester) async {
+      testWidgets('should display required asterisk when required', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(isRequired: true));
 
         expect(find.text(' *'), findsOneWidget);
       });
 
-      testWidgets('should not display required asterisk when not required', (WidgetTester tester) async {
+      testWidgets('should not display required asterisk when not required', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(isRequired: false));
 
         expect(find.text(' *'), findsNothing);
@@ -69,7 +73,10 @@ void main() {
         final date = DateTime(2024, 1, 15);
         await tester.pumpWidget(createTestWidget(selectedDate: date));
 
-        expect(find.text(DateFormatter.formatDisplayDate(date)), findsOneWidget);
+        expect(
+          find.text(DateFormatter.formatDisplayDate(date)),
+          findsOneWidget,
+        );
       });
 
       testWidgets('should display calendar icon', (WidgetTester tester) async {
@@ -84,14 +91,18 @@ void main() {
         expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
       });
 
-      testWidgets('should display error text when provided', (WidgetTester tester) async {
+      testWidgets('should display error text when provided', (
+        WidgetTester tester,
+      ) async {
         const errorText = 'Future dates are not allowed';
         await tester.pumpWidget(createTestWidget(errorText: errorText));
 
         expect(find.text(errorText), findsOneWidget);
       });
 
-      testWidgets('should not display error text when not provided', (WidgetTester tester) async {
+      testWidgets('should not display error text when not provided', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         expect(find.text('Future dates are not allowed'), findsNothing);
@@ -99,14 +110,18 @@ void main() {
     });
 
     group('Styling', () {
-      testWidgets('should have error styling when error text is provided', (WidgetTester tester) async {
+      testWidgets('should have error styling when error text is provided', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget(errorText: 'Error'));
 
         final container = tester.widget<Container>(
-          find.descendant(
-            of: find.byType(GestureDetector),
-            matching: find.byType(Container),
-          ).first,
+          find
+              .descendant(
+                of: find.byType(GestureDetector),
+                matching: find.byType(Container),
+              )
+              .first,
         );
 
         final decoration = container.decoration as BoxDecoration;
@@ -115,14 +130,18 @@ void main() {
         expect(border.top.width, equals(2));
       });
 
-      testWidgets('should have normal styling when no error', (WidgetTester tester) async {
+      testWidgets('should have normal styling when no error', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         final container = tester.widget<Container>(
-          find.descendant(
-            of: find.byType(GestureDetector),
-            matching: find.byType(Container),
-          ).first,
+          find
+              .descendant(
+                of: find.byType(GestureDetector),
+                matching: find.byType(Container),
+              )
+              .first,
         );
 
         final decoration = container.decoration as BoxDecoration;
@@ -143,7 +162,9 @@ void main() {
         expect(widget.onTap, isNotNull);
       });
 
-      testWidgets('should open date picker when tapped', (WidgetTester tester) async {
+      testWidgets('should open date picker when tapped', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         // Tap the date field
@@ -154,7 +175,9 @@ void main() {
         expect(find.byType(DatePickerDialog), findsOneWidget);
       });
 
-      testWidgets('should call onDateSelected when date is picked', (WidgetTester tester) async {
+      testWidgets('should call onDateSelected when date is picked', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         // Tap the date field to open picker
@@ -181,7 +204,9 @@ void main() {
     });
 
     group('Date Constraints', () {
-      testWidgets('should not allow future dates in date picker', (WidgetTester tester) async {
+      testWidgets('should not allow future dates in date picker', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         // Tap the date field to open picker
@@ -189,16 +214,20 @@ void main() {
         await tester.pumpAndSettle();
 
         // Verify date picker is configured with lastDate as today
-        final datePickerDialog = tester.widget<DatePickerDialog>(find.byType(DatePickerDialog));
+        final datePickerDialog = tester.widget<DatePickerDialog>(
+          find.byType(DatePickerDialog),
+        );
         final today = DateTime.now();
         final todayOnly = DateTime(today.year, today.month, today.day);
-        
+
         expect(datePickerDialog.lastDate.year, equals(todayOnly.year));
         expect(datePickerDialog.lastDate.month, equals(todayOnly.month));
         expect(datePickerDialog.lastDate.day, equals(todayOnly.day));
       });
 
-      testWidgets('should allow historical dates from 2020', (WidgetTester tester) async {
+      testWidgets('should allow historical dates from 2020', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         // Tap the date field to open picker
@@ -206,13 +235,17 @@ void main() {
         await tester.pumpAndSettle();
 
         // Verify date picker is configured with firstDate as 2020
-        final datePickerDialog = tester.widget<DatePickerDialog>(find.byType(DatePickerDialog));
+        final datePickerDialog = tester.widget<DatePickerDialog>(
+          find.byType(DatePickerDialog),
+        );
         expect(datePickerDialog.firstDate.year, equals(2020));
       });
     });
 
     group('Localization', () {
-      testWidgets('should use localized strings in date picker', (WidgetTester tester) async {
+      testWidgets('should use localized strings in date picker', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(createTestWidget());
 
         // Tap the date field to open picker
