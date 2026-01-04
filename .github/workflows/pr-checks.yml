@@ -1,0 +1,82 @@
+name: PR Quality Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Full history for better analysis
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.24.0'
+        channel: 'stable'
+        cache: true
+        
+    - name: Get dependencies
+      run: flutter pub get
+      
+    - name: Check formatting
+      run: |
+        echo "Checking code formatting..."
+        if ! dart format --output=none --set-exit-if-changed .; then
+          echo "❌ Code is not properly formatted"
+          echo "Run 'dart format .' to fix formatting issues"
+          exit 1
+        fi
+        echo "✅ Code formatting is correct"
+      
+    - name: Run static analysis
+      run: |
+        echo "Running static analysis..."
+        flutter analyze --fatal-infos
+        echo "✅ Static analysis passed"
+      
+    - name: Run tests with coverage
+      run: |
+        echo "Running tests..."
+        flutter test --coverage --reporter=expanded
+        echo "✅ All tests passed"
+      
+    - name: Check test coverage
+      run: |
+        echo "Checking test coverage..."
+        # Install lcov for coverage analysis
+        sudo apt-get update
+        sudo apt-get install -y lcov
+        
+        # Generate coverage report
+        genhtml coverage/lcov.info -o coverage/html
+        
+        # Extract coverage percentage
+        COVERAGE=$(lcov --summary coverage/lcov.info | grep "lines" | grep -o '[0-9.]*%' | head -1)
+        echo "Current test coverage: $COVERAGE"
+        
+        # You can add coverage threshold checks here if needed
+        echo "✅ Coverage report generated"
+      
+    - name: Validate pubspec.yaml
+      run: |
+        echo "Validating pubspec.yaml..."
+        flutter pub deps
+        echo "✅ Dependencies are valid"
+      
+    - name: Check for TODOs and FIXMEs
+      run: |
+        echo "Checking for TODO/FIXME comments..."
+        TODO_COUNT=$(grep -r "TODO\|FIXME" lib/ test/ --exclude-dir=.git || true | wc -l)
+        if [ $TODO_COUNT -gt 0 ]; then
+          echo "⚠️ Found $TODO_COUNT TODO/FIXME comments"
+          grep -r "TODO\|FIXME" lib/ test/ --exclude-dir=.git || true
+        else
+          echo "✅ No TODO/FIXME comments found"
+        fi
