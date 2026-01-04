@@ -497,4 +497,15 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get performanceRatingHelper =>
       'Comment avez-vous ressenti votre performance dans ce match?';
+
+  @override
+  String matchesPlural(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count matchs',
+      one: '1 match',
+    );
+    return '$_temp0';
+  }
 }

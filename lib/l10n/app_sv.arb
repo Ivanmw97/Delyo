@@ -862,5 +862,16 @@
   "performanceRatingHelper": "Hur kände du dig om din prestation i denna match?",
   "@performanceRatingHelper": {
     "description": "Helper text for performance rating section"
+  },
+
+  "matchesPlural": "{count, plural, =1{1 match} other{{count} matcher}}",
+  "@matchesPlural": {
+    "description": "Pluralized matches count text",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   }
 }

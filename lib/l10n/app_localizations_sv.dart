@@ -488,4 +488,15 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get performanceRatingHelper =>
       'Hur kände du dig om din prestation i denna match?';
+
+  @override
+  String matchesPlural(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count matcher',
+      one: '1 match',
+    );
+    return '$_temp0';
+  }
 }

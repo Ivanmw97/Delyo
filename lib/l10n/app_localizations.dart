@@ -987,6 +987,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'How did you feel about your performance in this match?'**
   String get performanceRatingHelper;
+
+  /// Pluralized matches count text
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 match} other{{count} matches}}'**
+  String matchesPlural(int count);
 }
 
 class _AppLocalizationsDelegate

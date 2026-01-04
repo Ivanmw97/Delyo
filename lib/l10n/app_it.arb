@@ -412,5 +412,16 @@
   "performanceRatingHelper": "Come ti sei sentito riguardo alla tua performance in questa partita?",
   "@performanceRatingHelper": {
     "description": "Helper text for performance rating section"
+  },
+
+  "matchesPlural": "{count, plural, =1{1 partita} other{{count} partite}}",
+  "@matchesPlural": {
+    "description": "Pluralized matches count text",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   }
 }
