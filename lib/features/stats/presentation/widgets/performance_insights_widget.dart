@@ -88,6 +88,7 @@ class PerformanceInsightsWidget extends StatelessWidget {
     Color color,
   ) {
     return Container(
+      height: 150, // Increased height to prevent text overflow
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.1),
@@ -105,6 +106,8 @@ class PerformanceInsightsWidget extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4),
           Text(
@@ -114,6 +117,8 @@ class PerformanceInsightsWidget extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: Color(0xFF1D1D1F),
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 6),
           Text(
@@ -124,6 +129,8 @@ class PerformanceInsightsWidget extends StatelessWidget {
               color: const Color(0xFF1D1D1F).withValues(alpha: 0.5),
               letterSpacing: -0.1,
             ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
