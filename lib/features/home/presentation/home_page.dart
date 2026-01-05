@@ -237,18 +237,25 @@ class _HomePageState extends ConsumerState<HomePage> {
               match: lastMatch,
               buildSetScores: _buildSetScores,
             ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: DurationCardWidget(duration: lastMatch.duration),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: LocationCardWidget(location: lastMatch.location),
-                ),
-              ],
-            ),
+            // Only show details if at least one of duration or location is present
+            if (lastMatch.duration != null || (lastMatch.location != null && lastMatch.location!.isNotEmpty)) ...[
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  if (lastMatch.duration != null) ...[
+                    Expanded(
+                      child: DurationCardWidget(duration: lastMatch.duration),
+                    ),
+                    if (lastMatch.location != null && lastMatch.location!.isNotEmpty)
+                      const SizedBox(width: 16),
+                  ],
+                  if (lastMatch.location != null && lastMatch.location!.isNotEmpty)
+                    Expanded(
+                      child: LocationCardWidget(location: lastMatch.location),
+                    ),
+                ],
+              ),
+            ],
           ],
         ],
       ),
