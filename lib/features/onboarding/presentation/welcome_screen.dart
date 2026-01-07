@@ -3,7 +3,7 @@ import 'package:delyo/l10n/app_localizations.dart';
 
 /// Welcome screen with subtle fade + scale animation
 ///
-/// Shows "Bienvenido a PadelTracker" for ~1 second before auto-transitioning
+/// Shows "Bienvenido a DelYo" for ~1 second before auto-transitioning
 /// to the first onboarding page.
 class WelcomeScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -55,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       ),
     );
 
-    // Large text "PADELTRACKER" (400-1000ms)
+    // Large text "DELYO" (400-1000ms)
     _largeTextFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
@@ -120,7 +120,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
-                          'assets/icon/padel_tracker_icon.png',
+                          'assets/icon/delyo_icon.png',
                           fit: BoxFit.cover,
                         ),
                       ),

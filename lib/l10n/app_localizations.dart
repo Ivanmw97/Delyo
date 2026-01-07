@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In en, this message translates to:
-  /// **'Padel Tracker'**
+  /// **'DelYo'**
   String get appTitle;
 
   /// Title for the home page

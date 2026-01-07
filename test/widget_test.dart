@@ -1,4 +1,4 @@
-// Widget tests for PadelTracker
+// Widget tests for DelYo
 // This file is reserved for future widget testing needs
 // Currently focusing on unit and logic tests only
 

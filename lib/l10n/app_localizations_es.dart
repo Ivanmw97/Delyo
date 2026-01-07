@@ -9,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Padel Tracker';
+  String get appTitle => 'DelYo';
 
   @override
   String get homeTitle => 'Inicio';

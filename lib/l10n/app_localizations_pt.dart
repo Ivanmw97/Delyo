@@ -9,7 +9,7 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'Padel Tracker';
+  String get appTitle => 'DelYo';
 
   @override
   String get homeTitle => 'Início';

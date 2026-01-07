@@ -1,7 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.delyo.delyo"
+    android:versionCode="1"
+    android:versionName="1.0">
     <application
-        android:label="padel_tracker"
-        android:name="${applicationName}"
+        android:label="DelYo"
+        android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
