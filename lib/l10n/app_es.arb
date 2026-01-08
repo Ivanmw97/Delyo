@@ -164,6 +164,21 @@
   "@draw": {
     "description": "Draw outcome text"
   },
+
+  "winLetter": "V",
+  "@winLetter": {
+    "description": "Single letter abbreviation for Win"
+  },
+
+  "lossLetter": "D",
+  "@lossLetter": {
+    "description": "Single letter abbreviation for Loss"
+  },
+
+  "drawLetter": "E",
+  "@drawLetter": {
+    "description": "Single letter abbreviation for Draw"
+  },
   
   "noMatchesYet": "Aún no hay partidos",
   "@noMatchesYet": {

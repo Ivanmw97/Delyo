@@ -44,6 +44,22 @@
 
   "win": "Vittoria",
   "loss": "Sconfitta",
+  "draw": "Pareggio",
+
+  "winLetter": "V",
+  "@winLetter": {
+    "description": "Single letter abbreviation for Win"
+  },
+
+  "lossLetter": "S",
+  "@lossLetter": {
+    "description": "Single letter abbreviation for Loss"
+  },
+
+  "drawLetter": "P",
+  "@drawLetter": {
+    "description": "Single letter abbreviation for Draw"
+  },
 
   "noMatchesYet": "Nessuna partita ancora",
   "startTrackingJourney": "Inizia a tracciare il tuo percorso nel padel",

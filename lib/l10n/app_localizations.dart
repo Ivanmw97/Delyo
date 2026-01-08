@@ -304,6 +304,24 @@ abstract class AppLocalizations {
   /// **'Draw'**
   String get draw;
 
+  /// Single letter abbreviation for Win
+  ///
+  /// In en, this message translates to:
+  /// **'W'**
+  String get winLetter;
+
+  /// Single letter abbreviation for Loss
+  ///
+  /// In en, this message translates to:
+  /// **'L'**
+  String get lossLetter;
+
+  /// Single letter abbreviation for Draw
+  ///
+  /// In en, this message translates to:
+  /// **'D'**
+  String get drawLetter;
+
   /// Empty state message when no matches exist
   ///
   /// In en, this message translates to:

@@ -108,6 +108,15 @@ class AppLocalizationsIt extends AppLocalizations {
   String get draw => 'Pareggio';
 
   @override
+  String get winLetter => 'V';
+
+  @override
+  String get lossLetter => 'S';
+
+  @override
+  String get drawLetter => 'P';
+
+  @override
   String get noMatchesYet => 'Nessuna partita ancora';
 
   @override

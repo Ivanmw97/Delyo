@@ -120,15 +120,15 @@ class PerformanceBlockWidget extends StatelessWidget {
                 switch (outcome) {
                   case MatchOutcome.win:
                     letterColor = const Color(0xFF34C759);
-                    letter = 'W';
+                    letter = AppLocalizations.of(context)!.winLetter;
                     break;
                   case MatchOutcome.loss:
                     letterColor = const Color(0xFFFF3B30);
-                    letter = 'L';
+                    letter = AppLocalizations.of(context)!.lossLetter;
                     break;
                   case MatchOutcome.draw:
                     letterColor = const Color(0xFF8E8E93);
-                    letter = 'D';
+                    letter = AppLocalizations.of(context)!.drawLetter;
                     break;
                 }
 

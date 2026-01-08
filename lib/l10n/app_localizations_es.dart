@@ -108,6 +108,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get draw => 'Empate';
 
   @override
+  String get winLetter => 'V';
+
+  @override
+  String get lossLetter => 'D';
+
+  @override
+  String get drawLetter => 'E';
+
+  @override
   String get noMatchesYet => 'Aún no hay partidos';
 
   @override
