@@ -108,6 +108,15 @@ class AppLocalizationsSv extends AppLocalizations {
   String get draw => 'Oavgjort';
 
   @override
+  String get winLetter => 'V';
+
+  @override
+  String get lossLetter => 'F';
+
+  @override
+  String get drawLetter => 'O';
+
+  @override
   String get noMatchesYet => 'Inga matcher än';
 
   @override

@@ -120,7 +120,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
               Text(
                 AppLocalizations.of(
                   context,
-                )!.matchesCount(filteredMatches.length),
+                )!.matchesPlural(filteredMatches.length),
                 style: TextStyle(
                   fontSize: 14,
                   color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),

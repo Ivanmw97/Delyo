@@ -774,6 +774,21 @@
     "description": "Draw outcome text"
   },
 
+  "winLetter": "V",
+  "@winLetter": {
+    "description": "Single letter abbreviation for Win"
+  },
+
+  "lossLetter": "D",
+  "@lossLetter": {
+    "description": "Single letter abbreviation for Loss"
+  },
+
+  "drawLetter": "N",
+  "@drawLetter": {
+    "description": "Single letter abbreviation for Draw"
+  },
+
   "straightSets": "Sets consécutifs",
   "@straightSets": {
     "description": "Straight sets text"

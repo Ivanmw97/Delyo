@@ -108,6 +108,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get draw => 'Draw';
 
   @override
+  String get winLetter => 'W';
+
+  @override
+  String get lossLetter => 'L';
+
+  @override
+  String get drawLetter => 'D';
+
+  @override
   String get noMatchesYet => 'No matches yet';
 
   @override

@@ -108,6 +108,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get draw => 'Match nul';
 
   @override
+  String get winLetter => 'V';
+
+  @override
+  String get lossLetter => 'D';
+
+  @override
+  String get drawLetter => 'N';
+
+  @override
   String get noMatchesYet => 'Aucun match pour le moment';
 
   @override
