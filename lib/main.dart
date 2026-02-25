@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:delyo/data/hive/hive_initializer.dart';
 import 'package:delyo/features/onboarding/presentation/startup_page.dart';
 import 'package:delyo/l10n/app_localizations.dart';
+import 'package:delyo/presentation/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,10 +36,9 @@ class MyApp extends StatelessWidget {
         Locale('fr'),
         Locale('pt'),
       ],
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
+      theme:      AppTheme.light,
+      darkTheme:  AppTheme.dark,
+      themeMode:  ThemeMode.system,
       home: const StartupPage(),
     );
   }
