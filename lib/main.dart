@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
         Locale('fr'),
         Locale('pt'),
       ],
-      theme:      AppTheme.light,
-      darkTheme:  AppTheme.dark,
-      themeMode:  ThemeMode.system,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       home: const StartupPage(),
     );
   }
