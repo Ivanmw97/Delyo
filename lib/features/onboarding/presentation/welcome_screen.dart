@@ -91,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -139,10 +139,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   opacity: _smallTextFadeAnimation.value,
                   child: Text(
                     AppLocalizations.of(context)!.welcomeTo,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF6B7280),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                       letterSpacing: 0.2,
                     ),
                     textAlign: TextAlign.center,
@@ -162,10 +164,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     opacity: _largeTextFadeAnimation.value,
                     child: Text(
                       AppLocalizations.of(context)!.appTitle.toUpperCase(),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.w800,
-                        color: Color(0xFF1D1D1F),
+                        color: Theme.of(context).colorScheme.onSurface,
                         letterSpacing: -1.0,
                       ),
                       textAlign: TextAlign.center,

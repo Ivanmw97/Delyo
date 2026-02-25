@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/matches/presentation/pages/add_match_page.dart';
 import 'package:delyo/features/matches/presentation/pages/match_detail_page.dart';
 import 'package:delyo/features/matches/state/matches_provider.dart';
@@ -30,18 +31,15 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
     final filteredMatches = ref.watch(filteredMatchesProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.myMatchesTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        backgroundColor: const Color(0xFFF8F8F8),
-        elevation: 0,
         centerTitle: false,
       ),
       body: _buildBody(matchesState, filteredMatches),
@@ -53,7 +51,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
                   MaterialPageRoute(builder: (context) => const AddMatchPage()),
                 );
               },
-              backgroundColor: const Color(0xFF007AFF),
+              backgroundColor: AppColors.accent,
               child: const Icon(Icons.add, color: Colors.white),
             )
           : null,
@@ -123,7 +121,9 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
                 )!.matchesPlural(filteredMatches.length),
                 style: TextStyle(
                   fontSize: 14,
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -145,7 +145,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
                   direction: DismissDirection.endToStart,
                   background: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFF3B30),
+                      color: AppColors.loss,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     alignment: Alignment.centerRight,

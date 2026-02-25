@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:delyo/features/matches/state/matches_provider.dart';
 import 'package:delyo/features/shared/state/filtered_matches_provider.dart';
@@ -74,10 +74,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       return Text(
         '${match.result.setsWon}–${match.result.setsLost}',
         textAlign: TextAlign.center,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 48,
           fontWeight: FontWeight.w900,
-          color: Color(0xFF1D1D1F),
+          color: Theme.of(context).colorScheme.onSurface,
           letterSpacing: -1.5,
           height: 0.9,
         ),
@@ -91,10 +91,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       spans.add(
         TextSpan(
           text: '${set.userTeamGames}-${set.opponentTeamGames}',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 48,
             fontWeight: FontWeight.w900,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
             letterSpacing: -1.5,
             height: 0.9,
           ),
@@ -108,7 +108,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF8E8E93).withValues(alpha: 0.8),
+              color: AppColors.draw.withValues(alpha: 0.8),
               letterSpacing: -0.8,
               height: 0.9,
             ),
@@ -129,24 +129,16 @@ class _HomePageState extends ConsumerState<HomePage> {
     final filteredMatches = ref.watch(filteredMatchesProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F7),
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.homeTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        backgroundColor: const Color(0xFFF5F5F7),
-        elevation: 0,
         centerTitle: false,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Color(0xFFF5F5F7),
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-        ),
       ),
       body: matchesState.isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -215,7 +207,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                 AppLocalizations.of(context)!.matchesPlural(matches.length),
                 style: TextStyle(
                   fontSize: 14,
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],

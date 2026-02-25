@@ -22,7 +22,7 @@ class SetCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8F8F8),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(16),
       ),
       padding: const EdgeInsets.all(16),
@@ -37,7 +37,9 @@ class SetCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
               if (canRemove && onRemove != null)
@@ -48,7 +50,9 @@ class SetCard extends StatelessWidget {
                     child: Icon(
                       Icons.close,
                       size: 16,
-                      color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.4),
                     ),
                   ),
                 ),
@@ -94,14 +98,16 @@ class ScoreField extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.4),
             letterSpacing: 0.5,
           ),
         ),
         const SizedBox(height: 6),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextField(
@@ -112,10 +118,10 @@ class ScoreField extends StatelessWidget {
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 12),
             ),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF1D1D1F),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ),

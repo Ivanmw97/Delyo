@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/domain/enums/time_range.dart';
 import 'package:delyo/features/shared/state/time_filter_provider.dart';
 
@@ -18,32 +19,28 @@ class TimeRangeFilter extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFF007AFF).withValues(alpha: 0.08),
+          color: AppColors.accent.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: const Color(0xFF007AFF).withValues(alpha: 0.2),
+            color: AppColors.accent.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.filter_list, size: 16, color: const Color(0xFF007AFF)),
+            Icon(Icons.filter_list, size: 16, color: AppColors.accent),
             const SizedBox(width: 6),
             Text(
               currentRange.displayName(context),
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF007AFF),
+                color: AppColors.accent,
               ),
             ),
             const SizedBox(width: 4),
-            Icon(
-              Icons.arrow_drop_down,
-              size: 18,
-              color: const Color(0xFF007AFF),
-            ),
+            Icon(Icons.arrow_drop_down, size: 18, color: AppColors.accent),
           ],
         ),
       ),
@@ -57,7 +54,7 @@ class TimeRangeFilter extends ConsumerWidget {
               child: Row(
                 children: [
                   if (range == currentRange)
-                    const Icon(Icons.check, size: 16, color: Color(0xFF007AFF))
+                    const Icon(Icons.check, size: 16, color: AppColors.accent)
                   else
                     const SizedBox(width: 16),
                   const SizedBox(width: 8),
@@ -69,8 +66,8 @@ class TimeRangeFilter extends ConsumerWidget {
                           ? FontWeight.w600
                           : FontWeight.w400,
                       color: range == currentRange
-                          ? const Color(0xFF007AFF)
-                          : const Color(0xFF1D1D1F),
+                          ? AppColors.accent
+                          : Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ],

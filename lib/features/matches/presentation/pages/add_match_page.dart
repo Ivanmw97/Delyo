@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/domain/models/match.dart';
 import 'package:delyo/domain/models/match_result.dart';
 import 'package:delyo/domain/models/padel_set.dart';
@@ -190,18 +191,15 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.addMatchTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        backgroundColor: const Color(0xFFF8F8F8),
-        elevation: 0,
         centerTitle: false,
       ),
       body: Column(
@@ -356,7 +354,9 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -370,7 +370,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                               rating <= _performanceRating
                                   ? Icons.star
                                   : Icons.star_border,
-                              color: const Color(0xFFFF9500),
+                              color: AppColors.orange,
                               size: 36,
                             ),
                             onPressed: () {
@@ -389,10 +389,13 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
           SafeArea(
             child: Container(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-              decoration: const BoxDecoration(
-                color: Color(0xFFF8F8F8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border(
-                  top: BorderSide(color: Color(0xFFE5E5EA), width: 0.5),
+                  top: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                    width: 0.5,
+                  ),
                 ),
               ),
               child: _buildSaveButton(),
@@ -407,7 +410,10 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     final validationError = _validateMatch();
     if (validationError != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(validationError), backgroundColor: Colors.red),
+        SnackBar(
+          content: Text(validationError),
+          backgroundColor: AppColors.loss,
+        ),
       );
       return;
     }
@@ -508,8 +514,8 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       height: 56,
       decoration: BoxDecoration(
         color: _isSubmitting
-            ? const Color(0xFF007AFF).withValues(alpha: 0.6)
-            : const Color(0xFF007AFF),
+            ? AppColors.accent.withValues(alpha: 0.6)
+            : AppColors.accent,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Material(

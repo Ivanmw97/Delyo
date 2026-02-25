@@ -24,14 +24,16 @@ class CustomDropdownField<T> extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.6),
             letterSpacing: -0.2,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFF2F2F7),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -41,7 +43,10 @@ class CustomDropdownField<T> extends StatelessWidget {
               isExpanded: true,
               items: items,
               onChanged: onChanged,
-              style: const TextStyle(fontSize: 16, color: Color(0xFF1D1D1F)),
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
         ),

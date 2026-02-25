@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/home/presentation/home_page.dart';
 import 'package:delyo/features/matches/presentation/pages/matches_list_page.dart';
 import 'package:delyo/features/stats/presentation/stats_page.dart';
@@ -34,9 +35,8 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF007AFF),
-        unselectedItemColor: const Color(0xFF8E8E93),
+        selectedItemColor: AppColors.accent,
+        unselectedItemColor: AppColors.draw,
         selectedFontSize: 12,
         unselectedFontSize: 12,
         showSelectedLabels: true,

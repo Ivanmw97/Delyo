@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/domain/models/match.dart';
 import 'package:delyo/utils/duration_formatter.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +16,9 @@ class HeroSectionWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 32, 20, 24),
-      decoration: const BoxDecoration(color: Color(0xFFF8F8F8)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,7 +28,7 @@ class HeroSectionWidget extends StatelessWidget {
             style: const TextStyle(
               fontSize: 48,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF007AFF), // App's primary blue
+              color: AppColors.accent,
               letterSpacing: -1.5,
               height: 1.0,
             ),
@@ -35,10 +38,10 @@ class HeroSectionWidget extends StatelessWidget {
           // Date
           Text(
             _formatDate(match.dateTime, context),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
-              color: Color(0xFF1D1D1F),
+              color: Theme.of(context).colorScheme.onSurface,
               letterSpacing: -0.3,
             ),
           ),
@@ -49,11 +52,7 @@ class HeroSectionWidget extends StatelessWidget {
             children: [
               // Duration with icon
               if (match.duration != null) ...[
-                Icon(
-                  Icons.access_time,
-                  size: 18,
-                  color: const Color(0xFF8E8E93),
-                ),
+                Icon(Icons.access_time, size: 18, color: AppColors.draw),
                 const SizedBox(width: 6),
                 Text(
                   DurationFormatter.formatDuration(match.duration!, context) ??
@@ -61,7 +60,7 @@ class HeroSectionWidget extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF8E8E93),
+                    color: AppColors.draw,
                   ),
                 ),
               ],
@@ -74,7 +73,7 @@ class HeroSectionWidget extends StatelessWidget {
                   width: 4,
                   height: 4,
                   decoration: const BoxDecoration(
-                    color: Color(0xFF8E8E93),
+                    color: AppColors.draw,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -83,11 +82,7 @@ class HeroSectionWidget extends StatelessWidget {
 
               // Location with icon
               if (match.location?.isNotEmpty == true) ...[
-                Icon(
-                  Icons.location_on,
-                  size: 18,
-                  color: const Color(0xFF8E8E93),
-                ),
+                Icon(Icons.location_on, size: 18, color: AppColors.draw),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -95,7 +90,7 @@ class HeroSectionWidget extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF8E8E93),
+                      color: AppColors.draw,
                     ),
                   ),
                 ),

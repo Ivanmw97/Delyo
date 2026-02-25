@@ -12,11 +12,13 @@ class MatchInfoCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -31,13 +33,16 @@ class MatchInfoCardWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 20),
 
           _buildInfoRow(
+            context,
             Icons.sports_tennis,
             AppLocalizations.of(context)!.playingSide,
             _getPlayingSideName(match.playingSide, context),
@@ -45,6 +50,7 @@ class MatchInfoCardWidget extends StatelessWidget {
           const SizedBox(height: 16),
 
           _buildInfoRow(
+            context,
             Icons.emoji_events,
             AppLocalizations.of(context)!.matchType,
             _getMatchTypeName(match.matchType, context),
@@ -54,6 +60,7 @@ class MatchInfoCardWidget extends StatelessWidget {
           if (match.location?.isNotEmpty == true) ...[
             const SizedBox(height: 16),
             _buildInfoRow(
+              context,
               Icons.location_on,
               AppLocalizations.of(context)!.location,
               match.location!,
@@ -63,6 +70,7 @@ class MatchInfoCardWidget extends StatelessWidget {
           if (match.duration != null) ...[
             const SizedBox(height: 16),
             _buildInfoRow(
+              context,
               Icons.schedule,
               AppLocalizations.of(context)!.duration,
               DurationFormatter.formatDuration(match.duration!, context) ?? '',
@@ -74,6 +82,7 @@ class MatchInfoCardWidget extends StatelessWidget {
   }
 
   Widget _buildInfoRow(
+    BuildContext context,
     IconData icon,
     String label,
     String value, {
@@ -81,7 +90,11 @@ class MatchInfoCardWidget extends StatelessWidget {
   }) {
     return Row(
       children: [
-        Icon(icon, size: 20, color: const Color(0xFF8E8E93)),
+        Icon(
+          icon,
+          size: 20,
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+        ),
         const SizedBox(width: 12),
         Expanded(
           child: Row(
@@ -92,17 +105,19 @@ class MatchInfoCardWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
               isChip
-                  ? _buildMatchTypeChip(value)
+                  ? _buildMatchTypeChip(context, value)
                   : Text(
                       value,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF1D1D1F),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
             ],
@@ -112,11 +127,11 @@ class MatchInfoCardWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMatchTypeChip(String value) {
+  Widget _buildMatchTypeChip(BuildContext context, String value) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: const Color(0xFF1D1D1F).withValues(alpha: 0.06),
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -124,7 +139,7 @@ class MatchInfoCardWidget extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF1D1D1F).withValues(alpha: 0.8),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
         ),
       ),
     );

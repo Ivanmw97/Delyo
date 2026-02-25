@@ -13,11 +13,13 @@ class LocationCardWidget extends StatelessWidget {
     return Container(
       height: 88, // Fixed height to match duration card
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -32,7 +34,9 @@ class LocationCardWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -47,8 +51,10 @@ class LocationCardWidget extends StatelessWidget {
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: location != null
-                      ? const Color(0xFF1D1D1F)
-                      : const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+                      ? Theme.of(context).colorScheme.onSurface
+                      : Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.4),
                   letterSpacing: -0.5,
                 ),
                 maxLines: 2,

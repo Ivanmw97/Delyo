@@ -20,18 +20,15 @@ class StatsPage extends ConsumerWidget {
     final filteredMatches = ref.watch(filteredMatchesProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.statsTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        backgroundColor: const Color(0xFFF8F8F8),
-        elevation: 0,
         centerTitle: false,
       ),
       body: matchesState.matches.isEmpty
@@ -54,7 +51,9 @@ class StatsPage extends ConsumerWidget {
                         )!.matchesPlural(filteredMatches.length),
                         style: TextStyle(
                           fontSize: 14,
-                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     ],

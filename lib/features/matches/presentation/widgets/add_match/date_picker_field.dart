@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/l10n/app_localizations.dart';
 import 'package:delyo/utils/date_formatter.dart';
 
@@ -30,19 +31,22 @@ class DatePickerField extends StatelessWidget {
           children: [
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF1D1D1F),
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.6),
+                letterSpacing: -0.2,
               ),
             ),
             if (isRequired)
-              const Text(
+              Text(
                 ' *',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFFFF3B30),
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ),
           ],
@@ -56,44 +60,37 @@ class DatePickerField extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: errorText != null
-                    ? const Color(0xFFFF3B30)
-                    : const Color(0xFF1D1D1F).withValues(alpha: 0.1),
-                width: errorText != null ? 2 : 1,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+              border: errorText != null
+                  ? Border.all(
+                      color: Theme.of(context).colorScheme.error,
+                      width: 2,
+                    )
+                  : null,
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.calendar_today,
                   size: 20,
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     DateFormatter.formatDisplayDate(selectedDate),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF1D1D1F),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ),
                 Icon(
                   Icons.arrow_drop_down,
                   size: 24,
-                  color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ],
             ),
@@ -105,10 +102,10 @@ class DatePickerField extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             errorText!,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: Color(0xFFFF3B30),
+              color: Theme.of(context).colorScheme.error,
             ),
           ),
         ],
@@ -132,10 +129,8 @@ class DatePickerField extends StatelessWidget {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: const Color(0xFF007AFF),
+              primary: AppColors.accent,
               onPrimary: Colors.white,
-              surface: Colors.white,
-              onSurface: const Color(0xFF1D1D1F),
             ),
           ),
           child: child!,

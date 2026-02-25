@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:delyo/presentation/theme/app_colors.dart';
 
 class DonutChartPainter extends CustomPainter {
   final int wins;
@@ -32,7 +33,7 @@ class DonutChartPainter extends CustomPainter {
     // Draw wins
     if (wins > 0) {
       final sweepAngle = (wins / total) * 2 * math.pi;
-      paint.color = const Color(0xFF34C759);
+      paint.color = AppColors.win;
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius - strokeWidth / 2),
         startAngle,
@@ -46,7 +47,7 @@ class DonutChartPainter extends CustomPainter {
     // Draw losses
     if (losses > 0) {
       final sweepAngle = (losses / total) * 2 * math.pi;
-      paint.color = const Color(0xFFFF3B30);
+      paint.color = AppColors.loss;
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius - strokeWidth / 2),
         startAngle,
@@ -60,7 +61,7 @@ class DonutChartPainter extends CustomPainter {
     // Draw draws
     if (draws > 0) {
       final sweepAngle = (draws / total) * 2 * math.pi;
-      paint.color = const Color(0xFF8E8E93);
+      paint.color = AppColors.draw;
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius - strokeWidth / 2),
         startAngle,

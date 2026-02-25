@@ -9,6 +9,8 @@ abstract class AppTheme {
       primary: AppColors.accent,
       surface: AppColors.lightSurface,
       onSurface: AppColors.lightOnSurface,
+      surfaceContainerHighest: Color(0xFFEEEEF0),
+      outline: Color(0xFFD1D1D6),
     ),
     scaffoldBackgroundColor: AppColors.lightBackground,
     appBarTheme: const AppBarTheme(
@@ -24,7 +26,7 @@ abstract class AppTheme {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.lightSurface,
       selectedItemColor: AppColors.accent,
-      unselectedItemColor: Color(0xFF8E8E93),
+      unselectedItemColor: AppColors.draw,
       elevation: 0,
     ),
     cardColor: AppColors.lightSurface,
@@ -36,6 +38,8 @@ abstract class AppTheme {
       primary: AppColors.accent,
       surface: AppColors.darkSurface,
       onSurface: AppColors.darkOnSurface,
+      surfaceContainerHighest: Color(0xFF3A3A3C),
+      outline: Color(0xFF48484A),
     ),
     scaffoldBackgroundColor: AppColors.darkBackground,
     appBarTheme: const AppBarTheme(
@@ -51,7 +55,7 @@ abstract class AppTheme {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.darkSurface,
       selectedItemColor: AppColors.accent,
-      unselectedItemColor: Color(0xFF636366),
+      unselectedItemColor: AppColors.draw,
       elevation: 0,
     ),
     cardColor: AppColors.darkSurface,

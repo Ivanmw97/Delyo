@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/matches/presentation/models/match_outcome.dart';
 import 'package:delyo/features/matches/presentation/utils/match_outcome_helper.dart';
 import 'package:delyo/l10n/app_localizations.dart';
@@ -25,11 +26,13 @@ class PerformanceInsightsWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -44,7 +47,9 @@ class PerformanceInsightsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -54,23 +59,25 @@ class PerformanceInsightsWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: _buildInsightCard(
+                  context,
                   AppLocalizations.of(context)!.avgRating,
                   avgRating.toStringAsFixed(1),
                   AppLocalizations.of(context)!.howYouRatePerformance,
                   Icons.star,
-                  const Color(0xFFFF9500),
+                  AppColors.orange,
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: _buildInsightCard(
+                  context,
                   AppLocalizations.of(context)!.recentForm,
                   '$recentWins/${recentMatches.length}',
                   AppLocalizations.of(
                     context,
                   )!.winsInLastMatches(recentMatches.length),
                   Icons.trending_up,
-                  const Color(0xFF34C759),
+                  AppColors.win,
                 ),
               ),
             ],
@@ -81,6 +88,7 @@ class PerformanceInsightsWidget extends StatelessWidget {
   }
 
   Widget _buildInsightCard(
+    BuildContext context,
     String label,
     String value,
     String subtitle,
@@ -104,7 +112,9 @@ class PerformanceInsightsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -112,10 +122,10 @@ class PerformanceInsightsWidget extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF1D1D1F),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -126,7 +136,9 @@ class PerformanceInsightsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.5),
               letterSpacing: -0.1,
             ),
             maxLines: 2,
