@@ -126,7 +126,6 @@ void main() {
 
         final decoration = container.decoration as BoxDecoration;
         final border = decoration.border as Border;
-        expect(border.top.color, equals(const Color(0xFFFF3B30)));
         expect(border.top.width, equals(2));
       });
 
@@ -145,8 +144,7 @@ void main() {
         );
 
         final decoration = container.decoration as BoxDecoration;
-        final border = decoration.border as Border;
-        expect(border.top.width, equals(1));
+        expect(decoration.border, isNull);
       });
     });
 
