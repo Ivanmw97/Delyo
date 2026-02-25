@@ -107,7 +107,9 @@ class ScoreField extends StatelessWidget {
         const SizedBox(height: 6),
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextField(
