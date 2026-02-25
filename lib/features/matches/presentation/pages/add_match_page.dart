@@ -43,9 +43,9 @@ class _PadelSetDraft {
 }
 
 class _AddMatchPageState extends ConsumerState<AddMatchPage> {
-  final _partnerNameController = TextEditingController(text: 'Paquito Navarro');
-  late final TextEditingController _opponent1NameController;
-  late final TextEditingController _opponent2NameController;
+  final _partnerNameController = TextEditingController();
+  final _opponent1NameController = TextEditingController();
+  final _opponent2NameController = TextEditingController();
   final _locationController = TextEditingController();
   final _durationHoursController = TextEditingController();
   final _durationMinutesController = TextEditingController();
@@ -63,24 +63,8 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
   @override
   void initState() {
     super.initState();
-    // Initialize with temporary values, will be updated in didChangeDependencies
-    _opponent1NameController = TextEditingController(text: 'Player 1');
-    _opponent2NameController = TextEditingController(text: 'Player 2');
-    // Initialize selected date to today
     _selectedDate = DateFormatter.dateOnly(DateTime.now());
     _initializeSets();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Update with localized text once context is available
-    if (_opponent1NameController.text == 'Player 1') {
-      _opponent1NameController.text = AppLocalizations.of(context)!.player1;
-    }
-    if (_opponent2NameController.text == 'Player 2') {
-      _opponent2NameController.text = AppLocalizations.of(context)!.player2;
-    }
   }
 
   void _initializeSets() {
@@ -177,8 +161,16 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       return dateError;
     }
 
+    final l10n = AppLocalizations.of(context)!;
+
+    if (_partnerNameController.text.trim().isEmpty ||
+        _opponent1NameController.text.trim().isEmpty ||
+        _opponent2NameController.text.trim().isEmpty) {
+      return l10n.playerNameRequired;
+    }
+
     if (_sets.isEmpty) {
-      return AppLocalizations.of(context)!.atLeastOneSetRequired;
+      return l10n.atLeastOneSetRequired;
     }
 
     if (_isOfficialMatch) {
@@ -188,7 +180,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
 
       bool hasWinner = userSetsWon >= 2 || opponentSetsWon >= 2;
       if (!hasWinner) {
-        return AppLocalizations.of(context)!.officialMatchesMustHaveWinner;
+        return l10n.officialMatchesMustHaveWinner;
       }
     }
 
@@ -277,16 +269,19 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                       CustomTextField(
                         controller: _partnerNameController,
                         label: AppLocalizations.of(context)!.partnerName,
+                        hint: AppLocalizations.of(context)!.partnerNameHint,
                       ),
                       const SizedBox(height: 16),
                       CustomTextField(
                         controller: _opponent1NameController,
                         label: AppLocalizations.of(context)!.opponent1Name,
+                        hint: AppLocalizations.of(context)!.opponent1NameHint,
                       ),
                       const SizedBox(height: 16),
                       CustomTextField(
                         controller: _opponent2NameController,
                         label: AppLocalizations.of(context)!.opponent2Name,
+                        hint: AppLocalizations.of(context)!.opponent2NameHint,
                       ),
                     ],
                   ),

@@ -54,6 +54,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get opponent2Name => 'Opponent 2 Name';
 
   @override
+  String get partnerNameHint => 'e.g. Juan Lebrón';
+
+  @override
+  String get opponent1NameHint => 'e.g. Ale Galán';
+
+  @override
+  String get opponent2NameHint => 'e.g. Arturo Coello';
+
+  @override
+  String get playerNameRequired => 'Player names cannot be empty';
+
+  @override
   String get additionalDetails => 'Additional Details';
 
   @override

@@ -74,6 +74,26 @@
   "@opponent2Name": {
     "description": "Second opponent name field label"
   },
+
+  "partnerNameHint": "ex. Juan Lebrón",
+  "@partnerNameHint": {
+    "description": "Placeholder for the partner name field"
+  },
+
+  "opponent1NameHint": "ex. Ale Galán",
+  "@opponent1NameHint": {
+    "description": "Placeholder for the first opponent name field"
+  },
+
+  "opponent2NameHint": "ex. Arturo Coello",
+  "@opponent2NameHint": {
+    "description": "Placeholder for the second opponent name field"
+  },
+
+  "playerNameRequired": "Os nomes dos jogadores não podem estar vazios",
+  "@playerNameRequired": {
+    "description": "Validation error when a player name field is left empty"
+  },
   
   "additionalDetails": "Detalhes Adicionais",
   "@additionalDetails": {

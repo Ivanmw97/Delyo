@@ -196,6 +196,30 @@ abstract class AppLocalizations {
   /// **'Opponent 2 Name'**
   String get opponent2Name;
 
+  /// Placeholder for the partner name field
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Juan Lebrón'**
+  String get partnerNameHint;
+
+  /// Placeholder for the first opponent name field
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Ale Galán'**
+  String get opponent1NameHint;
+
+  /// Placeholder for the second opponent name field
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Arturo Coello'**
+  String get opponent2NameHint;
+
+  /// Validation error when a player name field is left empty
+  ///
+  /// In en, this message translates to:
+  /// **'Player names cannot be empty'**
+  String get playerNameRequired;
+
   /// Additional details section title
   ///
   /// In en, this message translates to:

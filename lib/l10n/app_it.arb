@@ -21,6 +21,11 @@
   "opponent1Name": "Nome avversario 1",
   "opponent2Name": "Nome avversario 2",
 
+  "partnerNameHint": "es. Juan Lebrón",
+  "opponent1NameHint": "es. Ale Galán",
+  "opponent2NameHint": "es. Arturo Coello",
+  "playerNameRequired": "I nomi dei giocatori non possono essere vuoti",
+
   "additionalDetails": "Dettagli aggiuntivi",
   "location": "Luogo",
   "locationHint": "es. Club Padel",
