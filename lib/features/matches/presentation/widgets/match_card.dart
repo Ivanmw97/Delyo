@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/domain/models/match.dart';
 import 'package:delyo/domain/enums/match_type.dart';
 import 'package:delyo/features/matches/presentation/models/match_outcome.dart';
@@ -26,44 +27,44 @@ class MatchCard extends StatelessWidget {
   Color _getResultColor(MatchOutcome outcome) {
     switch (outcome) {
       case MatchOutcome.win:
-        return const Color(0xFF34C759); // Green
+        return AppColors.win;
       case MatchOutcome.loss:
-        return const Color(0xFFFF3B30); // Red
+        return AppColors.loss;
       case MatchOutcome.draw:
-        return const Color(0xFF616161); // Grey
+        return AppColors.draw;
     }
   }
 
   Color _getResultBackgroundColor(MatchOutcome outcome) {
     switch (outcome) {
       case MatchOutcome.win:
-        return const Color(0xFF49D36C); // Light Green
+        return AppColors.win;
       case MatchOutcome.loss:
-        return const Color(0xFFFF3B30); // Light Red
+        return AppColors.loss;
       case MatchOutcome.draw:
-        return const Color(0xFF7C7A7A); // Light Grey
+        return AppColors.draw;
     }
   }
 
   Color _getMatchTypeColor(MatchType matchType) {
     switch (matchType) {
       case MatchType.friendly:
-        return const Color(0xFF007AFF); // Blue
+        return AppColors.accent;
       case MatchType.league:
-        return const Color(0xFFFF9500); // Orange
+        return AppColors.orange;
       case MatchType.tournament:
-        return const Color(0xFF5856D6); // Purple
+        return const Color(0xFF5856D6);
     }
   }
 
   Color _getMatchTypeBackgroundColor(MatchType matchType) {
     switch (matchType) {
       case MatchType.friendly:
-        return const Color(0xFF007AFF).withValues(alpha: 0.12); // Light Blue
+        return AppColors.accent.withValues(alpha: 0.12);
       case MatchType.league:
-        return const Color(0xFFFF9500).withValues(alpha: 0.12); // Light Orange
+        return AppColors.orange.withValues(alpha: 0.12);
       case MatchType.tournament:
-        return const Color(0xFF5856D6).withValues(alpha: 0.12); // Light Purple
+        return const Color(0xFF5856D6).withValues(alpha: 0.12);
     }
   }
 
@@ -97,11 +98,13 @@ class MatchCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.04),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -196,7 +199,9 @@ class MatchCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                           letterSpacing: -0.1,
                         ),
                       ),
@@ -207,10 +212,10 @@ class MatchCard extends StatelessWidget {
                   // Main content: Set scores (primary focus)
                   Text(
                     _getScoreText(context),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF1D1D1F),
+                      color: Theme.of(context).colorScheme.onSurface,
                       letterSpacing: -0.8,
                       height: 1.1,
                     ),
@@ -224,7 +229,9 @@ class MatchCard extends StatelessWidget {
                         Icon(
                           Icons.location_on,
                           size: 16,
-                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.4),
                         ),
                         const SizedBox(width: 6),
                         Expanded(
@@ -233,9 +240,9 @@ class MatchCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
-                              color: const Color(
-                                0xFF1D1D1F,
-                              ).withValues(alpha: 0.6),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.6),
                               letterSpacing: -0.1,
                             ),
                             overflow: TextOverflow.ellipsis,

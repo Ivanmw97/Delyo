@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 
 class EmptyState extends StatelessWidget {
   final IconData icon;
@@ -29,21 +30,17 @@ class EmptyState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Simple icon - no background shapes or shadows
-            Icon(
-              icon,
-              size: 56,
-              color: const Color(0xFF8E8E93), // iOS system gray
-            ),
+            Icon(icon, size: 56, color: AppColors.draw),
 
             const SizedBox(height: 24),
 
             // Title - clear hierarchy
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF1D1D1F),
+                color: Theme.of(context).colorScheme.onSurface,
                 letterSpacing: -0.4,
               ),
               textAlign: TextAlign.center,
@@ -57,7 +54,7 @@ class EmptyState extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
-                color: Color(0xFF8E8E93),
+                color: AppColors.draw,
                 height: 1.3,
               ),
               textAlign: TextAlign.center,
@@ -72,7 +69,7 @@ class EmptyState extends StatelessWidget {
                 child: FilledButton(
                   onPressed: onPrimaryAction,
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF007AFF),
+                    backgroundColor: AppColors.accent,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -98,7 +95,7 @@ class EmptyState extends StatelessWidget {
               TextButton(
                 onPressed: onSecondaryAction,
                 style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF007AFF),
+                  foregroundColor: AppColors.accent,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
                 child: Text(

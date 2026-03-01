@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/onboarding/repositories/onboarding_repository.dart';
 import 'package:delyo/features/onboarding/presentation/welcome_screen.dart';
 import 'package:delyo/features/onboarding/presentation/onboarding_page.dart';
@@ -64,8 +65,7 @@ class _StartupPageState extends State<StartupPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFFF8F8F8),
-      body: Center(child: CircularProgressIndicator(color: Color(0xFF007AFF))),
+      body: Center(child: CircularProgressIndicator(color: AppColors.accent)),
     );
   }
 }

@@ -65,6 +65,13 @@ jobs:
     - name: Get dependencies
       run: flutter pub get
       
+    - name: Decode keystore
+      run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/delyo-release.jks
+
+    - name: Create key.properties
+      run: |
+        printf 'storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}\nkeyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}\nkeyAlias=${{ secrets.ANDROID_KEY_ALIAS }}\nstoreFile=delyo-release.jks\n' > android/key.properties
+
     - name: Build Android APK (Release)
       run: flutter build apk --release
       

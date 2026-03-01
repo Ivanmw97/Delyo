@@ -17,10 +17,10 @@ class SectionHeaderWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
             letterSpacing: -0.4,
           ),
         ),
@@ -30,7 +30,9 @@ class SectionHeaderWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.6),
             letterSpacing: -0.2,
           ),
         ),

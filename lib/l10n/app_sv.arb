@@ -74,6 +74,26 @@
   "@opponent2Name": {
     "description": "Second opponent name field label"
   },
+
+  "partnerNameHint": "t.ex. Juan Lebrón",
+  "@partnerNameHint": {
+    "description": "Placeholder for the partner name field"
+  },
+
+  "opponent1NameHint": "t.ex. Ale Galán",
+  "@opponent1NameHint": {
+    "description": "Placeholder for the first opponent name field"
+  },
+
+  "opponent2NameHint": "t.ex. Arturo Coello",
+  "@opponent2NameHint": {
+    "description": "Placeholder for the second opponent name field"
+  },
+
+  "playerNameRequired": "Spelarnamn får inte vara tomma",
+  "@playerNameRequired": {
+    "description": "Validation error when a player name field is left empty"
+  },
   
   "additionalDetails": "Ytterligare Detaljer",
   "@additionalDetails": {

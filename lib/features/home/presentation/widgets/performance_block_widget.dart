@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/matches/presentation/models/match_outcome.dart';
 import 'package:delyo/l10n/app_localizations.dart';
 
@@ -64,11 +65,13 @@ class PerformanceBlockWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -80,10 +83,10 @@ class PerformanceBlockWidget extends StatelessWidget {
         children: [
           Text(
             performanceMessage,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 42,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF1D1D1F),
+              color: Theme.of(context).colorScheme.onSurface,
               letterSpacing: -1.0,
               height: 1.1,
             ),
@@ -96,7 +99,9 @@ class PerformanceBlockWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -106,7 +111,9 @@ class PerformanceBlockWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
               letterSpacing: -0.2,
               height: 1.3,
             ),
@@ -119,15 +126,15 @@ class PerformanceBlockWidget extends StatelessWidget {
                 String letter;
                 switch (outcome) {
                   case MatchOutcome.win:
-                    letterColor = const Color(0xFF34C759);
+                    letterColor = AppColors.win;
                     letter = AppLocalizations.of(context)!.winLetter;
                     break;
                   case MatchOutcome.loss:
-                    letterColor = const Color(0xFFFF3B30);
+                    letterColor = AppColors.loss;
                     letter = AppLocalizations.of(context)!.lossLetter;
                     break;
                   case MatchOutcome.draw:
-                    letterColor = const Color(0xFF8E8E93);
+                    letterColor = AppColors.draw;
                     letter = AppLocalizations.of(context)!.drawLetter;
                     break;
                 }
@@ -163,7 +170,9 @@ class PerformanceBlockWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF1D1D1F).withValues(alpha: 0.3),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.3),
                 letterSpacing: -0.08,
               ),
             ),

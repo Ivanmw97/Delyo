@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/matches/presentation/models/match_outcome.dart';
 import 'package:delyo/features/matches/presentation/utils/match_outcome_helper.dart';
 import 'package:delyo/features/stats/presentation/widgets/donut_chart_painter.dart';
@@ -19,11 +20,13 @@ class ResultsDistributionWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -38,7 +41,9 @@ class ResultsDistributionWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
@@ -67,22 +72,25 @@ class ResultsDistributionWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildLegendItem(
+                context,
                 AppLocalizations.of(context)!.wins,
                 wins,
                 total,
-                const Color(0xFF34C759),
+                AppColors.win,
               ),
               _buildLegendItem(
+                context,
                 AppLocalizations.of(context)!.losses,
                 losses,
                 total,
-                const Color(0xFFFF3B30),
+                AppColors.loss,
               ),
               _buildLegendItem(
+                context,
                 AppLocalizations.of(context)!.draws,
                 draws,
                 total,
-                const Color(0xFF8E8E93),
+                AppColors.draw,
               ),
             ],
           ),
@@ -91,7 +99,13 @@ class ResultsDistributionWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLegendItem(String label, int count, int total, Color color) {
+  Widget _buildLegendItem(
+    BuildContext context,
+    String label,
+    int count,
+    int total,
+    Color color,
+  ) {
     final percentage = total > 0 ? (count / total * 100).round() : 0;
 
     return Column(
@@ -107,16 +121,18 @@ class ResultsDistributionWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 4),
         Text(
           '$count',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         Text(
@@ -124,7 +140,9 @@ class ResultsDistributionWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.4),
           ),
         ),
       ],

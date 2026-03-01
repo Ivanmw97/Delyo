@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/domain/enums/match_type.dart';
 import 'package:delyo/l10n/app_localizations.dart';
 
@@ -20,11 +21,13 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D1D1F).withValues(alpha: 0.04),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.04),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -39,38 +42,51 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D1D1F).withValues(alpha: 0.4),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.4),
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 16),
 
           _buildMatchTypeBar(
+            context,
             AppLocalizations.of(context)!.friendly,
             friendly,
             total,
-            const Color(0xFF007AFF),
+            AppColors.accent,
           ),
           const SizedBox(height: 12),
           _buildMatchTypeBar(
+            context,
             AppLocalizations.of(context)!.league,
             league,
             total,
-            const Color(0xFFFF9500),
+            AppColors.orange,
           ),
           const SizedBox(height: 12),
           _buildMatchTypeBar(
+            context,
             AppLocalizations.of(context)!.tournament,
             tournament,
             total,
-            const Color(0xFF5856D6),
+            const Color(
+              0xFF5856D6,
+            ), // tournament purple — no AppColors equivalent
           ),
         ],
       ),
     );
   }
 
-  Widget _buildMatchTypeBar(String label, int count, int total, Color color) {
+  Widget _buildMatchTypeBar(
+    BuildContext context,
+    String label,
+    int count,
+    int total,
+    Color color,
+  ) {
     final percentage = total > 0 ? count / total : 0.0;
 
     return Column(
@@ -81,10 +97,10 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF1D1D1F),
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             Text(
@@ -92,7 +108,9 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],
@@ -101,7 +119,7 @@ class MatchTypesBreakdownWidget extends StatelessWidget {
         Container(
           height: 8,
           decoration: BoxDecoration(
-            color: const Color(0xFFF2F2F7),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(4),
           ),
           child: FractionallySizedBox(

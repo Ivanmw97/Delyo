@@ -54,6 +54,18 @@ class AppLocalizationsSv extends AppLocalizations {
   String get opponent2Name => 'Motståndare 2 Namn';
 
   @override
+  String get partnerNameHint => 't.ex. Juan Lebrón';
+
+  @override
+  String get opponent1NameHint => 't.ex. Ale Galán';
+
+  @override
+  String get opponent2NameHint => 't.ex. Arturo Coello';
+
+  @override
+  String get playerNameRequired => 'Spelarnamn får inte vara tomma';
+
+  @override
   String get additionalDetails => 'Ytterligare Detaljer';
 
   @override

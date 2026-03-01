@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/domain/models/match.dart';
 import 'package:delyo/domain/models/match_result.dart';
 import 'package:delyo/domain/models/padel_set.dart';
@@ -43,9 +44,9 @@ class _PadelSetDraft {
 }
 
 class _AddMatchPageState extends ConsumerState<AddMatchPage> {
-  final _partnerNameController = TextEditingController(text: 'Paquito Navarro');
-  late final TextEditingController _opponent1NameController;
-  late final TextEditingController _opponent2NameController;
+  final _partnerNameController = TextEditingController();
+  final _opponent1NameController = TextEditingController();
+  final _opponent2NameController = TextEditingController();
   final _locationController = TextEditingController();
   final _durationHoursController = TextEditingController();
   final _durationMinutesController = TextEditingController();
@@ -63,24 +64,8 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
   @override
   void initState() {
     super.initState();
-    // Initialize with temporary values, will be updated in didChangeDependencies
-    _opponent1NameController = TextEditingController(text: 'Player 1');
-    _opponent2NameController = TextEditingController(text: 'Player 2');
-    // Initialize selected date to today
     _selectedDate = DateFormatter.dateOnly(DateTime.now());
     _initializeSets();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Update with localized text once context is available
-    if (_opponent1NameController.text == 'Player 1') {
-      _opponent1NameController.text = AppLocalizations.of(context)!.player1;
-    }
-    if (_opponent2NameController.text == 'Player 2') {
-      _opponent2NameController.text = AppLocalizations.of(context)!.player2;
-    }
   }
 
   void _initializeSets() {
@@ -177,8 +162,16 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       return dateError;
     }
 
+    final l10n = AppLocalizations.of(context)!;
+
+    if (_partnerNameController.text.trim().isEmpty ||
+        _opponent1NameController.text.trim().isEmpty ||
+        _opponent2NameController.text.trim().isEmpty) {
+      return l10n.playerNameRequired;
+    }
+
     if (_sets.isEmpty) {
-      return AppLocalizations.of(context)!.atLeastOneSetRequired;
+      return l10n.atLeastOneSetRequired;
     }
 
     if (_isOfficialMatch) {
@@ -188,7 +181,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
 
       bool hasWinner = userSetsWon >= 2 || opponentSetsWon >= 2;
       if (!hasWinner) {
-        return AppLocalizations.of(context)!.officialMatchesMustHaveWinner;
+        return l10n.officialMatchesMustHaveWinner;
       }
     }
 
@@ -198,18 +191,15 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.addMatchTitle,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF1D1D1F),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        backgroundColor: const Color(0xFFF8F8F8),
-        elevation: 0,
         centerTitle: false,
       ),
       body: Column(
@@ -277,16 +267,19 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                       CustomTextField(
                         controller: _partnerNameController,
                         label: AppLocalizations.of(context)!.partnerName,
+                        hint: AppLocalizations.of(context)!.partnerNameHint,
                       ),
                       const SizedBox(height: 16),
                       CustomTextField(
                         controller: _opponent1NameController,
                         label: AppLocalizations.of(context)!.opponent1Name,
+                        hint: AppLocalizations.of(context)!.opponent1NameHint,
                       ),
                       const SizedBox(height: 16),
                       CustomTextField(
                         controller: _opponent2NameController,
                         label: AppLocalizations.of(context)!.opponent2Name,
+                        hint: AppLocalizations.of(context)!.opponent2NameHint,
                       ),
                     ],
                   ),
@@ -361,7 +354,9 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: const Color(0xFF1D1D1F).withValues(alpha: 0.6),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -375,7 +370,7 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                               rating <= _performanceRating
                                   ? Icons.star
                                   : Icons.star_border,
-                              color: const Color(0xFFFF9500),
+                              color: AppColors.orange,
                               size: 36,
                             ),
                             onPressed: () {
@@ -394,10 +389,13 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
           SafeArea(
             child: Container(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-              decoration: const BoxDecoration(
-                color: Color(0xFFF8F8F8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border(
-                  top: BorderSide(color: Color(0xFFE5E5EA), width: 0.5),
+                  top: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                    width: 0.5,
+                  ),
                 ),
               ),
               child: _buildSaveButton(),
@@ -412,7 +410,10 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     final validationError = _validateMatch();
     if (validationError != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(validationError), backgroundColor: Colors.red),
+        SnackBar(
+          content: Text(validationError),
+          backgroundColor: AppColors.loss,
+        ),
       );
       return;
     }
@@ -513,8 +514,8 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
       height: 56,
       decoration: BoxDecoration(
         color: _isSubmitting
-            ? const Color(0xFF007AFF).withValues(alpha: 0.6)
-            : const Color(0xFF007AFF),
+            ? AppColors.accent.withValues(alpha: 0.6)
+            : AppColors.accent,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Material(

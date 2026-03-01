@@ -54,6 +54,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String get opponent2Name => 'Nome Adversário 2';
 
   @override
+  String get partnerNameHint => 'ex. Juan Lebrón';
+
+  @override
+  String get opponent1NameHint => 'ex. Ale Galán';
+
+  @override
+  String get opponent2NameHint => 'ex. Arturo Coello';
+
+  @override
+  String get playerNameRequired =>
+      'Os nomes dos jogadores não podem estar vazios';
+
+  @override
   String get additionalDetails => 'Detalhes Adicionais';
 
   @override

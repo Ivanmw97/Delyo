@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/onboarding/repositories/onboarding_repository.dart';
 import 'package:delyo/presentation/navigation/main_navigation_page.dart';
 import 'package:delyo/l10n/app_localizations.dart';
@@ -170,7 +171,7 @@ class _OnboardingPageState extends State<OnboardingPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -187,8 +188,8 @@ class _OnboardingPageState extends State<OnboardingPage>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: index == _currentPage
-                          ? const Color(0xFF007AFF)
-                          : const Color(0xFF007AFF).withValues(alpha: 0.2),
+                          ? AppColors.accent
+                          : AppColors.accent.withValues(alpha: 0.2),
                     ),
                   );
                 }),
@@ -238,7 +239,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                       child: FilledButton(
                         onPressed: _nextPage,
                         style: FilledButton.styleFrom(
-                          backgroundColor: const Color(0xFF007AFF),
+                          backgroundColor: AppColors.accent,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
@@ -290,10 +291,10 @@ class _OnboardingPageState extends State<OnboardingPage>
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF007AFF).withValues(alpha: 0.1),
+                      color: AppColors.accent.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(icon, size: 40, color: const Color(0xFF007AFF)),
+                    child: Icon(icon, size: 40, color: AppColors.accent),
                   ),
                 ),
               );
@@ -311,10 +312,10 @@ class _OnboardingPageState extends State<OnboardingPage>
                   opacity: _titleFadeAnimations[pageIndex].value,
                   child: Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFF1D1D1F),
+                      color: Theme.of(context).colorScheme.onSurface,
                       letterSpacing: -0.5,
                     ),
                     textAlign: TextAlign.center,
@@ -336,7 +337,9 @@ class _OnboardingPageState extends State<OnboardingPage>
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1D1D1F).withValues(alpha: 0.7),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.7),
                     height: 1.4,
                   ),
                   textAlign: TextAlign.center,
