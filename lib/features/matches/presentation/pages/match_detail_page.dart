@@ -335,7 +335,7 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
       SectionCard(
         title: AppLocalizations.of(context)!.sets,
         icon: Icons.sports_tennis,
-        actionWidget: AddSetButton(onTap: _addSet),
+        actionWidget: _canAddSet ? AddSetButton(onTap: _addSet) : null,
         children: [
           ..._sets.asMap().entries.map((entry) {
             final index = entry.key;
@@ -348,8 +348,11 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
                 index: index,
                 userGamesController: set.userGamesController,
                 opponentGamesController: set.opponentGamesController,
-                canRemove: _sets.length > 1,
+                canRemove: _canRemoveSet,
                 onRemove: () => _removeSet(index),
+                onScoreChanged: _isOfficialMatch
+                    ? () => setState(_syncOfficialSets)
+                    : null,
               ),
             );
           }),
@@ -395,6 +398,42 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
     ];
   }
 
+  bool get _isOfficialMatch =>
+      _selectedMatchType == MatchType.league ||
+      _selectedMatchType == MatchType.tournament;
+
+  bool _setIsDecided(_PadelSetDraft s) {
+    final u = s.userGames;
+    final o = s.opponentGames;
+    return u != o && (u > 0 || o > 0);
+  }
+
+  bool get _isTied {
+    if (!_isOfficialMatch || _sets.length < 2) return false;
+    final s1 = _sets[0];
+    final s2 = _sets[1];
+    if (!_setIsDecided(s1) || !_setIsDecided(s2)) return false;
+    return s1.isUserWinner != s2.isUserWinner;
+  }
+
+  bool get _hasClearWinnerIn2 {
+    if (!_isOfficialMatch || _sets.length < 2) return false;
+    final s1 = _sets[0];
+    final s2 = _sets[1];
+    if (!_setIsDecided(s1) || !_setIsDecided(s2)) return false;
+    return s1.isUserWinner == s2.isUserWinner;
+  }
+
+  void _syncOfficialSets() {
+    if (!_isOfficialMatch) return;
+    if (_isTied && _sets.length == 2) {
+      _sets.add(_PadelSetDraft());
+    } else if (_hasClearWinnerIn2 && _sets.length == 3) {
+      _sets[2].dispose();
+      _sets.removeAt(2);
+    }
+  }
+
   void _toggleEditMode() {
     setState(() {
       _isEditMode = !_isEditMode;
@@ -417,13 +456,29 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
   }
 
   Future<void> _saveMatch() async {
-    // Validate date first
     final dateError = _getDateValidationError();
     if (dateError != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(dateError), backgroundColor: AppColors.loss),
       );
       return;
+    }
+
+    if (_isOfficialMatch) {
+      final userSetsWon = _sets.where((s) => s.isUserWinner).length;
+      final opponentSetsWon = _sets.length - userSetsWon;
+      final hasWinner = userSetsWon >= 2 || opponentSetsWon >= 2;
+      if (!hasWinner) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.officialMatchesMustHaveWinner,
+            ),
+            backgroundColor: AppColors.loss,
+          ),
+        );
+        return;
+      }
     }
 
     setState(() => _isSubmitting = true);
@@ -507,14 +562,20 @@ class _MatchDetailPageState extends ConsumerState<MatchDetailPage> {
     }
   }
 
+  bool get _canAddSet => !_isOfficialMatch;
+
+  bool get _canRemoveSet => !_isOfficialMatch && _sets.length > 1;
+
   void _addSet() {
-    setState(() {
-      _sets.add(_PadelSetDraft());
-    });
+    if (_canAddSet) {
+      setState(() {
+        _sets.add(_PadelSetDraft());
+      });
+    }
   }
 
   void _removeSet(int index) {
-    if (_sets.length > 1 && index < _sets.length) {
+    if (_canRemoveSet && index < _sets.length) {
       setState(() {
         _sets[index].dispose();
         _sets.removeAt(index);
@@ -591,11 +652,12 @@ class _PadelSetDraft {
     : userGamesController = TextEditingController(text: userGames),
       opponentGamesController = TextEditingController(text: opponentGames);
 
+  int get userGames => int.tryParse(userGamesController.text) ?? 0;
+  int get opponentGames => int.tryParse(opponentGamesController.text) ?? 0;
+  bool get isUserWinner => userGames > opponentGames;
+
   void dispose() {
     userGamesController.dispose();
     opponentGamesController.dispose();
   }
-
-  int get userGames => int.tryParse(userGamesController.text) ?? 0;
-  int get opponentGames => int.tryParse(opponentGamesController.text) ?? 0;
 }

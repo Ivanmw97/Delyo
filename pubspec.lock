@@ -368,6 +368,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
+  kompkit_core:
+    dependency: "direct main"
+    description:
+      name: kompkit_core
+      sha256: "3ebaef55a354f9e5778ee69b73979a2e8183b980d5e7ca8d58cd19346c05e1fa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0-alpha.0"
   leak_tracker:
     dependency: transitive
     description:

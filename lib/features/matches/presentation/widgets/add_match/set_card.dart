@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kompkit_core/kompkit_core.dart';
 import 'package:delyo/l10n/app_localizations.dart';
 
 class SetCard extends StatelessWidget {
@@ -7,6 +9,7 @@ class SetCard extends StatelessWidget {
   final TextEditingController opponentGamesController;
   final bool canRemove;
   final VoidCallback? onRemove;
+  final VoidCallback? onScoreChanged;
 
   const SetCard({
     super.key,
@@ -15,6 +18,7 @@ class SetCard extends StatelessWidget {
     required this.opponentGamesController,
     this.canRemove = false,
     this.onRemove,
+    this.onScoreChanged,
   });
 
   @override
@@ -65,6 +69,7 @@ class SetCard extends StatelessWidget {
                 child: ScoreField(
                   controller: userGamesController,
                   label: AppLocalizations.of(context)!.yourTeam,
+                  onChanged: onScoreChanged,
                 ),
               ),
               const SizedBox(width: 16),
@@ -72,6 +77,7 @@ class SetCard extends StatelessWidget {
                 child: ScoreField(
                   controller: opponentGamesController,
                   label: AppLocalizations.of(context)!.opponentTeam,
+                  onChanged: onScoreChanged,
                 ),
               ),
             ],
@@ -82,11 +88,39 @@ class SetCard extends StatelessWidget {
   }
 }
 
+/// Restricts score input to a single digit 0–7 (max games in a padel set).
+class _ScoreInputFormatter extends TextInputFormatter {
+  static const int _minScore = 0;
+  static const int _maxScore = 7;
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final text = newValue.text;
+    if (text.isEmpty) return newValue;
+    final value = int.tryParse(text);
+    if (value == null) return oldValue;
+    // Only allow single digit
+    if (text.length > 1) return oldValue;
+    final clamped = clamp(value.toDouble(), _minScore.toDouble(), _maxScore.toDouble()).toInt();
+    if (clamped != value) return oldValue;
+    return newValue;
+  }
+}
+
 class ScoreField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
+  final VoidCallback? onChanged;
 
-  const ScoreField({super.key, required this.controller, required this.label});
+  const ScoreField({
+    super.key,
+    required this.controller,
+    required this.label,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +150,8 @@ class ScoreField extends StatelessWidget {
             controller: controller,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
+            onChanged: onChanged != null ? (_) => onChanged!() : null,
+            inputFormatters: [_ScoreInputFormatter()],
             decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 12),
