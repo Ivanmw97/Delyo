@@ -4,6 +4,7 @@ import 'package:delyo/presentation/theme/app_colors.dart';
 import 'package:delyo/features/matches/presentation/pages/add_match_page.dart';
 import 'package:delyo/features/matches/presentation/pages/match_detail_page.dart';
 import 'package:delyo/features/matches/state/matches_provider.dart';
+import 'package:delyo/features/matches/state/matches_state.dart';
 import 'package:delyo/features/shared/state/filtered_matches_provider.dart';
 import 'package:delyo/features/shared/widgets/time_range_filter.dart';
 import 'package:delyo/features/shared/widgets/empty_state_examples.dart';
@@ -58,7 +59,7 @@ class _MatchesListPageState extends ConsumerState<MatchesListPage> {
     );
   }
 
-  Widget _buildBody(matchesState, List<Match> filteredMatches) {
+  Widget _buildBody(MatchesState matchesState, List<Match> filteredMatches) {
     if (matchesState.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }

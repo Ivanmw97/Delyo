@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:delyo/domain/enums/match_type.dart';
+import 'package:delyo/domain/enums/playing_side.dart';
 import 'package:delyo/domain/models/match.dart';
 import 'package:delyo/l10n/app_localizations.dart';
 import 'package:delyo/utils/duration_formatter.dart';
@@ -145,7 +147,7 @@ class MatchInfoCardWidget extends StatelessWidget {
     );
   }
 
-  String _getPlayingSideName(playingSide, BuildContext context) {
+  String _getPlayingSideName(PlayingSide playingSide, BuildContext context) {
     switch (playingSide.toString()) {
       case 'PlayingSide.right':
         return AppLocalizations.of(context)!.playingSideRight;
@@ -156,7 +158,7 @@ class MatchInfoCardWidget extends StatelessWidget {
     }
   }
 
-  String _getMatchTypeName(matchType, BuildContext context) {
+  String _getMatchTypeName(MatchType matchType, BuildContext context) {
     switch (matchType.toString()) {
       case 'MatchType.friendly':
         return AppLocalizations.of(context)!.matchTypeFriendly;
