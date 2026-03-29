@@ -73,11 +73,52 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     if (_isOfficialMatch) {
       // Official matches (league/tournament): start with 2 sets (best of 3)
       _sets.add(_PadelSetDraft(userGames: '6', opponentGames: '4'));
-      _sets.add(_PadelSetDraft(userGames: '6', opponentGames: '3'));
+      _sets.add(_PadelSetDraft(userGames: '4', opponentGames: '6'));
     } else {
       // Friendly matches: start with 1 set
       _sets.add(_PadelSetDraft(userGames: '6', opponentGames: '4'));
     }
+    _syncOfficialSets();
+  }
+
+  // A set score is "complete" (one side clearly won) when scores differ and
+  // neither is 0 (avoids reacting to partially typed input).
+  bool _setIsDecided(_PadelSetDraft s) {
+    final u = s.userGames;
+    final o = s.opponentGames;
+    return u != o && (u > 0 || o > 0);
+  }
+
+  // Returns true if first 2 sets are each won by a different side.
+  bool get _isTied {
+    if (!_isOfficialMatch || _sets.length < 2) return false;
+    final s1 = _sets[0];
+    final s2 = _sets[1];
+    if (!_setIsDecided(s1) || !_setIsDecided(s2)) return false;
+    final s1UserWon = s1.isUserWinner;
+    final s2UserWon = s2.isUserWinner;
+    return s1UserWon != s2UserWon; // one each
+  }
+
+  // Returns true if first 2 sets are both won by the same side (2-0).
+  bool get _hasClearWinnerIn2 {
+    if (!_isOfficialMatch || _sets.length < 2) return false;
+    final s1 = _sets[0];
+    final s2 = _sets[1];
+    if (!_setIsDecided(s1) || !_setIsDecided(s2)) return false;
+    return s1.isUserWinner == s2.isUserWinner;
+  }
+
+  // Auto-manage 3rd set: add when tied 1-1, remove only when 2-0 is clear.
+  void _syncOfficialSets() {
+    if (!_isOfficialMatch) return;
+    if (_isTied && _sets.length == 2) {
+      _sets.add(_PadelSetDraft());
+    } else if (_hasClearWinnerIn2 && _sets.length == 3) {
+      _sets[2].dispose();
+      _sets.removeAt(2);
+    }
+    // If neither condition met (e.g. score is incomplete), leave sets as-is.
   }
 
   bool get _isOfficialMatch {
@@ -111,25 +152,9 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
     });
   }
 
-  bool get _canAddSet {
-    if (_isOfficialMatch) {
-      // Official matches: sets are auto-managed, no manual add
-      return false;
-    } else {
-      // Friendly matches: unlimited sets
-      return true;
-    }
-  }
+  bool get _canAddSet => !_isOfficialMatch;
 
-  bool get _canRemoveSet {
-    if (_isOfficialMatch) {
-      // Official matches: sets are auto-managed, no manual remove
-      return false;
-    } else {
-      // Friendly matches: can remove sets (minimum 1)
-      return _sets.length > 1;
-    }
-  }
+  bool get _canRemoveSet => !_isOfficialMatch && _sets.length > 1;
 
   void _addSet() {
     if (_canAddSet) {
@@ -339,6 +364,9 @@ class _AddMatchPageState extends ConsumerState<AddMatchPage> {
                           opponentGamesController: set.opponentGamesController,
                           canRemove: _canRemoveSet,
                           onRemove: () => _removeSet(index),
+                          onScoreChanged: _isOfficialMatch
+                              ? () => setState(_syncOfficialSets)
+                              : null,
                         );
                       }),
                     ],
