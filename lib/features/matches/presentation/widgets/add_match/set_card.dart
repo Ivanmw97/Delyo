@@ -104,7 +104,11 @@ class _ScoreInputFormatter extends TextInputFormatter {
     if (value == null) return oldValue;
     // Only allow single digit
     if (text.length > 1) return oldValue;
-    final clamped = clamp(value.toDouble(), _minScore.toDouble(), _maxScore.toDouble()).toInt();
+    final clamped = clamp(
+      value.toDouble(),
+      _minScore.toDouble(),
+      _maxScore.toDouble(),
+    ).toInt();
     if (clamped != value) return oldValue;
     return newValue;
   }
