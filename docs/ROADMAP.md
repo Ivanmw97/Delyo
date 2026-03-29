@@ -1,6 +1,6 @@
 # DelYo Roadmap
 
-## Current Version (v1.0)
+## Current Version (v1.3)
 
 ### Core Features
 - **Match Creation**: Create matches with date, match type, players, and results
@@ -8,7 +8,9 @@
 - **Player Management**: Add and manage partners and opponents
 - **Match History**: View all matches in "My Matches" section
 - **Time Filters**: Filter matches by last month, last 3 months, last year, or all time
-- **Basic Statistics**: Simple stats overview in dedicated Stats view
+- **Statistics**: Win/loss ratios, performance trends, match type breakdown, donut charts
+- **Dark Mode**: Full theme support across all screens
+- **Set Management**: Auto 3rd set for league/tournament, score validation, max 7 games per set
 - **Offline Storage**: All data stored locally without requiring internet connection
 
 ### Technical Foundation
@@ -91,11 +93,17 @@
 - User feedback integration
 - Continuous improvement based on usage patterns
 
+## Version History
+
+- **v1.0**: Core match creation, history, basic stats, offline storage
+- **v1.1**: Enhanced statistics, visual improvements, dark mode
+- **v1.2**: UI polish, theme system, CI/CD setup
+- **v1.3**: League/tournament set management, score validation, dependency updates
+
 ## Version Planning
 
-- **v1.1**: Enhanced statistics and visual improvements
-- **v1.2**: Data export and advanced filtering
+- **v1.4**: Data export and advanced filtering
 - **v2.0**: Cloud sync and advanced analytics
-- **v2.1**: Tournament tracking and extended features
+- **v2.1**: Tournament bracket tracking and extended features
 
 This roadmap is subject to change based on user feedback, technical constraints, and development priorities.
