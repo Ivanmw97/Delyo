@@ -9,9 +9,9 @@
 - **Match History**: View all matches in "My Matches" section
 - **Time Filters**: Filter matches by last month, last 3 months, last year, or all time
 - **Statistics**: Win/loss ratios, performance trends, match type breakdown, donut charts
+- **Offline Storage**: All data stored locally without requiring internet connection
 - **Dark Mode**: Full theme support across all screens
 - **Set Management**: Auto 3rd set for league/tournament, score validation, max 7 games per set
-- **Offline Storage**: All data stored locally without requiring internet connection
 
 ### Technical Foundation
 - Flutter framework for cross-platform mobile development
